@@ -13,7 +13,7 @@ import java.util.Set;
 
 /**
  * A simple server that listens for incoming connections and broadcasts messages to all connected clients.
- *
+ * <p/>
  * FIXME: For some reason SLF4J, which is not a dependency of this project, ends up logging a warning saying:
  * 		 'SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".' Which shouldn't be a problem, since
  * 		 v1.6+ defaults to a NOP logger implementation. Adding it as a project dependency does not fix it, so

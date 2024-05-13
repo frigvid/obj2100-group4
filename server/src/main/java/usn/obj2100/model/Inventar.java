@@ -1,9 +1,16 @@
 package usn.obj2100.model;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Inventar
 {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int sku;
 	private String beskrivelse;
 	private Date innkjopsdato;
@@ -13,6 +20,8 @@ public class Inventar
 	private int kategori;
 	private int plassering;
 	private int kassert;
+	
+	public Inventar() {}
 	
 	/**
 	 * Constructor for Inventar elements.
