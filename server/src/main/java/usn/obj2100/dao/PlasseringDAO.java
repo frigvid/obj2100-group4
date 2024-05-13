@@ -1,6 +1,6 @@
-package usn.obj2100.database.dao;
+package usn.obj2100.dao;
 
-import usn.obj2100.database.model.Plassering;
+import usn.obj2100.model.Plassering;
 
 import java.sql.Connection;
 

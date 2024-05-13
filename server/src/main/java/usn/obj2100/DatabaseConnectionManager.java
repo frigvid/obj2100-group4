@@ -1,4 +1,4 @@
-package usn.obj2100.database;
+package usn.obj2100;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

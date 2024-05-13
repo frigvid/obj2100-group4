@@ -1,4 +1,4 @@
-package usn.obj2100.database.dao;
+package usn.obj2100.dao;
 
 import java.util.List;
 

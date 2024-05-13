@@ -1,4 +1,4 @@
-package usn.obj2100.database.model;
+package usn.obj2100.model;
 
 public class Kategori
 {
