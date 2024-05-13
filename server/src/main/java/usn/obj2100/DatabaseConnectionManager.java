@@ -62,7 +62,6 @@ public class DatabaseConnectionManager
 		{
 			try
 			{
-				System.out.println(Constants.DB_PATH);
 				System.out.println("Is it necessary to create a new database file? " + db.createNewFile());
 				Connection connection = DriverManager.getConnection(Constants.DB_URL);
 				connection.close();
