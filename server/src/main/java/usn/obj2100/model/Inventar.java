@@ -1,19 +1,12 @@
 package usn.obj2100.model;
 
-import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.time.LocalDateTime;
 
-@Entity
 public class Inventar
 {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int sku;
 	private String beskrivelse;
-	private Date innkjopsdato;
+	private LocalDateTime innkjopsdato;
 	private double innkjopspris;
 	private int antall;
 	private int forventetLevetid;
@@ -40,7 +33,7 @@ public class Inventar
 		(
 			int sku,
 			String beskrivelse,
-			Date innkjopsdato,
+			LocalDateTime innkjopsdato,
 			double innkjopspris,
 			int antall,
 			int forventetLevetid,
@@ -49,7 +42,7 @@ public class Inventar
 			int kassert
 		)
 	{
-		setSku(sku);
+		setSKU(sku);
 		setBeskrivelse(beskrivelse);
 		setInnkjopsdato(innkjopsdato);
 		setInnkjopspris(innkjopspris);
@@ -79,7 +72,7 @@ public class Inventar
 		(
 			int sku,
 			String beskrivelse,
-			Date innkjopsdato,
+			LocalDateTime innkjopsdato,
 			double innkjopspris,
 			int antall,
 			int kategori,
@@ -87,7 +80,7 @@ public class Inventar
 			int kassert
 		)
 	{
-		setSku(sku);
+		setSKU(sku);
 		setBeskrivelse(beskrivelse);
 		setInnkjopsdato(innkjopsdato);
 		setInnkjopspris(innkjopspris);
@@ -98,7 +91,7 @@ public class Inventar
 	}
 	
 	/* Setters. */
-	private void setSku(int sku)
+	private void setSKU(int sku)
 	{
 		this.sku = sku;
 	}
@@ -108,7 +101,7 @@ public class Inventar
 		this.beskrivelse = beskrivelse;
 	}
 	
-	private void setInnkjopsdato(Date innkjopsdato)
+	private void setInnkjopsdato(LocalDateTime innkjopsdato)
 	{
 		this.innkjopsdato = innkjopsdato;
 	}
@@ -144,7 +137,7 @@ public class Inventar
 	}
 	
 	/* Getters. */
-	public int getSku()
+	public int getSKU()
 	{
 		return sku;
 	}
@@ -154,7 +147,7 @@ public class Inventar
 		return beskrivelse;
 	}
 	
-	public Date getInnkjopsdato()
+	public LocalDateTime getInnkjopsdato()
 	{
 		return innkjopsdato;
 	}

@@ -1,4 +1,4 @@
-package usn.obj2100.server;
+package usn.obj2100;
 
 import usn.obj2100.Constants;
 

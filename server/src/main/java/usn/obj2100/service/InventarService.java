@@ -1,40 +1,165 @@
 package usn.obj2100.service;
 
-import java.sql.Connection;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+
+import usn.obj2100.DatabaseConnectionManager;
 import usn.obj2100.model.Inventar;
-import usn.obj2100.dao.InventarDAO;
 
 public class InventarService
+	implements IService<Inventar>
 {
-	private final InventarDAO inventarDAO;
+	private Connection connection;
 	
-	public InventarService(Connection connection)
+	public InventarService()
 	{
-		this.inventarDAO = new InventarDAO(connection);
+		connection = DatabaseConnectionManager.getInstance().getConnection();
 	}
 	
-	public Inventar getInventoryItem(int sku)
+	@Override
+	public Inventar get(int id)
 	{
 		try
 		{
-			return inventarDAO.get(sku);
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM inventar WHERE id = ?");
+			statement.setInt(1, id);
+			ResultSet resultSet = statement.executeQuery();
+			
+			if (resultSet.next())
+			{
+				return new Inventar(
+					resultSet.getInt("sku"),
+					resultSet.getString("beskrivelse"),
+					resultSet.getTimestamp("innkjopsdato").toLocalDateTime(),
+					resultSet.getDouble("innkjopspris"),
+					resultSet.getInt("antall"),
+					resultSet.getShort("forventetLevetid"),
+					resultSet.getInt("kategori"),
+					resultSet.getInt("plassering"),
+					resultSet.getInt("kassert")
+				);
+			}
 		}
-		catch (RuntimeException error)
+		catch (SQLException error)
 		{
-			throw new RuntimeException("Fikk ikke tak i inventar med SKU: " + sku, error);
+			error.printStackTrace(System.err);
 		}
+		
+		return null;
 	}
 	
-	public List<Inventar> getAllInventoryItems()
+	@Override
+	public List<Inventar> getAll()
+	{
+		List<Inventar> inventarList = new ArrayList<>();
+		
+		try
+		{
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM inventar");
+			
+			while (resultSet.next())
+			{
+				inventarList.add(new Inventar(
+					resultSet.getInt("sku"),
+					resultSet.getString("beskrivelse"),
+					resultSet.getTimestamp("innkjopsdato").toLocalDateTime(),
+					resultSet.getDouble("innkjopspris"),
+					resultSet.getInt("antall"),
+					resultSet.getShort("forventetLevetid"),
+					resultSet.getInt("kategori"),
+					resultSet.getInt("plassering"),
+					resultSet.getInt("kassert")
+				));
+			}
+		}
+		catch (SQLException error)
+		{
+			error.printStackTrace(System.err);
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public void create(Inventar inventar)
 	{
 		try
 		{
-			return inventarDAO.getAll();
+			PreparedStatement statement = connection.prepareStatement(
+				"""
+					  INSERT INTO inventar (
+						sku,
+						beskrivelse,
+						innkjopsdato,
+						innkjopspris,
+						antall,
+						forventetLevetid,
+						kategori,
+						plassering,
+						kassert
+					) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+				"""
+			);
 		}
-		catch (RuntimeException error)
+		catch (SQLException error)
 		{
-			throw new RuntimeException("Fikk ikke tak i alle inventar elementer.", error);
+			error.printStackTrace(System.err);
+		}
+	}
+	
+	@Override
+	public void update(Inventar inventar)
+	{
+		try
+		{
+			PreparedStatement statement = connection.prepareStatement(
+				"""
+					UPDATE inventar SET
+						sku = ?,
+						beskrivelse = ?,
+						innkjopsdato = ?,
+						innkjopspris = ?,
+						antall = ?,
+						forventetLevetid = ?,
+						kategori = ?,
+						plassering = ?,
+						kassert = ?
+					WHERE id = ?
+				"""
+			);
+			
+			statement.setInt(1, inventar.getSKU());
+			statement.setString(2, inventar.getBeskrivelse());
+			statement.setTimestamp(3, Timestamp.valueOf(inventar.getInnkjopsdato()));
+			statement.setDouble(4, inventar.getInnkjopspris());
+			statement.setInt(5, inventar.getAntall());
+			statement.setInt(6, inventar.getForventetLevetid());
+			statement.setInt(7, inventar.getKategori());
+			statement.setInt(8, inventar.getPlassering());
+			statement.setInt(9, inventar.getKassert());
+			
+			statement.executeUpdate();
+		}
+		catch (SQLException error)
+		{
+			error.printStackTrace(System.err);
+		}
+	}
+	
+	@Override
+	public void delete(Inventar inventar)
+	{
+		try
+		{
+			PreparedStatement statement = connection.prepareStatement("DELETE FROM inventar WHERE id = ?");
+			statement.setInt(1, inventar.getSKU());
+			statement.executeUpdate();
+		}
+		catch (SQLException error)
+		{
+			error.printStackTrace(System.err);
 		}
 	}
 }

@@ -1,9 +1,6 @@
 package usn.obj2100;
 
-import usn.obj2100.server.Server;
-
 import java.io.IOException;
-import java.sql.Connection;
 
 public class Main
 {
@@ -11,7 +8,7 @@ public class Main
 	{
 		System.out.println("Server started!");
 		
-		DatabaseConnectionManager dcm = new DatabaseConnectionManager();
+		DatabaseConnectionManager dcm = DatabaseConnectionManager.getInstance();
 		dcm.getConnection();
 		
 		Thread serverThread = new Thread(() ->
