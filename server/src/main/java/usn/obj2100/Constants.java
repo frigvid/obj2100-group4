@@ -17,8 +17,8 @@ public final class Constants
 	private Constants() {}
 	
 	/* DATABASE. */
-	public static final String DB_NAME = "database.sqlite";
-	public static final String DB_URL = "jdbc:sqlite:" + DB_NAME;
+	public static final String DB_PATH = "server/database.sqlite";
+	public static final String DB_URL = "jdbc:sqlite:" + DB_PATH;
 	
 	/* NETWORKING. */
 	public static final int PORT = 63821;
