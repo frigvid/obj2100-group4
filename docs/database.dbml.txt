@@ -1,4 +1,4 @@
-// Use DBML to define your database structure
+// Source: https://dbdiagram.io/d
 // Docs: https://dbml.dbdiagram.io/docs
 
 Table plassering {
