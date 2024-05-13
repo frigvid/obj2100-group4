@@ -1,11 +1,16 @@
 package usn.obj2100;
 
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 public class ClientView {
 	private BorderPane root;
@@ -99,13 +104,22 @@ public class ClientView {
 		return form;
 	}
 
-	private VBox buildSearchForm() {
-		VBox form = new VBox(10);
-		form.setPadding(new Insets(20));
+	private HBox buildSearchForm() {
+		HBox form = new HBox();
 		form.setAlignment(Pos.CENTER);
+		form.getStyleClass().add("search-box");
 
 		TextField searchField = new TextField();
+		searchField.getStyleClass().add("text-field");
+		searchField.setPrefWidth(400);
+		searchField.setPrefHeight(46);
+		searchField.setPromptText("Søk etter inventar...");
+
 		Button searchButton = new Button("Søk");
+		Button searchOptions = new Button("Avansert søk");
+
+		searchOptions.getStyleClass().add("search-options");
+
 		searchButton.setOnAction(event -> {
 			String query = searchField.getText();
 			try {
@@ -118,7 +132,31 @@ public class ClientView {
 			}
 		});
 
-		form.getChildren().addAll(new Label("Søk etter:"), searchField, searchButton);
+		Image image = new Image("search-icon.png");
+		ImageView imageView = new ImageView(image);
+
+		imageView.setFitWidth(20);  // bredden på bildet
+		imageView.setFitHeight(20); // høyden på bildet
+
+		searchButton.setGraphic(imageView);
+		searchButton.getStyleClass().add("search-button");
+
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setColor(Color.GRAY);
+		dropShadow.setOffsetX(3.0);
+		dropShadow.setOffsetY(3.0);
+		dropShadow.setRadius(5.0);
+
+		HBox buttonGroup = new HBox();
+		buttonGroup.getChildren().addAll(searchField, searchOptions, searchButton);
+		buttonGroup.setPrefHeight(45);
+		buttonGroup.setAlignment(Pos.CENTER_RIGHT);
+		buttonGroup.setEffect(dropShadow); // Legger til skyggeeffekt
+
+		form.getChildren().addAll(buttonGroup);
+
+
+		form.getStylesheets().add("search.css");
 		return form;
 	}
 }

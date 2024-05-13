@@ -1,0 +1,49 @@
+
+.search-box {
+	-fx-padding: 4 4 4 4;
+	-fx-alignment: center-left;
+	-fx-background-color: #f4eee7; /* Lys bakgrun */
+}
+
+.search-box .text-field {
+	-fx-min-height: 45px;
+	-fx-max-height: 45px;
+	-fx-background-radius: 15px 0 0 15px;
+	-fx-background-color: #fff; /* Lys bakgrun */
+	-fx-border-color: transparent; /* Hjemme border */
+	-fx-padding: 0 30px 0 10px; /* Padding for kanpp inne i tekstfeldt */
+}
+
+.search-box .search-button {
+	-fx-background-radius: 15px;
+	-fx-min-width: 40px;
+	-fx-max-width: 40px;
+	-fx-min-height: 45px;
+	-fx-max-height: 45px;
+	-fx-cursor: hand; /* Riktig musepeker på hover */
+	-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #4D4D4D, #333333);
+	-fx-text-fill: #fff; /* Hvit tekst */
+	-fx-background-radius: 0 15px 15px 0; /* Runde hjørner på venstre side */
+
+}
+
+.search-box .search-options {
+	-fx-padding: 0;
+	-fx-min-width: 120px;
+	-fx-max-width: 120px;
+	-fx-min-height: 45px;
+	-fx-max-height: 45px;
+	-fx-background-radius: 0;
+	-fx-cursor: hand; /* Riktig musepeker på hover */
+	-fx-text-fill: #fff; /* Hvit tekst */
+	-fx-background-color: #52BF6A;
+	-fx-border-style: none;
+}
+
+.search-box .search-options:hover {
+	-fx-background-color: #418A54; /* mørkegrønn bg på hover */
+}
+
+.search-box .search-button:hover {
+	-fx-background-color: #000; /* Lysegrå bg på hover */
+}

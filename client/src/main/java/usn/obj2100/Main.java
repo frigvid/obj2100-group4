@@ -12,9 +12,7 @@ public class Main extends Application {
         Scene scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Inventarstyringssystem");
-
         new ClientView(root); // Her initialiserer vi Controller med BorderPane
-
         primaryStage.show();
     }
 
