@@ -17,7 +17,8 @@ public final class Constants
 	private Constants() {}
 	
 	/* DATABASE. */
-	public static final String DB_PATH = "server/database.sqlite";
+	// "user.dir" corresponds to IntelliJ's $PROJECT_DIR$ variable.
+	public static final String DB_PATH = System.getProperty("user.dir") + "/database.sqlite";
 	public static final String DB_URL = "jdbc:sqlite:" + DB_PATH;
 	
 	/* NETWORKING. */

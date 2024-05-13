@@ -91,42 +91,42 @@ public class Inventar
 	}
 	
 	/* Setters. */
-	private void setSKU(int sku)
+	public void setSKU(int sku)
 	{
 		this.sku = sku;
 	}
 	
-	private void setBeskrivelse(String beskrivelse)
+	public void setBeskrivelse(String beskrivelse)
 	{
 		this.beskrivelse = beskrivelse;
 	}
 	
-	private void setInnkjopsdato(LocalDateTime innkjopsdato)
+	public void setInnkjopsdato(LocalDateTime innkjopsdato)
 	{
 		this.innkjopsdato = innkjopsdato;
 	}
 	
-	private void setInnkjopspris(double innkjopspris)
+	public void setInnkjopspris(double innkjopspris)
 	{
 		this.innkjopspris = innkjopspris;
 	}
 	
-	private void setAntall(int antall)
+	public void setAntall(int antall)
 	{
 		this.antall = antall;
 	}
 	
-	private void setForventetLevetid(int forventetLevetid)
+	public void setForventetLevetid(int forventetLevetid)
 	{
 		this.forventetLevetid = forventetLevetid;
 	}
 	
-	private void setKategori(int kategori)
+	public void setKategori(int kategori)
 	{
 		this.kategori = kategori;
 	}
 	
-	private void setPlassering(int plassering)
+	public void setPlassering(int plassering)
 	{
 		this.plassering = plassering;
 	}

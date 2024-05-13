@@ -110,7 +110,7 @@ public class DatabaseConnectionManager
 				"CREATE TABLE IF NOT EXISTS kategoriType (id INTEGER PRIMARY KEY, type TEXT)"
 			};
 			
-			for (String statement : createTableStatements)
+			for (String statement: createTableStatements)
 			{
 				try (Statement stmt = connection.createStatement())
 				{

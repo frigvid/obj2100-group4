@@ -24,5 +24,7 @@ public class Main
 		});
 		
 		serverThread.start();
+		
+		System.out.println(System.getProperty("user.dir"));
 	}
 }
