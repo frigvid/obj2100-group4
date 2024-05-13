@@ -1,0 +1,50 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table plassering {
+  id integer [primary key]
+  bygg string [not null]
+  floy integer [not null]
+  etasje integer
+  rom integer
+}
+
+Table inventar {
+  sku integer [primary key, note: 'id']
+  beskrivelse string
+  innkjopsdato datetime
+  innkjopspris real
+  antall integer
+  forventetLevetid smallint [default: null]
+  kategori integer [ref: > kategori.id]
+  plassering integer [ref: > plassering.id]
+  kassert integer [default: null, ref: > kassert.id]
+}
+
+Table kassert {
+  id integer [primary key]
+  dato date
+  tid timestamp
+  begrunnelse id [ref: > kassertType.id]
+}
+
+Table kassertType {
+  id integer [primary key]
+  begrunnelse string [note: 'solgt/kassert/på lager/annet']
+}
+
+Table kategori {
+  id integer [primary key]
+  type integer [not null, ref: > kategoriType.id] 
+  kategori string
+
+  indexes {
+    (id, type) [pk]
+    kategori
+  }
+}
+
+Table kategoriType {
+  id integer [primary key]
+  type string [note: 'mobler/utsmykning/teknisk']
+}
