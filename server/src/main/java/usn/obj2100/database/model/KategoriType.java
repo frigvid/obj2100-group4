@@ -1,4 +1,4 @@
-package usn.obj2100.exam.database.model;
+package usn.obj2100.database.model;
 
 public class KategoriType
 {

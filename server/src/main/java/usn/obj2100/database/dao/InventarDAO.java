@@ -1,6 +1,6 @@
-package usn.obj2100.exam.database.dao;
+package usn.obj2100.database.dao;
 
-import usn.obj2100.exam.database.model.Inventar;
+import usn.obj2100.database.model.Inventar;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,4 +1,4 @@
-package usn.obj2100.exam.database;
+package usn.obj2100.database.dao;
 
 import java.util.List;
 
@@ -6,14 +6,16 @@ import java.util.List;
  * Interface for the database access object.
  * <p/>
  * <b>Pattern:</b> Data Access Object (DAO).
+ * <br/>
  * <b>Role:</b> Interface.
+ * <br/>
  * <b>Responsibility:</b> To provide a common interface for the database access object.
  *
  * @version 0.1
  * @created 2024-02-13
  * @param <T> The type of object to be stored in the database.
  */
-public interface DBDao<T>
+public interface IDao<T>
 {
 	T get(int id);
 	List<T> getAll();

@@ -1,10 +1,10 @@
-package usn.obj2100.exam.database.service;
+package usn.obj2100.database.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import usn.obj2100.exam.database.model.Inventar;
-import usn.obj2100.exam.database.dao.InventarDAO;
+import usn.obj2100.database.model.Inventar;
+import usn.obj2100.database.dao.InventarDAO;
 
 public class InventarService
 {
