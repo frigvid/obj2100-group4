@@ -22,5 +22,5 @@ public final class Constants
 	public static final String DB_URL = "jdbc:sqlite:" + DB_PATH;
 	
 	/* NETWORKING. */
-	public static final int PORT = 63821;
+	public static final int PORT = 8765;
 }
