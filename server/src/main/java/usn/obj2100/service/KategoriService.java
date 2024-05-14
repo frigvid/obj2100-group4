@@ -2,7 +2,6 @@ package usn.obj2100.service;
 
 import usn.obj2100.DatabaseConnectionManager;
 import usn.obj2100.model.Kategori;
-import usn.obj2100.model.Plassering;
 
 import java.sql.*;
 import java.util.ArrayList;
