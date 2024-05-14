@@ -45,10 +45,8 @@ public class ClientHandler
 							objectOutputStream.writeObject(state);
 							break;
 						case READ:
-							/* Since this works by ID, it is directly handling the object instead of casting to an object. */
-							System.out.println("Read: " + object);
-							inventarController.getById(Integer.parseInt(String.valueOf(object)));
-							objectOutputStream.writeObject(object);
+							Inventar retrievedInventar = inventarController.read(inventar);
+							objectOutputStream.writeObject(retrievedInventar);
 							break;
 						case UPDATE:
 							state = inventarController.update(inventar);

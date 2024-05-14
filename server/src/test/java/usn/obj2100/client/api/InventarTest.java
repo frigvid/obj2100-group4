@@ -68,9 +68,13 @@ public class InventarTest
 		/* The client should be connected. */
 		assertTrue(client.isConnected());
 		
-		Inventar retrievedInventar = (Inventar) client.requestObject("1");
-		assertNotNull(retrievedInventar, "Inventar objektet ble ikke hentet.");
-		assertEquals(newInventar.getSKU(), retrievedInventar.getSKU(), "SKU er ikke lik.");
+		Inventar fakeInventar = new Inventar(
+			1
+		);
+		
+		Inventar retrievedObject = (Inventar) client.request(Command.READ, fakeInventar);
+		assertNotNull(retrievedObject, "Inventar objektet ble ikke hentet.");
+		assertEquals(newInventar.getSKU(), retrievedObject.getSKU(), "SKU er ikke lik.");
 	}
 	
 	@Test

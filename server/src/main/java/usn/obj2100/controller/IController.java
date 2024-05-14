@@ -7,7 +7,7 @@ public interface IController<T>
 	List<T> getAll();
 	T getById(int id);
 	boolean create(T t);
-	void read(T t);
+	T read(T t);
 	boolean update(T t);
 	boolean delete(T t);
 }

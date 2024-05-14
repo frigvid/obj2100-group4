@@ -94,6 +94,11 @@ public class Inventar
 		setKassert(kassert);
 	}
 	
+	public Inventar(int sku)
+	{
+		setSKU(sku);
+	}
+	
 	/* Utilities. */
 	
 	/**

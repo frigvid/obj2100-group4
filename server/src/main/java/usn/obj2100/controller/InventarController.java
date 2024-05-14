@@ -29,9 +29,9 @@ public class InventarController
 	}
 	
 	@Override
-	public void read(Inventar inventar)
+	public Inventar read(Inventar inventar)
 	{
-		inventarService.get(inventar.getSKU());
+		return inventarService.get(inventar.getSKU());
 	}
 	
 	@Override

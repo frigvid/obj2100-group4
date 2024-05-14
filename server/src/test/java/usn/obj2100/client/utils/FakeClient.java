@@ -3,6 +3,7 @@ package usn.obj2100.client.utils;
 import usn.obj2100.Command;
 import usn.obj2100.Constants;
 import usn.obj2100.Server;
+import usn.obj2100.model.Inventar;
 
 import java.io.*;
 import java.net.InetAddress;
