@@ -1,8 +1,6 @@
 
 .search-box {
-	-fx-padding: 4 4 4 4;
-	-fx-alignment: center-left;
-	-fx-background-color: #f4eee7; /* Lys bakgrun */
+
 }
 
 .search-box .text-field {
@@ -25,6 +23,17 @@
 	-fx-text-fill: #fff; /* Hvit tekst */
 	-fx-background-radius: 0 15px 15px 0; /* Runde hjørner på venstre side */
 
+}
+
+.search-box-toggle{
+	-fx-min-width: 45px;
+	-fx-max-width: 45px;
+	-fx-min-height: 45px;
+	-fx-max-height: 45px;
+	-fx-cursor: hand; /* Riktig musepeker på hover */
+	-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #4D4D4D, #333333);
+	-fx-text-fill: #fff; /* Hvit tekst */
+	-fx-background-radius: 50%; /* Runde hjørner på venstre side */
 }
 
 .search-box .search-options {

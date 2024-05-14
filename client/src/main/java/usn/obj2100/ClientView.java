@@ -1,36 +1,42 @@
 package usn.obj2100;
 
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import java.sql.ResultSet;
 import java.time.LocalDate;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
+import usn.obj2100.Search.SearchBarView;
 
 public class ClientView {
 	private BorderPane root;
 	private TabPane tabs;
+	private StackPane mainContent;
 	private DatabaseManager dbManager;
+
 	private InventarSearch inventarSearch;
+	private SearchBarView searchBarView;
+
 
 	public ClientView(BorderPane root) {
 		this.root = root;
 		this.dbManager = new DatabaseManager();
 		this.inventarSearch = new InventarSearch(dbManager);
 		this.tabs = new TabPane();
+		this.mainContent = new StackPane();
+
 		initializeTabs();
-		root.setCenter(tabs);
+
+		this.mainContent.getChildren().add(tabs); //stackpane kan legge elementer oppå hverandre, searchbar er oppå tabs
+		this.searchBarView = new SearchBarView(mainContent, inventarSearch);
+
+		root.setCenter(mainContent);
+		root.getStylesheets().add("search.css");
 	}
 
 	private void initializeTabs() {
 		tabs.getTabs().addAll(
 			new Tab("Legg til nytt element", buildAddForm()),
-			new Tab("Søk", buildSearchForm())
+			new Tab("Søk", new Label("Søk etter inventar..."))
 		);
 	}
 
@@ -104,59 +110,7 @@ public class ClientView {
 		return form;
 	}
 
-	private HBox buildSearchForm() {
-		HBox form = new HBox();
-		form.setAlignment(Pos.CENTER);
-		form.getStyleClass().add("search-box");
-
-		TextField searchField = new TextField();
-		searchField.getStyleClass().add("text-field");
-		searchField.setPrefWidth(400);
-		searchField.setPrefHeight(46);
-		searchField.setPromptText("Søk etter inventar...");
-
-		Button searchButton = new Button("Søk");
-		Button searchOptions = new Button("Avansert søk");
-
-		searchOptions.getStyleClass().add("search-options");
-
-		searchButton.setOnAction(event -> {
-			String query = searchField.getText();
-			try {
-				ResultSet rs = inventarSearch.searchInventar(query);
-				while (rs.next()) {
-					System.out.println("Beskrivelse: " + rs.getString("beskrivelse"));
-				}
-			} catch (Exception e) {
-				new Alert(Alert.AlertType.ERROR, "Feil under søk: " + e.getMessage()).show();
-			}
-		});
-
-		Image image = new Image("search-icon.png");
-		ImageView imageView = new ImageView(image);
-
-		imageView.setFitWidth(20);  // bredden på bildet
-		imageView.setFitHeight(20); // høyden på bildet
-
-		searchButton.setGraphic(imageView);
-		searchButton.getStyleClass().add("search-button");
-
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setColor(Color.GRAY);
-		dropShadow.setOffsetX(3.0);
-		dropShadow.setOffsetY(3.0);
-		dropShadow.setRadius(5.0);
-
-		HBox buttonGroup = new HBox();
-		buttonGroup.getChildren().addAll(searchField, searchOptions, searchButton);
-		buttonGroup.setPrefHeight(45);
-		buttonGroup.setAlignment(Pos.CENTER_RIGHT);
-		buttonGroup.setEffect(dropShadow); // Legger til skyggeeffekt
-
-		form.getChildren().addAll(buttonGroup);
 
 
-		form.getStylesheets().add("search.css");
-		return form;
-	}
+
 }
