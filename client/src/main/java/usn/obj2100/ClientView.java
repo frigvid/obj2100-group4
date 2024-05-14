@@ -4,28 +4,39 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import java.sql.ResultSet;
 import java.time.LocalDate;
+import usn.obj2100.Search.SearchBarView;
 
 public class ClientView {
 	private BorderPane root;
 	private TabPane tabs;
+	private StackPane mainContent;
 	private DatabaseManager dbManager;
+
 	private InventarSearch inventarSearch;
+	private SearchBarView searchBarView;
+
 
 	public ClientView(BorderPane root) {
 		this.root = root;
 		this.dbManager = new DatabaseManager();
 		this.inventarSearch = new InventarSearch(dbManager);
 		this.tabs = new TabPane();
+		this.mainContent = new StackPane();
+
 		initializeTabs();
-		root.setCenter(tabs);
+
+		this.mainContent.getChildren().add(tabs); //stackpane kan legge elementer oppå hverandre, searchbar er oppå tabs
+		this.searchBarView = new SearchBarView(mainContent, inventarSearch);
+
+		root.setCenter(mainContent);
+		root.getStylesheets().add("search.css");
 	}
 
 	private void initializeTabs() {
 		tabs.getTabs().addAll(
 			new Tab("Legg til nytt element", buildAddForm()),
-			new Tab("Søk", buildSearchForm())
+			new Tab("Søk", new Label("Søk etter inventar..."))
 		);
 	}
 
@@ -99,26 +110,7 @@ public class ClientView {
 		return form;
 	}
 
-	private VBox buildSearchForm() {
-		VBox form = new VBox(10);
-		form.setPadding(new Insets(20));
-		form.setAlignment(Pos.CENTER);
 
-		TextField searchField = new TextField();
-		Button searchButton = new Button("Søk");
-		searchButton.setOnAction(event -> {
-			String query = searchField.getText();
-			try {
-				ResultSet rs = inventarSearch.searchInventar(query);
-				while (rs.next()) {
-					System.out.println("Beskrivelse: " + rs.getString("beskrivelse"));
-				}
-			} catch (Exception e) {
-				new Alert(Alert.AlertType.ERROR, "Feil under søk: " + e.getMessage()).show();
-			}
-		});
 
-		form.getChildren().addAll(new Label("Søk etter:"), searchField, searchButton);
-		return form;
-	}
+
 }
