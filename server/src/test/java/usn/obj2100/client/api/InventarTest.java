@@ -11,6 +11,11 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A test class for the Inventar model.
+ * <p/>
+ * Ensures that a simulated client can create, read, update, and delete an Inventar object.
+ */
 @DisplayName("En inventar er")
 @TestMethodOrder(OrderAnnotation.class)
 public class InventarTest
@@ -19,6 +24,9 @@ public class InventarTest
 	private static Inventar newInventar;
 	private static final int SKU = 7839223;
 	
+	/**
+	 * Create a new Inventar object before all tests.
+	 */
 	@BeforeAll
 	@DisplayName("Delt oppsett for alle tester.")
 	public static void preSetup()
@@ -36,6 +44,11 @@ public class InventarTest
 		);
 	}
 	
+	/**
+	 * Create a fake client before each test.
+	 * <p/>
+	 * This also ensures a server is started.
+	 */
 	@BeforeEach
 	@DisplayName("Oppsett for hver test.")
 	public void setup()
@@ -50,6 +63,9 @@ public class InventarTest
 		}
 	}
 	
+	/**
+	 * Create an Inventar object.
+	 */
 	@Test
 	@Order(1)
 	@DisplayName("opprettet.")
@@ -61,6 +77,9 @@ public class InventarTest
 		assertTrue((boolean) client.request(Command.CREATE, newInventar));
 	}
 	
+	/**
+	 * Get an Inventar object.
+	 */
 	@Test
 	@Order(2)
 	@DisplayName("hentet.")
@@ -78,6 +97,9 @@ public class InventarTest
 		assertEquals(newInventar.getSKU(), retrievedObject.getSKU(), "SKU er ikke lik.");
 	}
 	
+	/**
+	 * Update an Inventar object.
+	 */
 	@Test
 	@Order(3)
 	@DisplayName("oppdatert.")
@@ -93,6 +115,9 @@ public class InventarTest
 		assertTrue((boolean) client.request(Command.UPDATE, newInventar));
 	}
 	
+	/**
+	 * Delete an Inventar object.
+	 */
 	@Test
 	@Order(4)
 	@DisplayName("slettet.")

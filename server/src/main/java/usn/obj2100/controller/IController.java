@@ -2,6 +2,11 @@ package usn.obj2100.controller;
 
 import java.util.List;
 
+/**
+ * Interface for the controller classes.
+ *
+ * @param <T> The type of object the controller is for.
+ */
 public interface IController<T>
 {
 	List<T> getAll();

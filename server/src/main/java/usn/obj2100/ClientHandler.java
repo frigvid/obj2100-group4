@@ -6,18 +6,35 @@ import usn.obj2100.model.Inventar;
 import java.io.*;
 import java.net.Socket;
 
+/**
+ * This class is a handler for the clients.
+ * <p/>
+ * It reads a command and an object from the client, and then processes the command on the object.
+ * The result is then sent back to the client.
+ *
+ * @version 0.1
+ * @created 2024-04-13
+ */
 public class ClientHandler
 	extends Thread
 {
 	private final Socket socket;
 	private final InventarController inventarController;
 	
+	/**
+	 * Create a new client handler.
+	 *
+	 * @param socket The socket to the client.
+	 */
 	public ClientHandler(Socket socket)
 	{
 		this.socket = socket;
 		this.inventarController = new InventarController();
 	}
 	
+	/**
+	 * Handle input/output from/to the client.
+	 */
 	@Override
 	public void run()
 	{

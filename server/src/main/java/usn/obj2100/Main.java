@@ -2,6 +2,12 @@ package usn.obj2100;
 
 import java.sql.Connection;
 
+/**
+ * The main class for the application.
+ *
+ * @since 0.1
+ * @created 2024-02-13
+ */
 public class Main
 {
 	public static void main(String[] args)

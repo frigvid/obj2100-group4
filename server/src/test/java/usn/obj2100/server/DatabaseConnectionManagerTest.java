@@ -1,6 +1,7 @@
 package usn.obj2100.server;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import usn.obj2100.DatabaseConnectionManager;
 
@@ -11,10 +12,22 @@ import java.sql.Statement;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A test class for the database connection manager.
+ * <p/>
+ * Ensures that the database connection manager can create a connection to the database.
+ *
+ * @created 2024-04-13
+ * @see DatabaseConnectionManager
+ */
+@DisplayName("Databasetilkoblingsbehandleren")
 public class DatabaseConnectionManagerTest
 {
 	private DatabaseConnectionManager dcm;
 	
+	/**
+	 * Get a connection to the database before each test.
+	 */
 	@BeforeEach
 	public void setUp()
 	{
@@ -22,7 +35,11 @@ public class DatabaseConnectionManagerTest
 		dcm.getConnection();
 	}
 	
+	/**
+	 * Test that the database connection manager can create a connection to the database by checking if tables exist.
+	 */
 	@Test
+	@DisplayName("kan opprette en tilkobling til databasen.")
 	public void testCreateIfNotExists()
 	{
 		Connection connection = dcm.getConnection();
@@ -41,7 +58,13 @@ public class DatabaseConnectionManagerTest
 		}
 	}
 	
+	/**
+	 * Test that the database connection manager can initialize the database by checking if the expected tables exist.
+	 *
+	 * @see DatabaseConnectionManager#createIfNotExists()
+	 */
 	@Test
+	@DisplayName("kan initialisere databasen.")
 	public void testInitializeDatabase()
 	{
 		Connection connection = dcm.getConnection();

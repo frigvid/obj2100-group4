@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 /**
  * Interface for services.
  * <p/>
- * <b>Pattern:</b>
+ * <b>Pattern:</b> Generic Interface.
  * <br/>
  * <b>Role:</b> Interface.
  * <br/>

@@ -100,6 +100,13 @@ public class DatabaseConnectionManager
 		}
 	}
 	
+	/**
+	 * Initializes the database by creating the necessary tables.
+	 * <p/>
+	 * This method is called when the database file is created.
+	 *
+	 * @param connection The connection to the database.
+	 */
 	private void initializeDatabase(Connection connection)
 	{
 		try

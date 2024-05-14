@@ -95,24 +95,6 @@ public class FakeClient
 		return null;
 	}
 	
-	public Object requestObject(Object object)
-	{
-		try
-		{
-			objectOutputStream.writeObject(Command.READ);
-			objectOutputStream.writeObject(object);
-			objectOutputStream.flush();
-			
-			return objectInputStream.readObject();
-		}
-		catch (IOException | ClassNotFoundException error)
-		{
-			error.printStackTrace(System.err);
-		}
-		
-		return null;
-	}
-	
 	/**
 	 * Checks if the client is connected to the server.
 	 *

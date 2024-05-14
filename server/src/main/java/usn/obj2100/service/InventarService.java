@@ -26,6 +26,12 @@ public class InventarService
 		connection = DatabaseConnectionManager.getInstance().getConnection();
 	}
 	
+	/**
+	 * Get an inventar object by its ID.
+	 *
+	 * @param id The ID of the inventar object.
+	 * @return The inventar object.
+	 */
 	@Override
 	public Inventar get(int id)
 	{
@@ -72,6 +78,11 @@ public class InventarService
 		return null;
 	}
 	
+	/**
+	 * Get all inventar objects.
+	 *
+	 * @return A list of all inventar objects.
+	 */
 	@Override
 	public List<Inventar> getAll()
 	{
@@ -121,6 +132,12 @@ public class InventarService
 		return null;
 	}
 	
+	/**
+	 * Create a new inventar object.
+	 *
+	 * @param inventar The inventar object to create.
+	 * @return True if the inventar object was created, false otherwise.
+	 */
 	@Override
 	public boolean create(Inventar inventar)
 	{
@@ -163,6 +180,12 @@ public class InventarService
 		}
 	}
 	
+	/**
+	 * Update an inventar object.
+	 *
+	 * @param inventar The inventar object to update.
+	 * @return True if the inventar object was updated, false otherwise.
+	 */
 	@Override
 	public boolean update(Inventar inventar)
 	{
@@ -218,6 +241,12 @@ public class InventarService
 		}
 	}
 	
+	/**
+	 * Delete an inventar object.
+	 *
+	 * @param inventar The inventar object to delete.
+	 * @return True if the inventar object was deleted, false otherwise.
+	 */
 	@Override
 	public boolean delete(Inventar inventar)
 	{

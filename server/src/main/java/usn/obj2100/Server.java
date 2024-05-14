@@ -8,7 +8,6 @@ import java.net.Socket;
 import java.util.Date;
 
 // TODO: Implement encryption and decryption of data. It's business sensitive data.
-
 /**
  *	This class represents the server, and is responsible for handling client connections.
  *	<p/>
@@ -38,11 +37,25 @@ public class Server
 	private Thread serverThread;
 	private int dynamicPort;
 	
+	/**
+	 * Constructor.
+	 * <p/>
+	 * Define a dynamic port for the server.
+	 */
 	public Server()
 	{
 		this.dynamicPort = Constants.PORT;
 	}
 	
+	/**
+	 * Start the server.
+	 * <p/>
+	 * This method will start the server, and listen for client connections.
+	 * If the port is already in use, the server will try the next port.
+	 *
+	 * @since 0.2
+	 * @created 2024-02-14
+	 */
 	public void start()
 	{
 		serverThread = new Thread(() ->
@@ -82,6 +95,12 @@ public class Server
 		serverThread.start();
 	}
 	
+	/**
+	 * Stop the server.
+	 *
+	 * @since 0.2
+	 * @created 2024-02-14
+	 */
 	public void stop()
 	{
 		if (serverSocket != null && !serverSocket.isClosed())
