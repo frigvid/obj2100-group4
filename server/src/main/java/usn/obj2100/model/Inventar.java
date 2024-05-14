@@ -1,8 +1,10 @@
 package usn.obj2100.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Inventar
+	implements Serializable
 {
 	private int sku;
 	private String beskrivelse;
