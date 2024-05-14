@@ -11,31 +11,28 @@ public class Kategori
 	
 	public Kategori() {}
 	
-	public Kategori
-		(
-			int id
-		)
+	public Kategori(int id)
 	{
 		setId(id);
 	}
 	
 	// default
 	public Kategori
-		(
-			int type,
-			String kategori
-		)
+	(
+		int type,
+		String kategori
+	)
 	{
 		setType(type);
 		setKategori(kategori);
 	}
 	
 	public Kategori
-		(
-			int id,
-			int type,
-			String kategori
-		)
+	(
+		int id,
+		int type,
+		String kategori
+	)
 	{
 		setId(id);
 		setType(type);
