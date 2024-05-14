@@ -126,6 +126,7 @@ public class Inventar
 		this.kategori = kategori;
 	}
 	
+	// TODO: This should be a String. And the 4 parts should be split out from the string.
 	public void setPlassering(int plassering)
 	{
 		this.plassering = plassering;
@@ -172,6 +173,7 @@ public class Inventar
 		return kategori;
 	}
 	
+	// TODO: This should be a String. And the 4 parts should be split out from the string.
 	public int getPlassering()
 	{
 		return plassering;
