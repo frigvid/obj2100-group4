@@ -1,36 +1,47 @@
 package usn.obj2100;
 
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.sql.ResultSet;
+import usn.obj2100.Search.SearchBarView;
 
 public class ClientView {
-	private BorderPane root;
-	private TabPane tabs;
-	private DatabaseManager dbManager;
-	private InventarSearch inventarSearch;
 
-	public ClientView(BorderPane root) {
-		this.root = root;
-		this.dbManager = new DatabaseManager();
-		this.inventarSearch = new InventarSearch(dbManager);
+	private TabPane tabs;
+	private StackPane mainContent;
+
+	private InventarSearch inventarSearch;
+	private SearchBarView searchBarView;
+	private DatabaseManager dbManager;
+
+
+	public ClientView( BorderPane root,DatabaseManager dbManager) {
+
+		this.dbManager = dbManager;
 		this.tabs = new TabPane();
+		this.mainContent = new StackPane();
+		this.mainContent.setPickOnBounds(false);
+
+		mainContent.setAlignment(Pos.TOP_LEFT);
 		initializeTabs();
-		root.setCenter(tabs);
 
 		String css = getClass().getResource("/style.css").toExternalForm();
+		mainContent.getStylesheets().addAll("search.css");
+
+		root.setCenter(tabs);
 		root.getStylesheets().add(css);
+		root.setBottom(mainContent);
 	}
-
-
 
 	private void initializeTabs() {
 		tabs.getTabs().addAll(
 			new Tab("Legg til nytt element", buildAddForm()),
-			new Tab("Søk", buildSearchForm())
+			new Tab("Søk", new Label("Søk etter inventar..."))
 		);
 	}
 
@@ -92,10 +103,15 @@ public class ClientView {
 				int quantity = Integer.parseInt(quantityField.getText());
 				Integer lifespan = "Møbler".equals(typeComboBox.getValue()) ? Integer.parseInt(lifespanField.getText()) : null;
 				String description = descriptionField.getText();
+				categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
+
+				purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
+
 				InventarElement newElement = new InventarElement(
 					typeComboBox.getValue(),
 					categoryComboBox.getValue(),
 					description,
+
 					purchaseDate.toString(),
 					price,
 					locationField.getText(),
@@ -113,31 +129,35 @@ public class ClientView {
 		return form;
 	}
 
-	private VBox buildSearchForm() {
-		VBox form = new VBox(10);
-		form.setPadding(new Insets(20));
-		form.setAlignment(Pos.CENTER);
+	public TabPane getTabs() {
+		return tabs;
+	}
 
-		TextField searchField = new TextField();
-		Button searchButton = new Button("Søk");
-		ListView<String> resultsList = new ListView<>(); // For displaying search results
+	public void setTab (int index) {
+		tabs.getSelectionModel().select(index);
+	}
 
-		searchButton.setOnAction(event -> {
-			String query = searchField.getText();
-			try {
-				ResultSet rs = inventarSearch.searchInventar(query);
-				resultsList.getItems().clear();
-				while (rs.next()) {
-					String result = "Type: " + rs.getString("type") + ", Kategori: " + rs.getString("kategori") + ", Beskrivelse: " + rs.getString("beskrivelse");
-					resultsList.getItems().add(result);
-				}
-			} catch (Exception e) {
-				new Alert(Alert.AlertType.ERROR, "Feil under søk: " + e.getMessage()).show();
-			}
-		});
+	public void setNewTabContent ( Node content) {
+		Tab tempTab = new Tab("Nytt Søk", content);
+		tabs.getTabs().add(tempTab);
+		setTab(tabs.getTabs().size()-1);
+	}
 
-		form.getChildren().addAll(new Label("Søk etter:"), searchField, searchButton, resultsList);
-		return form;
+	public void updateTabContent ( Node content) {
+		tabs.getSelectionModel().getSelectedItem().setContent(content);
+	}
+
+
+	public StackPane getMainContent() {
+		return mainContent;
+	}
+
+	public SearchBarView getSearchBarView() {
+		return searchBarView;
+	}
+
+	public void setSearchBarView(SearchBarView searchBarView) {
+		this.searchBarView = searchBarView;
 	}
 
 }
