@@ -5,7 +5,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.sql.ResultSet;
 import usn.obj2100.Search.SearchBarView;
 
 public class ClientView {
@@ -26,6 +28,11 @@ public class ClientView {
 
 		mainContent.setAlignment(Pos.TOP_LEFT);
 		initializeTabs();
+		root.setCenter(tabs);
+
+		String css = getClass().getResource("/style.css").toExternalForm();
+
+
 
 		this.mainContent.getChildren().add(tabs); //stackpane kan legge elementer oppå hverandre, searchbar er oppå tabs
 
@@ -49,9 +56,11 @@ public class ClientView {
 		typeComboBox.getItems().addAll("Møbler", "Utsmykning", "Teknisk Utstyr");
 
 		ComboBox<String> categoryComboBox = new ComboBox<>();
-		DatePicker purchaseDatePicker = new DatePicker(); // Bruker DatePicker for innkjøpsdato
+		categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
+		DatePicker purchaseDatePicker = new DatePicker();
+		purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
 		TextField priceField = new TextField();
-		TextField locationField = new TextField(); // For hierarkisk plassering
+		TextField locationField = new TextField();
 		TextField quantityField = new TextField();
 		TextField lifespanField = new TextField();
 		lifespanField.setDisable(true); // Deaktiveres inntil den er nødvendig
@@ -59,6 +68,9 @@ public class ClientView {
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
+		TextArea descriptionField = new TextArea();
+		descriptionField.setPrefRowCount(3); // Set preferred row count for description field
+
 
 		grid.addRow(0, new Label("Type:"), typeComboBox);
 		grid.addRow(1, new Label("Kategori:"), categoryComboBox);
@@ -67,14 +79,17 @@ public class ClientView {
 		grid.addRow(4, new Label("Plassering:"), locationField);
 		grid.addRow(5, new Label("Antall:"), quantityField);
 		grid.addRow(6, new Label("Forventet levetid (kun møbler):"), lifespanField);
+		grid.addRow(7, new Label("Beskrivelse:"), descriptionField);
 
 		typeComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
 			categoryComboBox.getItems().clear();
 			if ("Møbler".equals(newVal)) {
 				categoryComboBox.getItems().addAll("Bord", "Stol", "Sofa", "Skap", "Hylle", "Tavle", "Annet");
+				categoryComboBox.setEditable(false);
 				lifespanField.setDisable(false);
 			} else if ("Utsmykning".equals(newVal)) {
 				categoryComboBox.getItems().addAll("Maleri", "Grafikk", "Tekstil", "Bilde", "Skulptur", "Annet");
+				categoryComboBox.setEditable(false);
 				lifespanField.setDisable(true);
 			} else if ("Teknisk Utstyr".equals(newVal)) {
 				categoryComboBox.setEditable(true);
@@ -89,10 +104,15 @@ public class ClientView {
 				double price = Double.parseDouble(priceField.getText());
 				int quantity = Integer.parseInt(quantityField.getText());
 				Integer lifespan = "Møbler".equals(typeComboBox.getValue()) ? Integer.parseInt(lifespanField.getText()) : null;
+				String description = descriptionField.getText();
 				InventarElement newElement = new InventarElement(
 					typeComboBox.getValue(),
 					categoryComboBox.getValue(),
-					null,
+					description,
+		categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
+		DatePicker purchaseDatePicker = new DatePicker();
+		purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
+		TextField locationField = new TextField();
 					purchaseDate.toString(),
 					price,
 					locationField.getText(),
