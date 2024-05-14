@@ -1,11 +1,10 @@
-package usn.obj2100.utils;
+package usn.obj2100.client.utils;
 
+import usn.obj2100.Command;
 import usn.obj2100.Constants;
 import usn.obj2100.Server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
@@ -17,6 +16,7 @@ import java.net.Socket;
  *	References used for developing this class:
  *	<ul>
  *	    <li><b>Introduction to Java Programming and Data Structures, Comprehensive Version, 12th Edition</b>, chapter 44 - Testing Using JUnit.</li>
+ *	    <li><a href="https://junit.org/junit5/docs/current/user-guide">JUnit 5 User Guide</a></li>
  *	</ul>
  *
  *	@since 0.2
@@ -33,8 +33,8 @@ public class FakeClient
 	private static Server server;
 	
 	private Socket socket;
-	private DataInputStream fromServer;
-	private DataOutputStream toServer;
+	private ObjectInputStream objectInputStream;
+	private ObjectOutputStream objectOutputStream;
 	
 	/**
 	 * Constructs a new FakeClient object and
@@ -53,8 +53,8 @@ public class FakeClient
 			try
 			{
 				socket = new Socket(InetAddress.getLocalHost().getHostAddress(), port);
-				fromServer = new DataInputStream(socket.getInputStream());
-				toServer = new DataOutputStream(socket.getOutputStream());
+				objectInputStream = new ObjectInputStream(socket.getInputStream());
+				objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 				
 				break;
 			}
@@ -63,6 +63,25 @@ public class FakeClient
 				error.printStackTrace(System.err);
 			}
 		}
+	}
+	
+	public void sendObject(Command command, String object)
+	{
+		try
+		{
+			objectOutputStream.writeObject(Command.CREATE);
+			
+			
+		}
+		catch (IOException error)
+		{
+			error.printStackTrace(System.err);
+		}
+	}
+	
+	public void receiveObject()
+	{
+	
 	}
 	
 	/**
@@ -76,8 +95,8 @@ public class FakeClient
 	{
 		try
 		{
-			toServer.writeUTF(message);
-			toServer.flush();
+			objectOutputStream.writeUTF(message);
+			objectOutputStream.flush();
 		}
 		catch (IOException error)
 		{
@@ -96,7 +115,7 @@ public class FakeClient
 	{
 		try
 		{
-			return fromServer.readUTF();
+			return objectInputStream.readUTF();
 		}
 		catch (IOException error)
 		{

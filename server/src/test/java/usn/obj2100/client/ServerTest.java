@@ -1,7 +1,8 @@
-package usn.obj2100;
+package usn.obj2100.client;
 
 import org.junit.jupiter.api.*;
-import usn.obj2100.utils.FakeClient;
+import usn.obj2100.Server;
+import usn.obj2100.client.utils.FakeClient;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

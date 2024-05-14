@@ -1,4 +1,4 @@
-package usn.obj2100;
+package usn.obj2100.client.api;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.BeforeAll;
 
 import usn.obj2100.controller.InventarController;
 import usn.obj2100.model.Inventar;
+import usn.obj2100.client.utils.FakeClient;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(OrderAnnotation.class)
 public class TestInventar
 {
+	private FakeClient client;
 	private InventarController controller;
 	private Inventar newInventar;
 	
@@ -26,7 +27,15 @@ public class TestInventar
 	@DisplayName("Oppsett for hver test.")
 	public void setup()
 	{
-		controller = new InventarController();
+		try
+		{
+			client = new FakeClient();
+			controller = new InventarController();
+		}
+		catch (Exception error)
+		{
+			error.printStackTrace(System.err);
+		}
 	}
 	
 	@Test

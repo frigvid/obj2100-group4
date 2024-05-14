@@ -1,7 +1,8 @@
-package usn.obj2100;
+package usn.obj2100.server;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import usn.obj2100.DatabaseConnectionManager;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
