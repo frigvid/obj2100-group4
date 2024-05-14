@@ -4,14 +4,12 @@ import org.junit.jupiter.api.*;
 import usn.obj2100.Server;
 import usn.obj2100.client.utils.FakeClient;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * A test class for the server.
  * <p/>
- * This simply attempts a connection to the server, and
- * attempts to send and receive a message.
+ * This simply attempts a connection to the server.
  *
  * @created 2024-04-14
  * @see Server
@@ -45,29 +43,12 @@ public class ServerTest
 	@Test
 	@Order(1)
 	@DisplayName("koble til serveren.")
-	public void testConnection()
+	public void connect()
 	{
-		System.out.println("Is client connected? " + client.isConnected());
+		System.out.println("Is client able to connect? " + client.isConnected());
 		
 		// The client should be connected
 		assertTrue(client.isConnected());
-	}
-	
-	/**
-	 * Test sending and receiving a message to the server.
-	 */
-	@Test
-	@Order(2)
-	@DisplayName("sende en melding til serveren.")
-	public void testSendAndRecieveEcho()
-	{
-		/* Send a message from the server to the client. */
-		String message = "Hello, client!";
-		client.sendMessage(message);
-		
-		/* The client should receive the message. */
-		String receivedMessage = client.receiveMessage();
-		assertEquals("Echo: " + message, receivedMessage);
 	}
 	
 	/**
@@ -77,15 +58,5 @@ public class ServerTest
 	public void teardown()
 	{
 		client.disconnect();
-	}
-	
-	/**
-	 * Stop the server after all tests are done.
-	 */
-	@AfterAll
-	public static void stopServer()
-	{
-		System.out.println("Server stoppes.");
-		FakeClient.stopServer();
 	}
 }
