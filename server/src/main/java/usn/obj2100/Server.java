@@ -1,92 +1,56 @@
 package usn.obj2100;
 
-import usn.obj2100.Constants;
-
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.Date;
 
-/**
- * A simple server that listens for incoming connections and broadcasts messages to all connected clients.
- * <p/>
- * FIXME: For some reason SLF4J, which is not a dependency of this project, ends up logging a warning saying:
- * 		 'SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".' Which shouldn't be a problem, since
- * 		 v1.6+ defaults to a NOP logger implementation. Adding it as a project dependency does not fix it, so
- * 		 it's ignored for now, since it doesn't actually cause a problem.
- */
 public class Server
 {
-	private static final Set<PrintWriter> clients = new HashSet<>();
-	
-	public static void main(String[] args) throws IOException
+	public static void main(String[] args)
 	{
-		System.out.println("Server is running...");
+		DatabaseConnectionManager dcm = DatabaseConnectionManager.getInstance();
+		dcm.getConnection();
 		
-		try
-			(
-				ServerSocket listener = new ServerSocket(Constants.PORT, 50, InetAddress.getLocalHost())
-			)
+		System.out.println(System.getProperty("user.dir"));
+		
+		/**
+		 * The server listens for incoming connections from clients.
+		 *
+		 * @see Introduction to Java Programming and Data Structures, Comprehensive Version, 12th Edition, chapter 33.
+		 */
+		new Thread(() ->
 		{
+			int dynamicPort = Constants.PORT;
+			
 			while (true)
 			{
-				new ClientHandler(listener.accept()).start();
-			}
-		}
-	}
-	
-	private static class ClientHandler extends Thread
-	{
-		private final Socket socket;
-		private PrintWriter out;
-		
-		public ClientHandler(Socket socket)
-		{
-			this.socket = socket;
-		}
-		
-		public void run()
-		{
-			try {
-				out = new PrintWriter(socket.getOutputStream(), true);
-				clients.add(out);
-				
-				Scanner in = new Scanner(socket.getInputStream());
-				while (in.hasNextLine())
+				try (ServerSocket serverSocket = new ServerSocket(dynamicPort))
 				{
-					String message = in.nextLine();
+					System.out.println("Serveren startet " + new Date() + " på port " + serverSocket.getLocalPort());
 					
-					for (PrintWriter client : clients)
+					while (true)
 					{
-						client.println(message);
+						/* Await client connections. */
+						Socket socket = serverSocket.accept();
+						System.out.println("Waiting for client connection...");
+						
+						/* Start a new thread for each connection. */
+						Thread thread = new ClientHandler(socket);
+						thread.start();
 					}
 				}
-			}
-			catch (IOException error)
-			{
-				throw new RuntimeException(error);
-			}
-			finally
-			{
-				if (out != null)
+				catch (java.net.BindException bindException)
 				{
-					clients.remove(out);
-				}
-				
-				try
-				{
-					socket.close();
+					System.out.println("Port " + dynamicPort + " er allerede i bruk. Prøver en annen port...");
+					/* Increment port value and try, try and try again. */
+					dynamicPort++;
 				}
 				catch (IOException error)
 				{
-					System.out.println("Something unexpected happened!");
 					error.printStackTrace(System.err);
 				}
 			}
-		}
+		}).start();
 	}
 }

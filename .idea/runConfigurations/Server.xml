@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Server" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="usn.obj2100.Main" />
+    <option name="MAIN_CLASS_NAME" value="usn.obj2100.Server" />
     <module name="server" />
     <method v="2">
       <option name="Make" enabled="true" />
