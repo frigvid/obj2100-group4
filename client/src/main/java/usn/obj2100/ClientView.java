@@ -50,6 +50,9 @@ public class ClientView {
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
+		TextArea descriptionField = new TextArea();
+		descriptionField.setPrefRowCount(3); // Set preferred row count for description field
+
 
 		grid.addRow(0, new Label("Type:"), typeComboBox);
 		grid.addRow(1, new Label("Kategori:"), categoryComboBox);
@@ -58,6 +61,7 @@ public class ClientView {
 		grid.addRow(4, new Label("Plassering:"), locationField);
 		grid.addRow(5, new Label("Antall:"), quantityField);
 		grid.addRow(6, new Label("Forventet levetid (kun møbler):"), lifespanField);
+		grid.addRow(7, new Label("Beskrivelse:"), descriptionField);
 
 		typeComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
 			categoryComboBox.getItems().clear();
@@ -82,10 +86,11 @@ public class ClientView {
 				double price = Double.parseDouble(priceField.getText());
 				int quantity = Integer.parseInt(quantityField.getText());
 				Integer lifespan = "Møbler".equals(typeComboBox.getValue()) ? Integer.parseInt(lifespanField.getText()) : null;
+				String description = descriptionField.getText();
 				InventarElement newElement = new InventarElement(
 					typeComboBox.getValue(),
 					categoryComboBox.getValue(),
-					null,
+					description,
 					purchaseDate.toString(),
 					price,
 					locationField.getText(),
@@ -98,6 +103,7 @@ public class ClientView {
 			}
 		});
 
+
 		form.getChildren().addAll(grid, addButton);
 		return form;
 	}
@@ -109,19 +115,24 @@ public class ClientView {
 
 		TextField searchField = new TextField();
 		Button searchButton = new Button("Søk");
+		ListView<String> resultsList = new ListView<>(); // For displaying search results
+
 		searchButton.setOnAction(event -> {
 			String query = searchField.getText();
 			try {
 				ResultSet rs = inventarSearch.searchInventar(query);
+				resultsList.getItems().clear();
 				while (rs.next()) {
-					System.out.println("Beskrivelse: " + rs.getString("beskrivelse"));
+					String result = "Type: " + rs.getString("type") + ", Kategori: " + rs.getString("kategori") + ", Beskrivelse: " + rs.getString("beskrivelse");
+					resultsList.getItems().add(result);
 				}
 			} catch (Exception e) {
 				new Alert(Alert.AlertType.ERROR, "Feil under søk: " + e.getMessage()).show();
 			}
 		});
 
-		form.getChildren().addAll(new Label("Søk etter:"), searchField, searchButton);
+		form.getChildren().addAll(new Label("Søk etter:"), searchField, searchButton, resultsList);
 		return form;
 	}
+
 }
