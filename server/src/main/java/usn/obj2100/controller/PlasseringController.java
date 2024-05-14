@@ -23,7 +23,7 @@ public class PlasseringController
 	}
 	
 	@Override
-	public boolean create(Plassering plassering)
+	public Plassering create(Plassering plassering)
 	{
 		return plasseringService.create(plassering);
 	}

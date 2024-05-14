@@ -9,7 +9,6 @@ import java.util.List;
 
 // TODO: Implement check, and/or test, that verifies that you
 //			can create Plassering objects without "etasje" and "rom."
-
 public class PlasseringService
 	implements IService<Plassering>
 {
@@ -106,7 +105,7 @@ public class PlasseringService
 	}
 	
 	@Override
-	public boolean create(Plassering plassering)
+	public Plassering create(Plassering plassering)
 	{
 		try
 		{
@@ -116,14 +115,31 @@ public class PlasseringService
 			statement.setInt(3, plassering.getEtasje());
 			statement.setInt(4, plassering.getRom());
 			
-			statement.executeUpdate();
+			int affectedRows = statement.executeUpdate();
 			
-			return true;
+			if (affectedRows == 0)
+			{
+				throw new SQLException("Oppretting av plassering database objekt feilet, ingen rader påvirket.");
+			}
+			
+			try (ResultSet generatedKeys = statement.getGeneratedKeys())
+			{
+				if (generatedKeys.next())
+				{
+					plassering.setId(generatedKeys.getInt(1));
+				}
+				else
+				{
+					throw new SQLException("Oppretting av plassering objekt feilet, ingen ID mottat.");
+				}
+			}
+			
+			return plassering;
 		}
 		catch (SQLException error)
 		{
 			error.printStackTrace(System.err);
-			return false;
+			return null;
 		}
 		finally
 		{

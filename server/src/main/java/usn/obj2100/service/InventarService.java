@@ -136,10 +136,10 @@ public class InventarService
 	 * Create a new inventar object.
 	 *
 	 * @param inventar The inventar object to create.
-	 * @return True if the inventar object was created, false otherwise.
+	 * @return Inventar object if the inventar object was created, null otherwise.
 	 */
 	@Override
-	public boolean create(Inventar inventar)
+	public Inventar create(Inventar inventar)
 	{
 		try
 		{
@@ -154,14 +154,32 @@ public class InventarService
 			statement.setInt(8, inventar.getPlassering());
 			statement.setInt(9, inventar.getKassert());
 			
-			statement.executeUpdate();
 			
-			return true;
+			int affectedRows = statement.executeUpdate();
+			
+			if (affectedRows == 0)
+			{
+				throw new SQLException("Oppretting av plassering database objekt feilet, ingen rader påvirket.");
+			}
+			
+			try (ResultSet generatedKeys = statement.getGeneratedKeys())
+			{
+				if (generatedKeys.next())
+				{
+					inventar.setSKU(generatedKeys.getInt(1));
+				}
+				else
+				{
+					throw new SQLException("Oppretting av plassering objekt feilet, ingen ID mottat.");
+				}
+			}
+			
+			return inventar;
 		}
 		catch (SQLException error)
 		{
 			error.printStackTrace(System.err);
-			return false;
+			return null;
 		}
 		finally
 		{

@@ -30,7 +30,6 @@ public class PlasseringTest
 	public static void preSetup()
 	{
 		newPlassering = new Plassering(
-			88182,
 			"USN-Bø",
 			5,
 			1,
@@ -70,7 +69,14 @@ public class PlasseringTest
 		/* The client should be connected. */
 		assertTrue(client.isConnected());
 		
-		assertTrue((boolean) client.request(Command.CREATE, newPlassering));
+		try
+		{
+			newPlassering = (Plassering) client.request(Command.CREATE, newPlassering);
+		}
+		catch (Exception error)
+		{
+			fail("Kunne ikke opprette et nytt Plassering objekt.");
+		}
 	}
 	
 	/**

@@ -63,15 +63,16 @@ public class ClientHandler
 				if (object instanceof Inventar inventar)
 				{
 					boolean state;
+					Inventar retrievedInventar;
 					
 					switch (command)
 					{
 						case CREATE:
-							state = inventarController.create(inventar);
-							objectOutputStream.writeObject(state);
+							retrievedInventar = inventarController.create(inventar);
+							objectOutputStream.writeObject(retrievedInventar);
 							break;
 						case READ:
-							Inventar retrievedInventar = inventarController.read(inventar);
+							retrievedInventar = inventarController.read(inventar);
 							objectOutputStream.writeObject(retrievedInventar);
 							break;
 						case UPDATE:
@@ -90,15 +91,16 @@ public class ClientHandler
 				else if (object instanceof Plassering plassering)
 				{
 					boolean state;
+					Plassering retrievedPlassering;
 					
 					switch (command)
 					{
 						case CREATE:
-							state = plasseringController.create(plassering);
-							objectOutputStream.writeObject(state);
+							retrievedPlassering = plasseringController.create(plassering);
+							objectOutputStream.writeObject(retrievedPlassering);
 							break;
 						case READ:
-							Plassering retrievedPlassering = plasseringController.read(plassering);
+							retrievedPlassering = plasseringController.read(plassering);
 							objectOutputStream.writeObject(retrievedPlassering);
 							break;
 						case UPDATE:

@@ -74,7 +74,14 @@ public class InventarTest
 		/* The client should be connected. */
 		assertTrue(client.isConnected());
 		
-		assertTrue((boolean) client.request(Command.CREATE, newInventar));
+		try
+		{
+			newInventar = (Inventar) client.request(Command.CREATE, newInventar);
+		}
+		catch (Exception error)
+		{
+			fail("Kunne ikke opprette et nytt Inventar objekt.");
+		}
 	}
 	
 	/**

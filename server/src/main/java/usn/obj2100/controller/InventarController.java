@@ -44,10 +44,10 @@ public class InventarController
 	 * Create a new inventar object.
 	 *
 	 * @param inventar The inventar object to create.
-	 * @return True if the inventar object was created, false otherwise.
+	 * @return The created inventar object.
 	 */
 	@Override
-	public boolean create(Inventar inventar)
+	public Inventar create(Inventar inventar)
 	{
 		return inventarService.create(inventar);
 	}

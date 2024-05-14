@@ -22,7 +22,7 @@ public interface IService<T>
 {
 	T get(int id);
 	List<T> getAll();
-	boolean create(T t);
+	T create(T t);
 	boolean update(T t);
 	boolean delete(T t);
 }
