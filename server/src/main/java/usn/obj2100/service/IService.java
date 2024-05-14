@@ -15,7 +15,7 @@ import java.util.function.Consumer;
  * <b>Responsibility:</b> To provide a common interface for services.
  *
  * @version 0.1
- * @created 2024-02-13
+ * @created 2024-05-13
  * @param <T> The type of object to be stored in, or gotten from the database.
  */
 public interface IService<T>

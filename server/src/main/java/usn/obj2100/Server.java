@@ -28,7 +28,7 @@ import java.util.Date;
  *	}
  *
  *	@since 0.1
- *	@created 2024-02-14
+ *	@created 2024-05-14
  * @see ClientHandler for how client connections are handled.
  */
 public class Server
@@ -54,7 +54,7 @@ public class Server
 	 * If the port is already in use, the server will try the next port.
 	 *
 	 * @since 0.2
-	 * @created 2024-02-14
+	 * @created 2024-05-14
 	 */
 	public void start()
 	{
@@ -99,7 +99,7 @@ public class Server
 	 * Stop the server.
 	 *
 	 * @since 0.2
-	 * @created 2024-02-14
+	 * @created 2024-05-14
 	 */
 	public void stop()
 	{

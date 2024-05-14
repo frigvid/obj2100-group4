@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * This class represents an item in the inventory.
  *
  * @version 0.1
- * @created 2024-02-13
+ * @created 2024-05-13
  */
 public class Inventar
 	implements Serializable

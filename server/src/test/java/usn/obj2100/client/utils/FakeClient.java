@@ -21,7 +21,7 @@ import java.net.Socket;
  *	</ul>
  *
  *	@since 0.2
- *	@created 2024-02-14
+ *	@created 2024-05-14
  */
 public class FakeClient
 {
@@ -41,7 +41,7 @@ public class FakeClient
 	 * Constructs a new FakeClient object and
 	 * starts the server.
 	 *
-	 * @created 2024-02-14
+	 * @created 2024-05-14
 	 */
 	public FakeClient()
 	{
@@ -109,7 +109,7 @@ public class FakeClient
 	 * Disconnects the client from the server, and
 	 * stops the server.
 	 *
-	 * @created 2024-02-14
+	 * @created 2024-05-14
 	 */
 	public void disconnect()
 	{
@@ -126,7 +126,7 @@ public class FakeClient
 	/**
 	 * Stops the server.
 	 *
-	 * @created 2024-02-14
+	 * @created 2024-05-14
 	 */
 	public static void stopServer()
 	{

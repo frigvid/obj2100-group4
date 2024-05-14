@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Controller for the Inventar model.
  *
- * @created 2024-04-13
+ * @created 2024-05-13
  * @version 0.1
  * @see InventarService for usage of this controller.
  */

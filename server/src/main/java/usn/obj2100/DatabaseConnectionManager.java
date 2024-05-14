@@ -22,7 +22,7 @@ import java.sql.Statement;
  * }
  *
  * @since 0.1
- * @created 2024-02-13
+ * @created 2024-05-13
  */
 public class DatabaseConnectionManager
 {
@@ -37,7 +37,7 @@ public class DatabaseConnectionManager
 	 * Returns the instance of the database connection manager.
 	 *
 	 * @since 0.1
-	 * @created 2024-02-13
+	 * @created 2024-05-13
 	 * @return The instance of the database connection manager.
 	 */
 	public static DatabaseConnectionManager getInstance()
@@ -56,7 +56,7 @@ public class DatabaseConnectionManager
 	 * If the database file does not exist, it will be created.
 	 *
 	 * @since 0.1
-	 * @created 2024-02-13
+	 * @created 2024-05-13
 	 * @return A connection to the database.
 	 */
 	public Connection getConnection()
@@ -77,7 +77,7 @@ public class DatabaseConnectionManager
 	 * Creates the database file if it does not exist.
 	 *
 	 * @since 0.1
-	 * @created 2024-02-13
+	 * @created 2024-05-13
 	 */
 	private void createIfNotExists()
 	{

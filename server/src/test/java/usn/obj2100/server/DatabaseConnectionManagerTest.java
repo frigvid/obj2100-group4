@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * <p/>
  * Ensures that the database connection manager can create a connection to the database.
  *
- * @created 2024-04-13
+ * @created 2024-05-13
  * @see DatabaseConnectionManager
  */
 @DisplayName("Databasetilkoblingsbehandleren")
