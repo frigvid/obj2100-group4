@@ -4,39 +4,28 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import java.sql.ResultSet;
 import java.time.LocalDate;
-import usn.obj2100.Search.SearchBarView;
 
 public class ClientView {
 	private BorderPane root;
 	private TabPane tabs;
-	private StackPane mainContent;
 	private DatabaseManager dbManager;
-
 	private InventarSearch inventarSearch;
-	private SearchBarView searchBarView;
-
 
 	public ClientView(BorderPane root) {
 		this.root = root;
 		this.dbManager = new DatabaseManager();
 		this.inventarSearch = new InventarSearch(dbManager);
 		this.tabs = new TabPane();
-		this.mainContent = new StackPane();
-
 		initializeTabs();
-
-		this.mainContent.getChildren().add(tabs); //stackpane kan legge elementer oppå hverandre, searchbar er oppå tabs
-		this.searchBarView = new SearchBarView(mainContent, inventarSearch);
-
-		root.setCenter(mainContent);
-		root.getStylesheets().add("search.css");
+		root.setCenter(tabs);
 	}
 
 	private void initializeTabs() {
 		tabs.getTabs().addAll(
 			new Tab("Legg til nytt element", buildAddForm()),
-			new Tab("Søk", new Label("Søk etter inventar..."))
+			new Tab("Søk", buildSearchForm())
 		);
 	}
 
@@ -49,9 +38,11 @@ public class ClientView {
 		typeComboBox.getItems().addAll("Møbler", "Utsmykning", "Teknisk Utstyr");
 
 		ComboBox<String> categoryComboBox = new ComboBox<>();
-		DatePicker purchaseDatePicker = new DatePicker(); // Bruker DatePicker for innkjøpsdato
+		categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
+		DatePicker purchaseDatePicker = new DatePicker();
+		purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
 		TextField priceField = new TextField();
-		TextField locationField = new TextField(); // For hierarkisk plassering
+		TextField locationField = new TextField();
 		TextField quantityField = new TextField();
 		TextField lifespanField = new TextField();
 		lifespanField.setDisable(true); // Deaktiveres inntil den er nødvendig
@@ -72,9 +63,11 @@ public class ClientView {
 			categoryComboBox.getItems().clear();
 			if ("Møbler".equals(newVal)) {
 				categoryComboBox.getItems().addAll("Bord", "Stol", "Sofa", "Skap", "Hylle", "Tavle", "Annet");
+				categoryComboBox.setEditable(false);
 				lifespanField.setDisable(false);
 			} else if ("Utsmykning".equals(newVal)) {
 				categoryComboBox.getItems().addAll("Maleri", "Grafikk", "Tekstil", "Bilde", "Skulptur", "Annet");
+				categoryComboBox.setEditable(false);
 				lifespanField.setDisable(true);
 			} else if ("Teknisk Utstyr".equals(newVal)) {
 				categoryComboBox.setEditable(true);
@@ -105,12 +98,30 @@ public class ClientView {
 			}
 		});
 
-
 		form.getChildren().addAll(grid, addButton);
 		return form;
 	}
 
+	private VBox buildSearchForm() {
+		VBox form = new VBox(10);
+		form.setPadding(new Insets(20));
+		form.setAlignment(Pos.CENTER);
 
+		TextField searchField = new TextField();
+		Button searchButton = new Button("Søk");
+		searchButton.setOnAction(event -> {
+			String query = searchField.getText();
+			try {
+				ResultSet rs = inventarSearch.searchInventar(query);
+				while (rs.next()) {
+					System.out.println("Beskrivelse: " + rs.getString("beskrivelse"));
+				}
+			} catch (Exception e) {
+				new Alert(Alert.AlertType.ERROR, "Feil under søk: " + e.getMessage()).show();
+			}
+		});
 
-
+		form.getChildren().addAll(new Label("Søk etter:"), searchField, searchButton);
+		return form;
+	}
 }
