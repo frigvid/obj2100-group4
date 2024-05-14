@@ -8,7 +8,6 @@ import usn.obj2100.client.utils.FakeClient;
 import usn.obj2100.model.Inventar;
 
 import java.time.LocalDateTime;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,15 +17,14 @@ public class InventarTest
 {
 	private FakeClient client;
 	private static Inventar newInventar;
+	private static final int SKU = 7839223;
 	
 	@BeforeAll
 	@DisplayName("Delt oppsett for alle tester.")
 	public static void preSetup()
 	{
-		Random random = new Random();
-		
 		newInventar = new Inventar(
-			random.nextInt(1000),
+			SKU,
 			"KlientTest: Inventar objekt beskrivelse.",
 			LocalDateTime.now(),
 			100.0,
@@ -72,7 +70,7 @@ public class InventarTest
 		assertTrue(client.isConnected());
 		
 		Inventar fakeInventar = new Inventar(
-			1
+			SKU
 		);
 		
 		Inventar retrievedObject = (Inventar) client.request(Command.READ, fakeInventar);
