@@ -1,48 +1,50 @@
 package usn.obj2100;
 
 import java.io.IOException;
+import java.net.BindException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 
+// TODO: Implement encryption and decryption of data. It's business sensitive data.
 public class Server
 {
-	public static void main(String[] args)
+	private ServerSocket serverSocket;
+	private Thread serverThread;
+	private int dynamicPort;
+	
+	public Server()
 	{
-		DatabaseConnectionManager dcm = DatabaseConnectionManager.getInstance();
-		dcm.getConnection();
-		
-		System.out.println(System.getProperty("user.dir"));
-		
-		/**
-		 * The server listens for incoming connections from clients.
-		 *
-		 * @see Introduction to Java Programming and Data Structures, Comprehensive Version, 12th Edition, chapter 33.
-		 */
-		new Thread(() ->
+		this.dynamicPort = Constants.PORT;
+	}
+	
+	public void start()
+	{
+		serverThread = new Thread(() ->
 		{
-			int dynamicPort = Constants.PORT;
-			
 			while (true)
 			{
-				try (ServerSocket serverSocket = new ServerSocket(dynamicPort))
+				try
 				{
+					serverSocket = new ServerSocket(dynamicPort, 50, InetAddress.getLocalHost());
 					System.out.println("Serveren startet " + new Date() + " på port " + serverSocket.getLocalPort());
 					
 					while (true)
 					{
 						/* Await client connections. */
+						System.out.println("Venter på klienter...");
 						Socket socket = serverSocket.accept();
-						System.out.println("Waiting for client connection...");
 						
 						/* Start a new thread for each connection. */
 						Thread thread = new ClientHandler(socket);
 						thread.start();
 					}
 				}
-				catch (java.net.BindException bindException)
+				catch (BindException bindException)
 				{
 					System.out.println("Port " + dynamicPort + " er allerede i bruk. Prøver en annen port...");
+					
 					/* Increment port value and try, try and try again. */
 					dynamicPort++;
 				}
@@ -51,6 +53,23 @@ public class Server
 					error.printStackTrace(System.err);
 				}
 			}
-		}).start();
+		});
+		
+		serverThread.start();
+	}
+	
+	public void stop()
+	{
+		if (serverSocket != null && !serverSocket.isClosed())
+		{
+			try
+			{
+				serverSocket.close();
+			}
+			catch (IOException error)
+			{
+				error.printStackTrace(System.err);
+			}
+		}
 	}
 }
