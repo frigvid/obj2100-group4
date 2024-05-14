@@ -115,6 +115,7 @@ public class InventarService
 	@Override
 	public void create(Inventar inventar)
 	{
+		// FIXME: Use the PreparedStatement instead of stringifying the entire thing. Much more practical.
 		try
 		{
 			String sql =

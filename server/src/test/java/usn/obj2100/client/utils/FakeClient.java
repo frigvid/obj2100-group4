@@ -3,10 +3,12 @@ package usn.obj2100.client.utils;
 import usn.obj2100.Command;
 import usn.obj2100.Constants;
 import usn.obj2100.Server;
+import usn.obj2100.model.Inventar;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.time.LocalDateTime;
 
 /**
  * This is a utility class for unit testing, and functions as a "fake" client.
@@ -52,9 +54,10 @@ public class FakeClient
 		{
 			try
 			{
+				System.out.println("Prøver å koble på " + InetAddress.getLocalHost().getHostAddress() + ":" + port);
 				socket = new Socket(InetAddress.getLocalHost().getHostAddress(), port);
-				objectInputStream = new ObjectInputStream(socket.getInputStream());
 				objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+				objectInputStream = new ObjectInputStream(socket.getInputStream());
 				
 				break;
 			}
@@ -65,17 +68,24 @@ public class FakeClient
 		}
 	}
 	
-	public void sendObject(Command command, String object)
+	public void sendObject(Command command, Object object)
 	{
 		try
 		{
-			objectOutputStream.writeObject(Command.CREATE);
-			
-			
+			/* Specify which CRUD operation you're attempting. */
+			objectOutputStream.writeObject(command);
+			objectOutputStream.writeObject(object);
+			objectOutputStream.flush();
+	
+			System.out.println((String) objectInputStream.readObject());
 		}
 		catch (IOException error)
 		{
 			error.printStackTrace(System.err);
+		}
+		catch (ClassNotFoundException e)
+		{
+			throw new RuntimeException(e);
 		}
 	}
 	

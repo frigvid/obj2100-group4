@@ -1,10 +1,10 @@
 package usn.obj2100;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.EOFException;
-import java.io.IOException;
+import usn.obj2100.model.Inventar;
+
+import java.io.*;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class ClientHandler
 	extends Thread
@@ -21,29 +21,47 @@ public class ClientHandler
 	{
 		try
 		(
-			DataInputStream inputFromClient = new DataInputStream(socket.getInputStream());
-			DataOutputStream outputToClient = new DataOutputStream(socket.getOutputStream())
+			ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream())
 		)
 		{
-			while (true)
+			Command command;
+			Object object;
+			
+			while ((command = (Command) objectInputStream.readObject()) != null)
 			{
-				try
+				object = objectInputStream.readObject();
+				
+				if (object instanceof Inventar)
 				{
-					/* Read from client. */
-					String message = inputFromClient.readUTF();
-					System.out.println("Received from client: " + message);
+					Inventar inventar = (Inventar) object;
 					
-					/* Write to client. */
-					outputToClient.writeUTF("Echo: " + message);
-				}
-				catch (EOFException error)
-				{
-					System.out.println("Client disconnected.");
-					break;
+					switch (command)
+					{
+						case CREATE:
+							System.out.println("Create: " + inventar);
+							objectOutputStream.writeObject("Created: " + inventar);
+							break;
+						case READ:
+							System.out.println("Read: " + inventar);
+							objectOutputStream.writeObject("Read: " + inventar);
+							break;
+						case UPDATE:
+							System.out.println("Update: " + inventar);
+							objectOutputStream.writeObject("Updated: " + inventar);
+							break;
+						case DELETE:
+							System.out.println("Delete: " + inventar);
+							objectOutputStream.writeObject("Deleted: " + inventar);
+							break;
+						default:
+							objectOutputStream.writeObject("Invalid command");
+							break;
+					}
 				}
 			}
 		}
-		catch (IOException error)
+		catch (IOException | ClassNotFoundException error)
 		{
 			error.printStackTrace(System.err);
 		}
