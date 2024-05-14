@@ -6,31 +6,43 @@ import usn.obj2100.service.InventarService;
 import java.util.List;
 
 public class InventarController
+	implements IController<Inventar>
 {
 	private InventarService inventarService = new InventarService();
 	
-	public List<Inventar> getAllInventar()
+	@Override
+	public List<Inventar> getAll()
 	{
 		return inventarService.getAll();
 	}
 	
-	public Inventar getInventarById(int id)
+	@Override
+	public Inventar getById(int id)
 	{
 		return inventarService.get(id);
 	}
 	
-	public void createInventar(Inventar inventar)
+	@Override
+	public boolean create(Inventar inventar)
 	{
-		inventarService.create(inventar);
+		return inventarService.create(inventar);
 	}
 	
-	public void updateInventar(Inventar inventar)
+	@Override
+	public void read(Inventar inventar)
 	{
-		inventarService.update(inventar);
+		inventarService.get(inventar.getSKU());
 	}
 	
-	public void deleteInventar(Inventar inventar)
+	@Override
+	public boolean update(Inventar inventar)
 	{
-		inventarService.delete(inventar);
+		return inventarService.update(inventar);
+	}
+	
+	@Override
+	public boolean delete(Inventar inventar)
+	{
+		return inventarService.delete(inventar);
 	}
 }

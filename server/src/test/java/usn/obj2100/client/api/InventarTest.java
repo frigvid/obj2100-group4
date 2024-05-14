@@ -9,7 +9,7 @@ import usn.obj2100.model.Inventar;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("En inventar er")
 @TestMethodOrder(OrderAnnotation.class)
@@ -57,16 +57,46 @@ public class InventarTest
 		/* The client should be connected. */
 		assertTrue(client.isConnected());
 		
-		client.sendObject(Command.CREATE, newInventar);
+		assertTrue((boolean) client.request(Command.CREATE, newInventar));
 	}
 	
 	@Test
 	@Order(2)
-	@DisplayName("hentet inventar element.")
-	public void receiveInventar()
+	@DisplayName("hentet.")
+	public void getObject()
 	{
-		// FIXME: TEMPORARY.
-		assertTrue(true);
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Inventar retrievedInventar = (Inventar) client.requestObject("1");
+		assertNotNull(retrievedInventar, "Inventar objektet ble ikke hentet.");
+		assertEquals(newInventar.getSKU(), retrievedInventar.getSKU(), "SKU er ikke lik.");
+	}
+	
+	@Test
+	@Order(3)
+	@DisplayName("oppdatert.")
+	public void updateObject()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		newInventar.setBeskrivelse("KlientTest: Oppdatert inventar objekt beskrivelse.");
+		
+		System.out.println(newInventar.toString());
+		
+		assertTrue((boolean) client.request(Command.UPDATE, newInventar));
+	}
+	
+	@Test
+	@Order(4)
+	@DisplayName("slettet.")
+	public void deleteObject()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		assertTrue((boolean) client.request(Command.DELETE, newInventar));
 	}
 	
 	/**

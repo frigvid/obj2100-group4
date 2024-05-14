@@ -6,7 +6,16 @@ import java.util.List;
 
 import usn.obj2100.DatabaseConnectionManager;
 import usn.obj2100.model.Inventar;
+import usn.obj2100.controller.InventarController;
 
+/**
+ * Service for the Inventar model.
+ * <p/>
+ * Do not use this directly.
+ *
+ * @version 0.1
+ * @see InventarController for usage of this service.
+ */
 public class InventarService
 	implements IService<Inventar>
 {
@@ -113,34 +122,30 @@ public class InventarService
 	}
 	
 	@Override
-	public void create(Inventar inventar)
+	public boolean create(Inventar inventar)
 	{
 		// FIXME: Use the PreparedStatement instead of stringifying the entire thing. Much more practical.
 		try
 		{
-			String sql =
-				"INSERT INTO inventar (" +
-				"\n\tsku,\n\tbeskrivelse,\n\tinnkjopsdato,\n\tinnkjopspris,\n\tantall,\n\tforventetLevetid,\n\tkategori,\n\tplassering,\n\tkassert\n) " +
-				"VALUES (\n\t" +
-				inventar.getSKU() + ",\n\t" +
-				"'" + inventar.getBeskrivelse() + "',\n\t" +
-				"'" + inventar.getInnkjopsdato() + "',\n\t" +
-				inventar.getInnkjopspris() + ",\n\t" +
-				inventar.getAntall() + ",\n\t" +
-				inventar.getForventetLevetid() + ",\n\t" +
-				inventar.getKategori() + ",\n\t" +
-				inventar.getPlassering() + ",\n\t" +
-				inventar.getKassert() + "\n);";
-			
-			System.out.println(sql);
-			
-			PreparedStatement statement = connection.prepareStatement(sql);
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (?,?,?,?,?,?,?,?,?)");
+			statement.setInt(1, inventar.getSKU());
+			statement.setString(2, inventar.getBeskrivelse());
+			statement.setTimestamp(3, Timestamp.valueOf(inventar.getInnkjopsdato()));
+			statement.setDouble(4, inventar.getInnkjopspris());
+			statement.setInt(5, inventar.getAntall());
+			statement.setInt(6, inventar.getForventetLevetid());
+			statement.setInt(7, inventar.getKategori());
+			statement.setInt(8, inventar.getPlassering());
+			statement.setInt(9, inventar.getKassert());
 			
 			statement.executeUpdate();
+			
+			return true;
 		}
 		catch (SQLException error)
 		{
 			error.printStackTrace(System.err);
+			return false;
 		}
 		finally
 		{
@@ -159,14 +164,13 @@ public class InventarService
 	}
 	
 	@Override
-	public void update(Inventar inventar)
+	public boolean update(Inventar inventar)
 	{
 		try
 		{
 			PreparedStatement statement = connection.prepareStatement(
 				"""
 					UPDATE inventar SET
-						sku = ?,
 						beskrivelse = ?,
 						innkjopsdato = ?,
 						innkjopspris = ?,
@@ -179,21 +183,24 @@ public class InventarService
 				"""
 			);
 			
-			statement.setInt(1, inventar.getSKU());
-			statement.setString(2, inventar.getBeskrivelse());
-			statement.setTimestamp(3, Timestamp.valueOf(inventar.getInnkjopsdato()));
-			statement.setDouble(4, inventar.getInnkjopspris());
-			statement.setInt(5, inventar.getAntall());
-			statement.setInt(6, inventar.getForventetLevetid());
-			statement.setInt(7, inventar.getKategori());
-			statement.setInt(8, inventar.getPlassering());
-			statement.setInt(9, inventar.getKassert());
+			statement.setString(1, inventar.getBeskrivelse());
+			statement.setTimestamp(2, Timestamp.valueOf(inventar.getInnkjopsdato()));
+			statement.setDouble(3, inventar.getInnkjopspris());
+			statement.setInt(4, inventar.getAntall());
+			statement.setInt(5, inventar.getForventetLevetid());
+			statement.setInt(6, inventar.getKategori());
+			statement.setInt(7, inventar.getPlassering());
+			statement.setInt(8, inventar.getKassert());
+			statement.setInt(9, inventar.getSKU());
 			
 			statement.executeUpdate();
+			
+			return true;
 		}
 		catch (SQLException error)
 		{
 			error.printStackTrace(System.err);
+			return false;
 		}
 		finally
 		{
@@ -212,17 +219,20 @@ public class InventarService
 	}
 	
 	@Override
-	public void delete(Inventar inventar)
+	public boolean delete(Inventar inventar)
 	{
 		try
 		{
 			PreparedStatement statement = connection.prepareStatement("DELETE FROM inventar WHERE sku = ?");
 			statement.setInt(1, inventar.getSKU());
 			statement.executeUpdate();
+			
+			return true;
 		}
 		catch (SQLException error)
 		{
 			error.printStackTrace(System.err);
+			return false;
 		}
 		finally
 		{

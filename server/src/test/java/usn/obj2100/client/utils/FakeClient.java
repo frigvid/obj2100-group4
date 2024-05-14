@@ -3,12 +3,10 @@ package usn.obj2100.client.utils;
 import usn.obj2100.Command;
 import usn.obj2100.Constants;
 import usn.obj2100.Server;
-import usn.obj2100.model.Inventar;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.time.LocalDateTime;
 
 /**
  * This is a utility class for unit testing, and functions as a "fake" client.
@@ -35,8 +33,8 @@ public class FakeClient
 	private static Server server;
 	
 	private Socket socket;
-	private ObjectInputStream objectInputStream;
 	private ObjectOutputStream objectOutputStream;
+	private ObjectInputStream objectInputStream;
 	
 	/**
 	 * Constructs a new FakeClient object and
@@ -68,16 +66,21 @@ public class FakeClient
 		}
 	}
 	
-	public void sendObject(Command command, Object object)
+	/**
+	 * Makes a request to the server.
+	 *
+	 * @param command The enum C(R)UD command.
+	 * @param object The object being sent.
+	 */
+	public Object request(Command command, Object object)
 	{
 		try
 		{
-			/* Specify which CRUD operation you're attempting. */
 			objectOutputStream.writeObject(command);
 			objectOutputStream.writeObject(object);
 			objectOutputStream.flush();
-	
-			System.out.println((String) objectInputStream.readObject());
+			
+			return objectInputStream.readObject();
 		}
 		catch (IOException error)
 		{
@@ -87,51 +90,26 @@ public class FakeClient
 		{
 			throw new RuntimeException(e);
 		}
+		
+		return null;
 	}
 	
-	public void receiveObject()
-	{
-	
-	}
-	
-	/**
-	 * Sends a message to the server.
-	 * <p/>
-	 * This is a temporary implementation until the server API is more developed.
-	 *
-	 * @param message The message to send to the server.
-	 */
-	public void sendMessage(String message)
+	public Object requestObject(Object object)
 	{
 		try
 		{
-			objectOutputStream.writeUTF(message);
+			objectOutputStream.writeObject(Command.READ);
+			objectOutputStream.writeObject(object);
 			objectOutputStream.flush();
+			
+			return objectInputStream.readObject();
 		}
-		catch (IOException error)
+		catch (IOException | ClassNotFoundException error)
 		{
 			error.printStackTrace(System.err);
 		}
-	}
-	
-	/**
-	 * Receives a message from the server.
-	 * <p/>
-	 * This is a temporary implementation until the server API is more developed.
-	 *
-	 * @return The message received from the server.
-	 */
-	public String receiveMessage()
-	{
-		try
-		{
-			return objectInputStream.readUTF();
-		}
-		catch (IOException error)
-		{
-			error.printStackTrace(System.err);
-			return null;
-		}
+		
+		return null;
 	}
 	
 	/**

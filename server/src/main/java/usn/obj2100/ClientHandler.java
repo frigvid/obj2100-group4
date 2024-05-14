@@ -1,19 +1,21 @@
 package usn.obj2100;
 
+import usn.obj2100.controller.InventarController;
 import usn.obj2100.model.Inventar;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class ClientHandler
 	extends Thread
 {
 	private final Socket socket;
+	private final InventarController inventarController;
 	
 	public ClientHandler(Socket socket)
 	{
 		this.socket = socket;
+		this.inventarController = new InventarController();
 	}
 	
 	@Override
@@ -21,8 +23,8 @@ public class ClientHandler
 	{
 		try
 		(
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 			ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream())
 		)
 		{
 			Command command;
@@ -32,27 +34,29 @@ public class ClientHandler
 			{
 				object = objectInputStream.readObject();
 				
-				if (object instanceof Inventar)
+				if (object instanceof Inventar inventar)
 				{
-					Inventar inventar = (Inventar) object;
+					boolean state;
 					
 					switch (command)
 					{
 						case CREATE:
-							System.out.println("Create: " + inventar);
-							objectOutputStream.writeObject("Created: " + inventar);
+							state = inventarController.create(inventar);
+							objectOutputStream.writeObject(state);
 							break;
 						case READ:
-							System.out.println("Read: " + inventar);
-							objectOutputStream.writeObject("Read: " + inventar);
+							/* Since this works by ID, it is directly handling the object instead of casting to an object. */
+							System.out.println("Read: " + object);
+							inventarController.getById(Integer.parseInt(String.valueOf(object)));
+							objectOutputStream.writeObject(object);
 							break;
 						case UPDATE:
-							System.out.println("Update: " + inventar);
-							objectOutputStream.writeObject("Updated: " + inventar);
+							state = inventarController.update(inventar);
+							objectOutputStream.writeObject(state);
 							break;
 						case DELETE:
-							System.out.println("Delete: " + inventar);
-							objectOutputStream.writeObject("Deleted: " + inventar);
+							state = inventarController.delete(inventar);
+							objectOutputStream.writeObject(state);
 							break;
 						default:
 							objectOutputStream.writeObject("Invalid command");
@@ -63,7 +67,7 @@ public class ClientHandler
 		}
 		catch (IOException | ClassNotFoundException error)
 		{
-			error.printStackTrace(System.err);
+			System.out.println("Client disconnected");
 		}
 	}
 }

@@ -1,6 +1,9 @@
 package usn.obj2100.service;
 
+import usn.obj2100.Command;
+
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Interface for services.
@@ -19,7 +22,7 @@ public interface IService<T>
 {
 	T get(int id);
 	List<T> getAll();
-	void create(T t);
-	void update(T t);
-	void delete(T t);
+	boolean create(T t);
+	boolean update(T t);
+	boolean delete(T t);
 }

@@ -1,5 +1,7 @@
 package usn.obj2100.model;
 
+import usn.obj2100.Type;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -90,6 +92,33 @@ public class Inventar
 		setKategori(kategori);
 		setPlassering(plassering);
 		setKassert(kassert);
+	}
+	
+	/* Utilities. */
+	
+	/**
+	 * toString method to stringify an Inventar object.
+	 *
+	 * @return A string representation of the object.
+	 */
+	@Override
+	public String toString()
+	{
+		return "Inventar{" + "sku=" + sku +
+			", beskrivelse=" + beskrivelse +
+			", innkjopsdato=" + innkjopsdato +
+			", innkjopspris=" + innkjopspris +
+			", antall=" + antall +
+			", forventetLevetid=" + forventetLevetid +
+			", kategori=" + kategori +
+			", plassering=" + plassering +
+			", kassert=" + kassert +
+			"}";
+	}
+	
+	public Type typeOf()
+	{
+		return Type.Inventar;
 	}
 	
 	/* Setters. */
