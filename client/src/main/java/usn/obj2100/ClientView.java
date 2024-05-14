@@ -1,5 +1,6 @@
 package usn.obj2100;
 
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
@@ -11,23 +12,22 @@ public class ClientView {
 	private BorderPane root;
 	private TabPane tabs;
 	private StackPane mainContent;
-	private DatabaseManager dbManager;
 
 	private InventarSearch inventarSearch;
 	private SearchBarView searchBarView;
+	private DatabaseManager dbManager;
 
 
-	public ClientView(BorderPane root) {
+	public ClientView(BorderPane root, DatabaseManager dbManager) {
 		this.root = root;
-		this.dbManager = new DatabaseManager();
-		this.inventarSearch = new InventarSearch(dbManager);
+		this.dbManager = dbManager;
 		this.tabs = new TabPane();
 		this.mainContent = new StackPane();
 
+		mainContent.setAlignment(Pos.TOP_LEFT);
 		initializeTabs();
 
 		this.mainContent.getChildren().add(tabs); //stackpane kan legge elementer oppå hverandre, searchbar er oppå tabs
-		this.searchBarView = new SearchBarView(mainContent, inventarSearch);
 
 		root.setCenter(mainContent);
 		root.getStylesheets().add("search.css");
@@ -110,7 +110,35 @@ public class ClientView {
 		return form;
 	}
 
+	public TabPane getTabs() {
+		return tabs;
+	}
+
+	public void setTab (int index) {
+		tabs.getSelectionModel().select(index);
+	}
+
+	public void setNewTabContent ( Node content) {
+		Tab tempTab = new Tab("Nytt Søk", content);
+		tabs.getTabs().add(tempTab);
+		setTab(tabs.getTabs().size()-1);
+	}
+
+	public void updateTabContent ( Node content) {
+		tabs.getSelectionModel().getSelectedItem().setContent(content);
+	}
 
 
+	public StackPane getMainContent() {
+		return mainContent;
+	}
+
+	public SearchBarView getSearchBarView() {
+		return searchBarView;
+	}
+
+	public void setSearchBarView(SearchBarView searchBarView) {
+		this.searchBarView = searchBarView;
+	}
 
 }
