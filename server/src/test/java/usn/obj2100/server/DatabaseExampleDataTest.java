@@ -7,6 +7,17 @@ import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A test class for the example data in the database.
+ * <p/>
+ * Note that this test does <i>not</i> remove the added example data.
+ * This is meant to be run once, for testing purposes, and not to be run again.
+ *
+ * @created 2024-04-14
+ * @see DatabaseConnectionManager
+ * @see DatabaseConnectionManagerTest
+ */
+@Tag("manual")
 @DisplayName("Eksempel data for databasen er")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DatabaseExampleDataTest
@@ -23,6 +34,7 @@ public class DatabaseExampleDataTest
 	@Test
 	@Order(1)
 	@DisplayName("opprettet.")
+	@Disabled("DatabaseExampleDataTest should only be run manually.")
 	public void createObject()
 	{
 		Connection connection = dcm.getConnection();
