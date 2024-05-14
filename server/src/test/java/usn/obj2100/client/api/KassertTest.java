@@ -88,7 +88,7 @@ public class KassertTest
 		
 		newKassert.setBegrunnelse(1);
 		
-		assertTrue((boolean) client.request(Command.UPDATE, newKassert), "Kassert kunne ikke opprettes.");
+		assertTrue((boolean) client.request(Command.UPDATE, newKassert), "Kassert kunne ikke oppdateres.");
 	}
 	
 	@Test
