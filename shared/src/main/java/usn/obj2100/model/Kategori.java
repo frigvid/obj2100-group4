@@ -40,6 +40,15 @@ public class Kategori
 	}
 	
 	/* Utilities. */
+	@Override
+	public String toString()
+	{
+		return "Kategori{" +
+			"id=" + id +
+			", type=" + type +
+			", kategori='" + kategori + '\'' +
+			'}';
+	}
 	
 	/* Setters. */
 	public void setId(int id)
