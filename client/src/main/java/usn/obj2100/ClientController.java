@@ -26,7 +26,7 @@ public class ClientController {
 	 */
 	ClientController(BorderPane root) {
 		this.dbManager = new DatabaseManager();
-		this.clientView = new ClientView(root, dbManager); // Her initialiserer vi Controller med BorderPane
+		this.clientView = new ClientView(root, dbManager, this); // Her initialiserer vi Controller med BorderPane
 		this.searchController = new SearchController(clientView);
 	}
 

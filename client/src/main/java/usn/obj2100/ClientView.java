@@ -18,15 +18,16 @@ public class ClientView {
 	private InventarSearch inventarSearch;
 	private SearchBarView searchBarView;
 	private DatabaseManager dbManager;
+	private ClientController clientController;
 
 
-	public ClientView( BorderPane root,DatabaseManager dbManager) {
+	public ClientView( BorderPane root,DatabaseManager dbManager, ClientController clientController) {
 
 		this.dbManager = dbManager;
 		this.tabs = new TabPane();
 		this.mainContent = new StackPane();
 		this.mainContent.setPickOnBounds(false);
-
+		this.clientController = clientController;
 		mainContent.setAlignment(Pos.TOP_LEFT);
 		initializeTabs();
 
@@ -138,13 +139,15 @@ public class ClientView {
 	}
 
 	public void setNewTabContent ( Node content) {
-		Tab tempTab = new Tab("Nytt Søk", content);
+
+		VBox searchResults = clientController.getSearchController().getSearchResultsView();
+		Tab tempTab = new Tab("Nytt Søk", searchResults);
 		tabs.getTabs().add(tempTab);
 		setTab(tabs.getTabs().size()-1);
 	}
 
 	public void updateTabContent ( Node content) {
-		tabs.getSelectionModel().getSelectedItem().setContent(content);
+		//tabs.getSelectionModel().getSelectedItem().setContent(content);
 	}
 
 

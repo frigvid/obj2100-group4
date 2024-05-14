@@ -10,9 +10,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         BorderPane root = new BorderPane();
 		  ClientController clientController = new ClientController(root);
-		 	Scene scene = new Scene(root, 800, 600);
-		 	primaryStage.setScene(scene);
-		 	primaryStage.setTitle("Inventarstyringssystem");
+		  Scene scene = new Scene(root, 800, 600);
+		  primaryStage.setScene(scene);
+		  primaryStage.setTitle("Inventarstyringssystem");
         primaryStage.show();
     }
 

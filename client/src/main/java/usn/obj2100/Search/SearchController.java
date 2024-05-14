@@ -1,6 +1,10 @@
 package usn.obj2100.Search;
 
+import javafx.scene.layout.VBox;
 import usn.obj2100.ClientView;
+import usn.obj2100.Inventar.Inventar;
+
+import java.util.Date;
 
 public class SearchController {
 
@@ -8,13 +12,37 @@ public class SearchController {
 	private SearchBarView searchView;
 	private ClientView clientView;
 	SearchHandlers searchHandlers;
+	private Inventar[] searchResults;
 
 	public SearchController( ClientView clientView ) {
 		this.search = new Search();
 		this.clientView = clientView;
 		this.searchView = new SearchBarView( this);
 		this.searchHandlers = new SearchHandlers(this);
+		initDummyData();
 	}
+
+	public void initDummyData() {
+		searchResults = new Inventar[8];
+		searchResults[0] = new Inventar("Stol", 1000, "2023-04-30" );
+		searchResults[1] = new Inventar("Bord", 2000, "2023-04-30" );
+		searchResults[2] = new Inventar("Sofa", 3000, "2023-04-30" );
+		searchResults[3] = new Inventar("Lampe", 4000, "2023-04-30" );
+		searchResults[4] = new Inventar("Bokhylle", 5000, "2023-04-30" );
+		searchResults[5] = new Inventar("TV", 6000, "2023-04-30") ;
+		searchResults[6] = new Inventar("Kaffemaskin", 7000,  "2023-04-30" );
+		searchResults[7] = new Inventar("Kjøleskap", 8000, "2023-04-30" );
+	}
+
+
+	public Inventar[] getSearchResults() {
+		return searchResults;
+	}
+
+	public VBox getSearchResultsView() {
+		return new SearchResultView(this);
+	}
+
 	public void search() {
 		// Søk i databasen via kall til server!
 	}

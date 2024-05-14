@@ -101,3 +101,48 @@
 	-fx-border-color: #ddd;
 	-fx-border-width: 0 0 1px 0;
 }
+
+/* Header row styling */
+.header-row {
+	-fx-font-weight: bold;
+	-fx-background-color: #f0f0f0;
+	-fx-padding: 10;
+	-fx-border-color: #ddd;
+	-fx-border-width: 1 0 1 0;
+}
+
+/* Data row styling */
+.data-row {
+	-fx-padding: 10;
+	-fx-border-color: #ddd;
+	-fx-border-width: 1 0 1 0;
+	-fx-background-color: #fff;
+	-fx-pref-width: 100%;
+}
+
+/* Label styling */
+.data-label {
+	-fx-font-size: 14px;
+	-fx-text-fill: #333;
+	-fx-padding: 5;
+	-fx-pref-width: 200; /* Adjust as necessary */
+}
+
+/* Button styling */
+.action-button {
+	-fx-padding: 5 10;
+	-fx-font-size: 14px;
+	-fx-background-color: #007bff;
+	-fx-text-fill: #fff;
+	-fx-border-radius: 5;
+}
+
+.action-button:hover {
+	-fx-background-color: #0056b3;
+}
+
+/* Button container styling */
+.button-container {
+	-fx-alignment: CENTER_RIGHT;
+	-fx-pref-width: 300; /* Adjust as necessary */
+}

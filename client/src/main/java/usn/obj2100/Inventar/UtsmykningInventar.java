@@ -5,12 +5,12 @@ import java.util.Date;
 public class UtsmykningInventar extends Inventar {
 	private Kategori kategori;
 
-	public UtsmykningInventar( String beskrivelse, double innkjøpsPris, Date innkjøpsDato, String plassering, Kategori kategori ) {
+	public UtsmykningInventar( String beskrivelse, double innkjøpsPris, String innkjøpsDato, String plassering, Kategori kategori ) {
 		super(beskrivelse, innkjøpsPris, innkjøpsDato, plassering);
 		this.kategori = kategori;
 	}
 
-	public UtsmykningInventar( String beskrivelse, double innkjøpsPris, Date innkjøpsDato, Kategori kategori  ) {
+	public UtsmykningInventar( String beskrivelse, double innkjøpsPris, String innkjøpsDato, Kategori kategori  ) {
 		super(beskrivelse, innkjøpsPris, innkjøpsDato);
 		this.kategori = kategori;
 	}
