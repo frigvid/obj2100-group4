@@ -77,4 +77,14 @@ public class ServerTest
 	{
 		client.disconnect();
 	}
+	
+	/**
+	 * Stop the server after all tests are done.
+	 */
+	@AfterAll
+	public static void stopServer()
+	{
+		System.out.println("Server stoppes.");
+		FakeClient.stopServer();
+	}
 }

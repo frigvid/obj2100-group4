@@ -24,19 +24,28 @@ import java.net.Socket;
  */
 public class FakeClient
 {
+	/**
+	 * A static reference to the server object.
+	 * <p/>
+	 * Note that this is meant to be used in "@AfterAll" JUnit tests,
+	 * to ensure the server is closed after a unit test.
+	 */
+	private static Server server;
+	
 	private Socket socket;
 	private DataInputStream fromServer;
 	private DataOutputStream toServer;
 	
 	/**
-	 * Constructs a new FakeClient object.
+	 * Constructs a new FakeClient object and
+	 * starts the server.
 	 *
 	 * @created 2024-02-14
 	 */
 	public FakeClient()
 	{
 		int port = Constants.PORT;
-		Server server = new Server();
+		server = new Server();
 		server.start();
 		
 		while (true)
@@ -107,7 +116,8 @@ public class FakeClient
 	}
 	
 	/**
-	 * Disconnects the client from the server.
+	 * Disconnects the client from the server, and
+	 * stops the server.
 	 *
 	 * @created 2024-02-14
 	 */
@@ -118,6 +128,23 @@ public class FakeClient
 			socket.close();
 		}
 		catch (IOException error)
+		{
+			error.printStackTrace(System.err);
+		}
+	}
+	
+	/**
+	 * Stops the server.
+	 *
+	 * @created 2024-02-14
+	 */
+	public static void stopServer()
+	{
+		try
+		{
+			server.stop();
+		}
+		catch (Exception error)
 		{
 			error.printStackTrace(System.err);
 		}
