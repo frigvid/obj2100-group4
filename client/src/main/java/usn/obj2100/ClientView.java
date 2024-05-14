@@ -20,7 +20,12 @@ public class ClientView {
 		this.tabs = new TabPane();
 		initializeTabs();
 		root.setCenter(tabs);
+
+		String css = getClass().getResource("/style.css").toExternalForm();
+		root.getStylesheets().add(css);
 	}
+
+
 
 	private void initializeTabs() {
 		tabs.getTabs().addAll(
