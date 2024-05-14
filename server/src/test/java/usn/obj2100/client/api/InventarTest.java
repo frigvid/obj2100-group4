@@ -22,7 +22,6 @@ public class InventarTest
 {
 	private FakeClient client;
 	private static Inventar newInventar;
-	private static final int SKU = 7839223;
 	
 	/**
 	 * Create a new Inventar object before all tests.
@@ -32,7 +31,6 @@ public class InventarTest
 	public static void preSetup()
 	{
 		newInventar = new Inventar(
-			SKU,
 			"KlientTest: Inventar objekt beskrivelse.",
 			LocalDateTime.now(),
 			100.0,
@@ -96,7 +94,7 @@ public class InventarTest
 		assertTrue(client.isConnected());
 		
 		Inventar fakeInventar = new Inventar(
-			SKU
+			(newInventar.getSKU())
 		);
 		
 		Inventar retrievedObject = (Inventar) client.request(Command.READ, fakeInventar);

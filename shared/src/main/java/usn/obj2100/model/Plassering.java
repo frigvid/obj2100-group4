@@ -40,7 +40,6 @@ public class Plassering
 		int rom
 	)
 	{
-		setId(this.getId());
 		setBygg(bygg);
 		setFloy(floy);
 		setEtasje(etasje);

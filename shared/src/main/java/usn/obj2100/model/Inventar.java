@@ -29,6 +29,39 @@ public class Inventar
 	/**
 	 * Constructor for Inventar elements.
 	 *
+	 * @param beskrivelse Description of the item.
+	 * @param innkjopsdato Date of purchase.
+	 * @param innkjopspris Purchase price.
+	 * @param antall Number of items.
+	 * @param forventetLevetid Expected lifetime of the item.
+	 * @param kategori Category.
+	 * @param plassering Location.
+	 * @param kassert Whether the item has been discarded.
+	 */
+	public Inventar
+	(
+		String beskrivelse,
+		LocalDateTime innkjopsdato,
+		double innkjopspris,
+		int antall,
+		int forventetLevetid,
+		int kategori,
+		int plassering,
+		int kassert
+	)
+	{
+		setBeskrivelse(beskrivelse);
+		setInnkjopsdato(innkjopsdato);
+		setInnkjopspris(innkjopspris);
+		setAntall(antall);
+		setForventetLevetid(forventetLevetid);
+		setKategori(kategori);
+		setPlassering(plassering);
+		setKassert(kassert);
+	}
+	/**
+	 * Constructor for Inventar elements.
+	 *
 	 * @param sku SKU/ID.
 	 * @param beskrivelse Description of the item.
 	 * @param innkjopsdato Date of purchase.
@@ -40,17 +73,17 @@ public class Inventar
 	 * @param kassert Whether the item has been discarded.
 	 */
 	public Inventar
-		(
-			int sku,
-			String beskrivelse,
-			LocalDateTime innkjopsdato,
-			double innkjopspris,
-			int antall,
-			int forventetLevetid,
-			int kategori,
-			int plassering,
-			int kassert
-		)
+	(
+		int sku,
+		String beskrivelse,
+		LocalDateTime innkjopsdato,
+		double innkjopspris,
+		int antall,
+		int forventetLevetid,
+		int kategori,
+		int plassering,
+		int kassert
+	)
 	{
 		setSKU(sku);
 		setBeskrivelse(beskrivelse);
