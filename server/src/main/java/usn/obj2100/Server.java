@@ -8,6 +8,30 @@ import java.net.Socket;
 import java.util.Date;
 
 // TODO: Implement encryption and decryption of data. It's business sensitive data.
+
+/**
+ *	This class represents the server, and is responsible for handling client connections.
+ *	<p/>
+ *	References used for developing this class:
+ *	<ul>
+ *	    <li><b>Introduction to Java Programming and Data Structures, Comprehensive Version, 12th Edition</b>, chapter 33 - Networking.</li>
+ *	</ul>
+ *	<b>Pattern:</b> Singleton.
+ *	<br/>
+ *	<b>Role:</b> Server.
+ *	<br/>
+ *	<b>Responsibility:</b> A single point of entry for client connections.
+ *	<p/>
+ *	Example usage:
+ *	{@snippet id="Server" lang="java" group="Server":
+ *		Server server = new Server();
+ *		server.start();
+ *	}
+ *
+ *	@since 0.1
+ *	@created 2024-02-14
+ * @see ClientHandler for how client connections are handled.
+ */
 public class Server
 {
 	private ServerSocket serverSocket;

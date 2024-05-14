@@ -3,17 +3,28 @@ package usn.obj2100;
 import org.junit.jupiter.api.*;
 import usn.obj2100.utils.FakeClient;
 
-import java.net.InetAddress;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * A test class for the server.
+ * <p/>
+ * This simply attempts a connection to the server, and
+ * attempts to send and receive a message.
+ *
+ * @created 2024-04-14
+ * @see Server
+ * @see FakeClient
+ */
 @DisplayName("En (falsk) klient prøver å")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ServerTest
 {
 	private FakeClient client;
 	
+	/**
+	 * Create a fake client before each test.
+	 */
 	@BeforeEach
 	public void setup()
 	{
@@ -27,6 +38,9 @@ public class ServerTest
 		}
 	}
 	
+	/**
+	 * Test the connection to the server.
+	 */
 	@Test
 	@Order(1)
 	@DisplayName("koble til serveren.")
@@ -38,6 +52,9 @@ public class ServerTest
 		assertTrue(client.isConnected());
 	}
 	
+	/**
+	 * Test sending and receiving a message to the server.
+	 */
 	@Test
 	@Order(2)
 	@DisplayName("sende en melding til serveren.")
@@ -52,6 +69,9 @@ public class ServerTest
 		assertEquals("Echo: " + message, receivedMessage);
 	}
 	
+	/**
+	 * Disconnect the client from the server after each test.
+	 */
 	@AfterEach
 	public void teardown()
 	{
