@@ -110,8 +110,6 @@ public class InventarTest
 		
 		newInventar.setBeskrivelse("KlientTest: Oppdatert inventar objekt beskrivelse.");
 		
-		System.out.println(newInventar.toString());
-		
 		assertTrue((boolean) client.request(Command.UPDATE, newInventar));
 	}
 	
