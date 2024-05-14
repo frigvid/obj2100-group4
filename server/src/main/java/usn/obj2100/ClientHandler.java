@@ -1,13 +1,7 @@
 package usn.obj2100;
 
-import usn.obj2100.controller.InventarController;
-import usn.obj2100.controller.KassertController;
-import usn.obj2100.controller.KategoriController;
-import usn.obj2100.controller.PlasseringController;
-import usn.obj2100.model.Inventar;
-import usn.obj2100.model.Kassert;
-import usn.obj2100.model.Kategori;
-import usn.obj2100.model.Plassering;
+import usn.obj2100.controller.*;
+import usn.obj2100.model.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -28,6 +22,7 @@ public class ClientHandler
 	private final InventarController inventarController;
 	private final PlasseringController plasseringController;
 	private final KategoriController kategoriController;
+	private final KategoriTypeController kategoriTypeController;
 	private final KassertController kassertController;
 	
 	/**
@@ -41,6 +36,7 @@ public class ClientHandler
 		this.inventarController = new InventarController();
 		this.plasseringController = new PlasseringController();
 		this.kategoriController = new KategoriController();
+		this.kategoriTypeController = new KategoriTypeController();
 		this.kassertController = new KassertController();
 	}
 	
@@ -145,6 +141,34 @@ public class ClientHandler
 							break;
 						case DELETE:
 							state = kategoriController.delete(kategori);
+							objectOutputStream.writeObject(state);
+							break;
+						default:
+							objectOutputStream.writeObject("Feil aksjon!");
+							break;
+					}
+				}
+				else if (object instanceof KategoriType kategoriType)
+				{
+					boolean state;
+					KategoriType retrievedKategoriType;
+					
+					switch (command)
+					{
+						case CREATE:
+							retrievedKategoriType = kategoriTypeController.create(kategoriType);
+							objectOutputStream.writeObject(retrievedKategoriType);
+							break;
+						case READ:
+							retrievedKategoriType = kategoriTypeController.read(kategoriType);
+							objectOutputStream.writeObject(retrievedKategoriType);
+							break;
+						case UPDATE:
+							state = kategoriTypeController.update(kategoriType);
+							objectOutputStream.writeObject(state);
+							break;
+						case DELETE:
+							state = kategoriTypeController.delete(kategoriType);
 							objectOutputStream.writeObject(state);
 							break;
 						default:
