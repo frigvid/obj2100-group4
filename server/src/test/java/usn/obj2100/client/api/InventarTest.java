@@ -8,6 +8,7 @@ import usn.obj2100.client.utils.FakeClient;
 import usn.obj2100.model.Inventar;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,8 +23,10 @@ public class InventarTest
 	@DisplayName("Delt oppsett for alle tester.")
 	public static void preSetup()
 	{
+		Random random = new Random();
+		
 		newInventar = new Inventar(
-			1,
+			random.nextInt(1000),
 			"KlientTest: Inventar objekt beskrivelse.",
 			LocalDateTime.now(),
 			100.0,
