@@ -104,15 +104,6 @@ public class KategoriService
 	{
 		try
 		{
-			//// TESTING
-			//PreparedStatement statement = connection.prepareStatement("INSERT INTO kategori (type, kategori) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
-			//statement.setInt(1, kategori.getType());
-			//statement.setString(2, kategori.getKategori());
-			//statement.executeUpdate();
-			//
-			//ResultSet resultSet = statement.getGeneratedKeys();
-			//System.out.println("Generated keys: " + resultSet);
-			
 			PreparedStatement statement = connection.prepareStatement("INSERT INTO kategori (type, kategori) VALUES (?, ?)");
 			statement.setInt(1, kategori.getType());
 			statement.setString(2, kategori.getKategori());
