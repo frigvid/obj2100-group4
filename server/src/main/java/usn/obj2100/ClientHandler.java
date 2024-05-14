@@ -24,6 +24,7 @@ public class ClientHandler
 	private final KategoriController kategoriController;
 	private final KategoriTypeController kategoriTypeController;
 	private final KassertController kassertController;
+	private final KassertTypeController kassertTypeController;
 	
 	/**
 	 * Create a new client handler.
@@ -38,6 +39,7 @@ public class ClientHandler
 		this.kategoriController = new KategoriController();
 		this.kategoriTypeController = new KategoriTypeController();
 		this.kassertController = new KassertController();
+		this.kassertTypeController = new KassertTypeController();
 	}
 	
 	/**
@@ -197,6 +199,34 @@ public class ClientHandler
 							break;
 						case DELETE:
 							state = kassertController.delete(kassert);
+							objectOutputStream.writeObject(state);
+							break;
+						default:
+							objectOutputStream.writeObject("Feil aksjon!");
+							break;
+					}
+				}
+				else if (object instanceof KassertType kassertType)
+				{
+					boolean state;
+					KassertType retrievedKassertType;
+					
+					switch (command)
+					{
+						case CREATE:
+							retrievedKassertType = kassertTypeController.create(kassertType);
+							objectOutputStream.writeObject(retrievedKassertType);
+							break;
+						case READ:
+							retrievedKassertType = kassertTypeController.read(kassertType);
+							objectOutputStream.writeObject(retrievedKassertType);
+							break;
+						case UPDATE:
+							state = kassertTypeController.update(kassertType);
+							objectOutputStream.writeObject(state);
+							break;
+						case DELETE:
+							state = kassertTypeController.delete(kassertType);
 							objectOutputStream.writeObject(state);
 							break;
 						default:
