@@ -1,7 +1,9 @@
 package usn.obj2100;
 
 import usn.obj2100.controller.InventarController;
+import usn.obj2100.controller.PlasseringController;
 import usn.obj2100.model.Inventar;
+import usn.obj2100.model.Plassering;
 
 import java.io.*;
 import java.net.Socket;
@@ -20,6 +22,7 @@ public class ClientHandler
 {
 	private final Socket socket;
 	private final InventarController inventarController;
+	private final PlasseringController plasseringController;
 	
 	/**
 	 * Create a new client handler.
@@ -30,6 +33,7 @@ public class ClientHandler
 	{
 		this.socket = socket;
 		this.inventarController = new InventarController();
+		this.plasseringController = new PlasseringController();
 	}
 	
 	/**
@@ -47,6 +51,11 @@ public class ClientHandler
 			Command command;
 			Object object;
 			
+			/* TODO: This is not really the prettiest of solutions. For a solution involving many more object types
+			 *			than this, it'll likely be rather unmaintainable. A better solution would be to extract this into
+			 *			a generic method or class, that handles objects in relation to their type or class.
+			 *			However, for the sake of ensuring we have something that works, this will suffice now.
+			 */
 			while ((command = (Command) objectInputStream.readObject()) != null)
 			{
 				object = objectInputStream.readObject();
@@ -74,7 +83,34 @@ public class ClientHandler
 							objectOutputStream.writeObject(state);
 							break;
 						default:
-							objectOutputStream.writeObject("Invalid command");
+							objectOutputStream.writeObject("Feil aksjon!");
+							break;
+					}
+				}
+				else if (object instanceof Plassering plassering)
+				{
+					boolean state;
+					
+					switch (command)
+					{
+						case CREATE:
+							state = plasseringController.create(plassering);
+							objectOutputStream.writeObject(state);
+							break;
+						case READ:
+							Plassering retrievedPlassering = plasseringController.read(plassering);
+							objectOutputStream.writeObject(retrievedPlassering);
+							break;
+						case UPDATE:
+							state = plasseringController.update(plassering);
+							objectOutputStream.writeObject(state);
+							break;
+						case DELETE:
+							state = plasseringController.delete(plassering);
+							objectOutputStream.writeObject(state);
+							break;
+						default:
+							objectOutputStream.writeObject("Feil aksjon!");
 							break;
 					}
 				}
