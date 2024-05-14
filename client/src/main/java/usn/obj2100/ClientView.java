@@ -105,14 +105,15 @@ public class ClientView {
 				int quantity = Integer.parseInt(quantityField.getText());
 				Integer lifespan = "Møbler".equals(typeComboBox.getValue()) ? Integer.parseInt(lifespanField.getText()) : null;
 				String description = descriptionField.getText();
+				categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
+
+				purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
+
 				InventarElement newElement = new InventarElement(
 					typeComboBox.getValue(),
 					categoryComboBox.getValue(),
 					description,
-		categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
-		DatePicker purchaseDatePicker = new DatePicker();
-		purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
-		TextField locationField = new TextField();
+
 					purchaseDate.toString(),
 					price,
 					locationField.getText(),
