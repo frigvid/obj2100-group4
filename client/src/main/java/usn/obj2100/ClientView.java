@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import usn.obj2100.Search.SearchBarView;
 
 public class ClientView {
-	private BorderPane root;
+
 	private TabPane tabs;
 	private StackPane mainContent;
 
@@ -20,24 +20,22 @@ public class ClientView {
 	private DatabaseManager dbManager;
 
 
-	public ClientView(BorderPane root, DatabaseManager dbManager) {
-		this.root = root;
+	public ClientView( BorderPane root,DatabaseManager dbManager) {
+
 		this.dbManager = dbManager;
 		this.tabs = new TabPane();
 		this.mainContent = new StackPane();
+		this.mainContent.setPickOnBounds(false);
 
 		mainContent.setAlignment(Pos.TOP_LEFT);
 		initializeTabs();
-		root.setCenter(tabs);
 
 		String css = getClass().getResource("/style.css").toExternalForm();
+		mainContent.getStylesheets().addAll("search.css");
 
-
-
-		this.mainContent.getChildren().add(tabs); //stackpane kan legge elementer oppå hverandre, searchbar er oppå tabs
-
-		root.setCenter(mainContent);
-		root.getStylesheets().add("search.css");
+		root.setCenter(tabs);
+		root.getStylesheets().add(css);
+		root.setBottom(mainContent);
 	}
 
 	private void initializeTabs() {

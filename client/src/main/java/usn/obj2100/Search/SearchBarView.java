@@ -58,6 +58,7 @@ public class SearchBarView  {
 		dropShadow.setOffsetX(3.0);
 		dropShadow.setOffsetY(3.0);
 		dropShadow.setRadius(5.0);
+
 		this.mainContent.getChildren().add(searchToggle);
 	}
 

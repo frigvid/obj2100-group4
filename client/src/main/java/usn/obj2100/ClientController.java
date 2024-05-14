@@ -11,7 +11,7 @@ import usn.obj2100.Search.SearchController;
  * @return void
  */
 public class ClientController {
-	private BorderPane root;
+
 	private ClientView clientView;
 	private SearchBarView searchBarView;
 	private InventarSearch inventarSearch;
@@ -20,19 +20,20 @@ public class ClientController {
 
 	/**
 	 * Konstruktør for ClientController
-	 * @param root
+
 	 * @return void
 	 * @autor Borgar Flaen Stensrud
 	 */
-	ClientController( BorderPane root ) {
-		this.root = root;
+	ClientController(BorderPane root) {
 		this.dbManager = new DatabaseManager();
 		this.clientView = new ClientView(root, dbManager); // Her initialiserer vi Controller med BorderPane
 		this.searchController = new SearchController(clientView);
 	}
 
 
-
+	public ClientView getClientView() {
+		return clientView;
+	}
 
 	public SearchController getSearchController() {
 		return searchController;
