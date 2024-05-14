@@ -1,10 +1,12 @@
 package usn.obj2100.utils;
 
+import usn.obj2100.Constants;
 import usn.obj2100.Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 
 /**
@@ -18,18 +20,26 @@ public class FakeClient
 	private DataInputStream fromServer;
 	private DataOutputStream toServer;
 	
-	public FakeClient(String host, int port)
+	public FakeClient()
 	{
-		try
+		int port = Constants.PORT;
+		Server server = new Server();
+		server.start();
+		
+		while (true)
 		{
-			Server.main(new String[]{});
-			socket = new Socket(host, port);
-			fromServer = new DataInputStream(socket.getInputStream());
-			toServer = new DataOutputStream(socket.getOutputStream());
-		}
-		catch (IOException error)
-		{
-			error.printStackTrace(System.err);
+			try
+			{
+				socket = new Socket(InetAddress.getLocalHost().getHostAddress(), port);
+				fromServer = new DataInputStream(socket.getInputStream());
+				toServer = new DataOutputStream(socket.getOutputStream());
+				
+				break;
+			}
+			catch (IOException error)
+			{
+				error.printStackTrace(System.err);
+			}
 		}
 	}
 	

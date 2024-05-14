@@ -3,7 +3,7 @@ package usn.obj2100;
 import org.junit.jupiter.api.*;
 import usn.obj2100.utils.FakeClient;
 
-import java.io.IOException;
+import java.net.InetAddress;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ServerTest
 {
-	private Server server;
 	private FakeClient client;
 	
 	@BeforeEach
@@ -20,7 +19,7 @@ public class ServerTest
 	{
 		try
 		{
-			client = new FakeClient("127.0.0.1", 17244);
+			client = new FakeClient();
 		}
 		catch (Exception error)
 		{
@@ -33,6 +32,8 @@ public class ServerTest
 	@DisplayName("koble til serveren.")
 	public void testConnection()
 	{
+		System.out.println("Is client connected? " + client.isConnected());
+		
 		// The client should be connected
 		assertTrue(client.isConnected());
 	}
@@ -48,7 +49,7 @@ public class ServerTest
 		
 		/* The client should receive the message. */
 		String receivedMessage = client.receiveMessage();
-		assertEquals("Echo: ", message, receivedMessage);
+		assertEquals("Echo: " + message, receivedMessage);
 	}
 	
 	@AfterEach
