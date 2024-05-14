@@ -88,6 +88,7 @@ public class DatabaseConnectionManager
 			try
 			{
 				System.out.println("Is it necessary to create a new database file? " + db.createNewFile());
+				System.out.println("Created a new database file at: " + DB_PATH);
 				Connection connection = DriverManager.getConnection(DB_URL);
 				initializeDatabase(connection);
 				connection.close();
@@ -103,15 +104,19 @@ public class DatabaseConnectionManager
 	{
 		try
 		{
+			System.out.println("Initializing the database...");
+			
 			String[] createTableStatements =
-			{
-				"CREATE TABLE IF NOT EXISTS plassering (id INTEGER PRIMARY KEY, bygg TEXT NOT NULL, floy INTEGER NOT NULL, etasje INTEGER, rom INTEGER)",
-				"CREATE TABLE IF NOT EXISTS inventar (sku INTEGER PRIMARY KEY, beskrivelse TEXT, innkjopsdato DATETIME, innkjopspris REAL, antall INTEGER, forventetLevetid SMALLINT, kategori INTEGER, plassering INTEGER, kassert INTEGER)",
-				"CREATE TABLE IF NOT EXISTS kassert (id INTEGER PRIMARY KEY, dato DATE, tid TIMESTAMP, begrunnelse INTEGER)",
-				"CREATE TABLE IF NOT EXISTS kassertType (id INTEGER PRIMARY KEY, begrunnelse TEXT)",
-				"CREATE TABLE IF NOT EXISTS kategori (id INTEGER PRIMARY KEY, type INTEGER NOT NULL, kategori TEXT)",
-				"CREATE TABLE IF NOT EXISTS kategoriType (id INTEGER PRIMARY KEY, type TEXT)"
-			};
+				{
+					"CREATE TABLE IF NOT EXISTS plassering (id INTEGER PRIMARY KEY, bygg TEXT NOT NULL, floy INTEGER NOT NULL, etasje INTEGER, rom INTEGER)",
+					"CREATE TABLE IF NOT EXISTS inventar (sku INTEGER PRIMARY KEY, beskrivelse TEXT, innkjopsdato DATETIME, innkjopspris REAL, antall INTEGER, forventetLevetid SMALLINT, kategori INTEGER, plassering INTEGER, kassert INTEGER, FOREIGN KEY(kategori) REFERENCES kategori(id), FOREIGN KEY(plassering) REFERENCES plassering(id), FOREIGN KEY(kassert) REFERENCES kassert(id))",
+					"CREATE TABLE IF NOT EXISTS kassert (id INTEGER PRIMARY KEY, dato DATE, tid TIMESTAMP, begrunnelse INTEGER, FOREIGN KEY(begrunnelse) REFERENCES kassertType(id))",
+					"CREATE TABLE IF NOT EXISTS kassertType (id INTEGER PRIMARY KEY, begrunnelse TEXT)",
+					"CREATE TABLE IF NOT EXISTS kategori (id INTEGER PRIMARY KEY, type INTEGER NOT NULL, kategori TEXT, FOREIGN KEY(type) REFERENCES kategoriType(id))",
+					"CREATE TABLE IF NOT EXISTS kategoriType (id INTEGER PRIMARY KEY, type TEXT)",
+					"CREATE INDEX IF NOT EXISTS idx_kategori ON kategori(id, type)",
+					"CREATE INDEX IF NOT EXISTS idx_kategori_name ON kategori(kategori)"
+				};
 			
 			for (String statement: createTableStatements)
 			{
