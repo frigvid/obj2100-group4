@@ -13,7 +13,7 @@ import java.net.Socket;
  * The result is then sent back to the client.
  *
  * @version 0.1
- * @created 2024-04-13
+ * @created 2024-05-13
  */
 public class ClientHandler
 	extends Thread

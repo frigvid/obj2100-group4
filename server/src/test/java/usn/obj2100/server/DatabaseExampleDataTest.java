@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Note that this test does <i>not</i> remove the added example data.
  * This is meant to be run once, for testing purposes, and not to be run again.
  *
- * @created 2024-04-14
+ * @created 2024-05-14
  * @see DatabaseConnectionManager
  * @see DatabaseConnectionManagerTest
  */
