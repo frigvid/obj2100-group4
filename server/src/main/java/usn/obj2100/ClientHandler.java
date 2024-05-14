@@ -1,8 +1,10 @@
 package usn.obj2100;
 
 import usn.obj2100.controller.InventarController;
+import usn.obj2100.controller.KategoriController;
 import usn.obj2100.controller.PlasseringController;
 import usn.obj2100.model.Inventar;
+import usn.obj2100.model.Kategori;
 import usn.obj2100.model.Plassering;
 
 import java.io.*;
@@ -23,6 +25,7 @@ public class ClientHandler
 	private final Socket socket;
 	private final InventarController inventarController;
 	private final PlasseringController plasseringController;
+	private final KategoriController kategoriController;
 	
 	/**
 	 * Create a new client handler.
@@ -34,6 +37,7 @@ public class ClientHandler
 		this.socket = socket;
 		this.inventarController = new InventarController();
 		this.plasseringController = new PlasseringController();
+		this.kategoriController = new KategoriController();
 	}
 	
 	/**
@@ -109,6 +113,34 @@ public class ClientHandler
 							break;
 						case DELETE:
 							state = plasseringController.delete(plassering);
+							objectOutputStream.writeObject(state);
+							break;
+						default:
+							objectOutputStream.writeObject("Feil aksjon!");
+							break;
+					}
+				}
+				else if (object instanceof Kategori kategori)
+				{
+					boolean state;
+					Kategori retrievedKategori;
+					
+					switch (command)
+					{
+						case CREATE:
+							retrievedKategori = kategoriController.create(kategori);
+							objectOutputStream.writeObject(retrievedKategori);
+							break;
+						case READ:
+							retrievedKategori = kategoriController.read(kategori);
+							objectOutputStream.writeObject(retrievedKategori);
+							break;
+						case UPDATE:
+							state = kategoriController.update(kategori);
+							objectOutputStream.writeObject(state);
+							break;
+						case DELETE:
+							state = kategoriController.delete(kategori);
 							objectOutputStream.writeObject(state);
 							break;
 						default:
