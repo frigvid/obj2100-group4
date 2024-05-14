@@ -141,7 +141,6 @@ public class InventarService
 	@Override
 	public boolean create(Inventar inventar)
 	{
-		// FIXME: Use the PreparedStatement instead of stringifying the entire thing. Much more practical.
 		try
 		{
 			PreparedStatement statement = connection.prepareStatement("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (?,?,?,?,?,?,?,?,?)");
