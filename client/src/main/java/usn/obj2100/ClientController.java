@@ -6,7 +6,6 @@ import usn.obj2100.Search.SearchController;
 
 /**
  * ClientController er en klasse som fungerer som kontroller for klient, den kaller på andre kontrollere og den initierer views med handlers
- * @autor Borgar Flaen Stensrud
 
  * @return void
  */
@@ -22,7 +21,6 @@ public class ClientController {
 	 * Konstruktør for ClientController
 
 	 * @return void
-	 * @autor Borgar Flaen Stensrud
 	 */
 	ClientController(BorderPane root) {
 		this.dbManager = new DatabaseManager();
