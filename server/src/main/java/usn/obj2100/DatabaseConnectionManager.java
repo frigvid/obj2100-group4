@@ -26,6 +26,9 @@ import java.sql.Statement;
  */
 public class DatabaseConnectionManager
 {
+	/* "user.dir" corresponds to IntelliJ's $PROJECT_DIR$ variable. */
+	private final String DB_PATH = System.getProperty("user.dir") + "/database.sqlite";
+	private final String DB_URL = "jdbc:sqlite:" + DB_PATH;
 	private static DatabaseConnectionManager instance;
 	
 	private DatabaseConnectionManager() {}
@@ -61,7 +64,7 @@ public class DatabaseConnectionManager
 		try
 		{
 			createIfNotExists();
-			return DriverManager.getConnection(Constants.DB_URL);
+			return DriverManager.getConnection(DB_URL);
 		}
 		catch (SQLException error)
 		{
@@ -78,14 +81,14 @@ public class DatabaseConnectionManager
 	 */
 	private void createIfNotExists()
 	{
-		File db = new File(Constants.DB_PATH);
+		File db = new File(DB_PATH);
 		
 		if (!db.exists())
 		{
 			try
 			{
 				System.out.println("Is it necessary to create a new database file? " + db.createNewFile());
-				Connection connection = DriverManager.getConnection(Constants.DB_URL);
+				Connection connection = DriverManager.getConnection(DB_URL);
 				initializeDatabase(connection);
 				connection.close();
 			}
