@@ -5,6 +5,6 @@ module client {
 	requires org.controlsfx.controls;
 	requires shared;
 	
-	opens usn.obj2100.client to javafx.fxml;
+	opens usn.obj2100.client to javafx.fxml, javafx.graphics;
 	exports usn.obj2100.client;
 }
