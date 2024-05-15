@@ -7,18 +7,18 @@ public class Inventar {
 	private int inventarId;
 	private String beskrivelse;
 	private double innkjøpsPris;
-	private Date innkjøpsDato;
+	private String innkjøpsDato;
 	private String plassering;
 
 
-	public Inventar(String beskrivelse, double innkjøpsPris, Date innkjøpsDato, String plassering) {
+	public Inventar(String beskrivelse, double innkjøpsPris, String innkjøpsDato, String plassering) {
 		this.beskrivelse = beskrivelse;
 		this.innkjøpsPris = innkjøpsPris;
 		this.innkjøpsDato = innkjøpsDato;
 		this.plassering = plassering;
 	}
 
-	public Inventar( String beskrivelse, double innkjøpsPris, Date innkjøpsDato) {
+	public Inventar( String beskrivelse, double innkjøpsPris, String innkjøpsDato) {
 
 		this.beskrivelse = beskrivelse;
 		this.innkjøpsPris = innkjøpsPris;
@@ -62,11 +62,11 @@ public class Inventar {
 		this.innkjøpsPris = innkjøpsPris;
 	}
 
-	public Date getInnkjøpsDato() {
+	public String getInnkjøpsDato() {
 		return innkjøpsDato;
 	}
 
-	public void setInnkjøpsDato( Date innkjøpsDato ) {
+	public void setInnkjøpsDato( String innkjøpsDato ) {
 		this.innkjøpsDato = innkjøpsDato;
 	}
 

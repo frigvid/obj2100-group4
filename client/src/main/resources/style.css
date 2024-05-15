@@ -1,0 +1,148 @@
+/* Style for the entire application */
+.root {
+	-fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	-fx-background-color: #f0f0f5;
+	-fx-padding: 20px;
+}
+
+/* Tab styling */
+.tab-pane {
+	-fx-tab-min-width: 120px;
+	-fx-tab-max-width: 200px;
+	-fx-tab-close-button-visible: false;
+	-fx-background-color: #fff;
+	-fx-border-color: #ddd;
+}
+
+.tab {
+	-fx-background-color: #fff;
+	-fx-border-color: #ddd;
+}
+
+.tab:selected {
+	-fx-background-color: #0078d7;
+	-fx-text-fill: white;
+}
+
+.tab-label {
+	-fx-font-weight: bold;
+}
+
+/* Form styling */
+.vbox {
+	-fx-spacing: 10px;
+	-fx-padding: 20px;
+	-fx-background-color: #fff;
+	-fx-background-radius: 10px;
+	-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.5, 0, 0);
+}
+
+/* Grid styling */
+.grid-pane {
+	-fx-hgap: 10px;
+	-fx-vgap: 10px;
+}
+
+/* Label styling */
+.label {
+	-fx-font-size: 14px;
+	-fx-text-fill: #333;
+}
+
+/* ComboBox and TextField styling */
+.combo-box, .text-field, .date-picker {
+	-fx-pref-width: 200px;
+	-fx-background-color: #f9f9f9;
+	-fx-border-color: #ccc;
+	-fx-border-radius: 5px;
+	-fx-padding: 5px;
+}
+
+.combo-box:focused, .text-field:focused, .date-picker:focused {
+	-fx-border-color: #0078d7;
+}
+
+/* TextArea styling */
+.text-area {
+	-fx-background-color: #f9f9f9;
+	-fx-border-color: #ccc;
+	-fx-border-radius: 5px;
+	-fx-padding: 5px;
+}
+
+/* Button styling */
+.button {
+	-fx-background-color: #0078d7;
+	-fx-text-fill: white;
+	-fx-padding: 10px 20px;
+	-fx-background-radius: 5px;
+	-fx-cursor: hand;
+	-fx-font-weight: bold;
+}
+
+.button:hover {
+	-fx-background-color: #005a9e;
+}
+
+.button:pressed {
+	-fx-background-color: #003b6f;
+}
+
+/* ListView styling */
+.list-view {
+	-fx-background-color: #fff;
+	-fx-border-color: #ccc;
+	-fx-border-radius: 5px;
+	-fx-padding: 5px;
+}
+
+.list-cell {
+	-fx-padding: 10px;
+	-fx-border-color: #ddd;
+	-fx-border-width: 0 0 1px 0;
+}
+
+/* Header row styling */
+.header-row {
+	-fx-font-weight: bold;
+	-fx-background-color: #f0f0f0;
+	-fx-padding: 10;
+	-fx-border-color: #ddd;
+	-fx-border-width: 1 0 1 0;
+}
+
+/* Data row styling */
+.data-row {
+	-fx-padding: 10;
+	-fx-border-color: #ddd;
+	-fx-border-width: 1 0 1 0;
+	-fx-background-color: #fff;
+	-fx-pref-width: 100%;
+}
+
+/* Label styling */
+.data-label {
+	-fx-font-size: 14px;
+	-fx-text-fill: #333;
+	-fx-padding: 5;
+	-fx-pref-width: 200; /* Adjust as necessary */
+}
+
+/* Button styling */
+.action-button {
+	-fx-padding: 5 10;
+	-fx-font-size: 14px;
+	-fx-background-color: #007bff;
+	-fx-text-fill: #fff;
+	-fx-border-radius: 5;
+}
+
+.action-button:hover {
+	-fx-background-color: #0056b3;
+}
+
+/* Button container styling */
+.button-container {
+	-fx-alignment: CENTER_RIGHT;
+	-fx-pref-width: 300; /* Adjust as necessary */
+}

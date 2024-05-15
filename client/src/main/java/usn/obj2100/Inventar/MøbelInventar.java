@@ -6,13 +6,13 @@ public class MøbelInventar extends Inventar{
 	private Kategori kategori;
 	private int forventetLevetid;
 
-	public MøbelInventar( String beskrivelse, double innkjøpsPris, Date innkjøpsDato, String plassering, Kategori kategori, int forventetLevetid ) {
+	public MøbelInventar( String beskrivelse, double innkjøpsPris, String innkjøpsDato, String plassering, Kategori kategori, int forventetLevetid ) {
 		super(beskrivelse, innkjøpsPris, innkjøpsDato, plassering);
 		this.kategori = kategori;
 		this.forventetLevetid = forventetLevetid;
 	}
 
-	public MøbelInventar( String beskrivelse, double innkjøpsPris, Date innkjøpsDato, Kategori kategori, int forventetLevetid  ) {
+	public MøbelInventar( String beskrivelse, double innkjøpsPris, String innkjøpsDato, Kategori kategori, int forventetLevetid  ) {
 		super(beskrivelse, innkjøpsPris, innkjøpsDato);
 		this.kategori = kategori;
 		this.forventetLevetid = forventetLevetid;
