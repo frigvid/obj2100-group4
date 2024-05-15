@@ -10,6 +10,12 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
+// TODO: Make sure tests delete the <root>/server/database.sqlite file for TESTS.
+//			JetBrains, in their infinite wisdom, decided to make tests relative to the
+//			module by default. Which means a multi-module project like this, where you
+//			cannot EXPLICITLY tell it that "this" and "this" test are ONLY relevant to
+//			module, you cannot properly test cross-module functionality without some
+//			. . . major headaches, let's say.
 /**
  * This is a utility class for unit testing, and functions as a "fake" client.
  * Fake in the sense that it simulates a client, since the actual client is a GUI program,
@@ -124,6 +130,12 @@ public class FakeClient
 		return null;
 	}
 	
+	/**
+	 * Overloaded metode ment for å hente alle objekter av en gitt type.
+	 *
+	 * @param type Typen objekt som skal hentes.
+	 * @return Returnerer en liste med objekter av en gitt type.
+	 */
 	public Object request(Type type)
 	{
 		try
