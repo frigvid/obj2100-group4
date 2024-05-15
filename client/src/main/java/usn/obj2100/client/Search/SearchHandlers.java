@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.RangeSlider;
 import usn.obj2100.client.ClientView;
 
@@ -26,11 +27,11 @@ public class SearchHandlers {
 		searchBarView.getSearchToggleButton().setOnAction(event -> {
 			HBox advancedSearchForm = searchBarView.getSearchForm();
 
-			if (!clientView.getMainContent().getChildren().contains(searchBarView.getSearchForm())) {
+			if (!clientView.getFooter().getChildren().contains(searchBarView.getSearchForm())) {
 
-				clientView.getMainContent().getChildren().add(searchBarView.getSearchForm());
+				clientView.getFooter().getChildren().add(searchBarView.getSearchForm());
 				searchBarView.animateSearchForm(advancedSearchForm, true);
-				clientView.getMainContent().getChildren().remove(searchBarView.getSearchToggle());
+				clientView.getFooter().getChildren().remove(searchBarView.getSearchToggle());
 
 
 				searchBarView.getSearchField().textProperty().addListener(new ChangeListener<String>() {
@@ -54,18 +55,18 @@ public class SearchHandlers {
 				});
 
 
-				clientView.getMainContent().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+				clientView.getFooter().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
 
 					if (advancedSearchForm != null && !advancedSearchForm.contains(e.getX(), e.getY())) {
 						searchBarView.animateSearchForm(advancedSearchForm, false);
-						clientView.getMainContent().getChildren().remove(advancedSearchForm);
-						clientView.getMainContent().getChildren().add(searchBarView.getSearchToggle());
+						clientView.getFooter().getChildren().remove(advancedSearchForm);
+						clientView.getFooter().getChildren().add(searchBarView.getSearchToggle());
 					}
 
 				});
 			} else {
 				searchBarView.animateSearchForm(searchBarView.getSearchForm(), false);
-				clientView.getMainContent().getChildren().add(searchBarView.getSearchToggle());
+				clientView.getFooter().getChildren().add(searchBarView.getSearchToggle());
 			}
 		});
 
@@ -73,11 +74,11 @@ public class SearchHandlers {
 			HBox advancedSearchForm = searchBarView.buildAdvancedSearchForm();
 			advancedSearchForm.setAlignment(Pos.TOP_LEFT);
 
-			if (!clientView.getMainContent().getChildren().contains(advancedSearchForm)) {
-				clientView.getMainContent().getChildren().add(advancedSearchForm);
+			if (!clientView.getRoot().getChildren().contains(advancedSearchForm)) {
+				clientView.getRoot().setLeft(advancedSearchForm);
 				searchBarView.animateDrawer(advancedSearchForm, true);
-				clientView.getMainContent().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
-					if (advancedSearchForm != null && !advancedSearchForm.contains(e.getX(), e.getY())) {
+				clientView.getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+					if (!advancedSearchForm.contains(e.getX(), e.getY())) {
 						searchBarView.animateDrawer(advancedSearchForm, false);
 					}
 				});
@@ -85,6 +86,20 @@ public class SearchHandlers {
 				searchBarView.animateDrawer(advancedSearchForm, false);
 			}
 		});
+
+		searchBarView.getSearchBarHelpButton().setOnAction(event -> {
+			VBox helper = searchBarView.getMc().getSearchController().getHelper();
+			helper.setAlignment(Pos.TOP_LEFT);
+				clientView.getRoot().setRight(helper);
+				searchBarView.animateDrawerRight(helper, true);
+				clientView.getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+					if (!helper.contains(e.getX(), e.getY())) {
+						searchBarView.animateDrawerRight(helper, false);
+						clientView.getRoot().setRight(null);
+					}
+				});
+			});
+
 
 		searchBarView.getSearchButton().setOnAction(event -> {
 

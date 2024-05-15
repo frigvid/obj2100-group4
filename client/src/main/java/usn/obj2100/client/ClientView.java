@@ -19,36 +19,38 @@ import usn.obj2100.shared.model.Inventar;
 
 public class ClientView {
 
+	private BorderPane root; //Bunnnivå root
 	private TabPane tabs;
-	private StackPane mainContent;
+	private StackPane footer;
 	private SearchBarView searchBarView;
 	private ClientController clientController;
 	private NewInventarView newInventarView;
 	private StartView startView;
 
 	public ClientView(BorderPane root, ClientController clientController) {
+		this.root = root;
 		this.tabs = new TabPane();
-		this.mainContent = new StackPane();
-		this.mainContent.setPickOnBounds(false);
+		this.footer = new StackPane();
+		this.footer.setPickOnBounds(false);
 		this.clientController = clientController;
 		this.newInventarView = new NewInventarView(clientController);
 		this.startView = new StartView(clientController);
-		mainContent.setAlignment(Pos.TOP_LEFT);
+		footer.setAlignment(Pos.TOP_LEFT);
 		initializeTabs();
 
-		String css = getClass().getResource("/style.css").toExternalForm();
-		mainContent.getStylesheets().addAll("search.css");
+
+		footer.getStylesheets().addAll("search.css");
 		root.setTop(generateMainMenu());
 		root.setCenter(tabs);
-		root.getStylesheets().add(css);
-		root.setBottom(mainContent); //TODO mainContent skal døpes til footer
+		root.getStylesheets().add("style.css");
+		root.setBottom(footer); //TODO mainContent skal døpes til footer
 	}
 
 	private void initializeTabs() {
 		HBox startViewContainer = new HBox();
 		startViewContainer.getChildren().add(startView);
 		startViewContainer.setAlignment(Pos.CENTER);
-		HBox.setHgrow(startView, Priority.ALWAYS);
+
 		tabs.getTabs().addAll(
 			new Tab("Velkommen", startViewContainer)
 		);
@@ -152,8 +154,8 @@ public class ClientView {
 	}
 
 
-	public StackPane getMainContent() {
-		return mainContent;
+	public StackPane getFooter() {
+		return footer;
 	}
 
 	public SearchBarView getSearchBarView() {
@@ -165,6 +167,10 @@ public class ClientView {
 	public void setSearchBarView(SearchBarView searchBarView) {
 		this.searchBarView = searchBarView;
 	}
-	
+
+
+	public BorderPane getRoot(){
+		return root;
+	}
 	
 }

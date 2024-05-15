@@ -9,13 +9,12 @@
 	-fx-background-radius: 15px 0 0 15px;
 	-fx-background-color: #fff; /* Lys bakgrun */
 	-fx-border-color: transparent; /* Hjemme border */
-	-fx-padding: 10px 30px 10px 40px; /* Padding for kanpp inne i tekstfeldt */
+	-fx-padding: 10px 40px 10px 60px; /* Padding for kanpp inne i tekstfeldt */
 }
 
 
 
 .search-box .search-button {
-	-fx-background-radius: 15px;
 	-fx-min-width: 40px;
 	-fx-max-width: 40px;
 	-fx-min-height: 45px;
@@ -24,7 +23,7 @@
 	-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #4D4D4D, #333333);
 	-fx-text-fill: #fff; /* Hvit tekst */
 	-fx-background-radius: 0 15px 15px 0; /* Runde hjørner på venstre side */
-
+	-fx-padding: 5;
 }
 
 .search-box-toggle{
@@ -84,4 +83,10 @@
 
 .search-box .help-icon:hover {
 	-fx-opacity: 1.0; /* Gjør ikonet helt opakt når du holder musen over det */
+}
+
+.search-box .transparent-button {
+	background-color: white;
+	border: none;
+	padding: 0;
 }

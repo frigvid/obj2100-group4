@@ -14,13 +14,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import org.controlsfx.control.RangeSlider;
+import usn.obj2100.client.ClientController;
 
 
 import java.util.ArrayList;
 
 public class SearchBarView  {
 
-	private StackPane mainContent;
+	private StackPane footer;
 	private DropShadow dropShadow;
 	private HBox searchForm = buildSearchForm();
 	private HBox searchToggle = searchFormToggle();
@@ -28,6 +29,7 @@ public class SearchBarView  {
 	private Button searchToggleButton;
 	private Button searchOptions;
 	private Button searchButton;
+	private Button searchBarHelpButton;
 
 	private TextField searchField;
 
@@ -36,10 +38,12 @@ public class SearchBarView  {
 	private ArrayList<SearchField<ComboBox<String>>> advancedFieldsComboBoxString;
 	private ArrayList<SearchField<ComboBox<Integer>>> advancedFieldsComboBoxInt;
 
+	private ClientController mc;
 	private SearchHandlers searchHandlers;
 
-	public SearchBarView(SearchController searchController) {
-		this.mainContent = searchController.getClientView().getMainContent();
+	public SearchBarView(ClientController mc) {
+		this.mc = mc;
+		this.footer = mc.getClientView().getFooter();
 		this.dropShadow = new DropShadow();
 		this.advancedFieldsText = new ArrayList<>();
 		this.advancedFieldsRange = new ArrayList<>();
@@ -54,7 +58,7 @@ public class SearchBarView  {
 		dropShadow.setOffsetY(3.0);
 		dropShadow.setRadius(5.0);
 
-		this.mainContent.getChildren().add(searchToggle);
+		this.footer.getChildren().add(searchToggle);
 	}
 
 	private HBox searchFormToggle(){
@@ -91,11 +95,12 @@ public class SearchBarView  {
 
 		searchField = new TextField();
 		searchField.getStyleClass().add("text-field-main-search");
-		searchField.setPrefWidth(400);
+		searchField.setPrefWidth(500);
+		searchField.setMinWidth(400);
 		searchField.setPrefHeight(46);
 		searchField.setPromptText("Søk etter inventar...");
 
-		searchButton = new Button("Søk");
+		searchButton = new Button();
 		searchOptions = new Button("Avansert søk");
 
 		searchOptions.getStyleClass().add("search-options");
@@ -106,9 +111,6 @@ public class SearchBarView  {
 		imageView.setFitWidth(20);  // bredden på bildet
 		imageView.setFitHeight(20); // høyden på bildet
 
-
-
-
 		searchButton.setGraphic(imageView);
 		searchButton.getStyleClass().add("search-button");
 
@@ -116,13 +118,19 @@ public class SearchBarView  {
 		ImageView helpView = new ImageView(help);
 		helpView.setFitWidth(30);
 		helpView.setFitHeight(30);
-
 		helpView.getStyleClass().add("help-icon");
+		searchBarHelpButton = new Button();
+		searchBarHelpButton.setGraphic(helpView);
+
+		boolean show = true;
+		searchBarHelpButton.getStyleClass().add("transparent-button");
+		searchBarHelpButton.setAlignment(Pos.CENTER_LEFT);
+		searchBarHelpButton.setPadding(new Insets(0));
 
 		StackPane searchFieldContainer = new StackPane();
-		searchFieldContainer.getChildren().addAll(searchField, helpView);
-		StackPane.setAlignment(helpView, Pos.CENTER_LEFT);
-		helpView.setTranslateX(-10); // Juster denne verdien for å plassere ikonet riktig
+		searchFieldContainer.getChildren().addAll(searchField, searchBarHelpButton);
+		StackPane.setAlignment(searchBarHelpButton, Pos.CENTER_LEFT);
+		searchBarHelpButton.setTranslateX(10); // Juster denne verdien for å plassere ikonet riktig
 
 
 
@@ -301,6 +309,20 @@ public class SearchBarView  {
 		container.getChildren().addAll(label, hSlider);
 		return container;
 	}
+	public void animateDrawerRight(VBox drawer, boolean show){
+		TranslateTransition transition = new TranslateTransition(Duration.millis(500), drawer);
+		transition.setInterpolator(Interpolator.EASE_BOTH);
+		if (show) {
+			transition.setFromX(drawer.getWidth() + drawer.getLayoutX());
+			transition.setToX(drawer.getLayoutX());
+		} else {
+			transition.setFromX(drawer.getLayoutX());
+			transition.setToX(drawer.getLayoutX() + drawer.getWidth());
+			transition.setOnFinished(event -> mc.getClientView().getRoot().setRight(null));
+		}
+		transition.play();
+	}
+
 
 	public void animateDrawer(HBox drawer, boolean show) {
 		TranslateTransition transition = new TranslateTransition(Duration.millis(500), drawer);
@@ -311,7 +333,7 @@ public class SearchBarView  {
 		} else {
 			transition.setFromX(0);
 			transition.setToX(-drawer.getWidth());
-			transition.setOnFinished(event -> mainContent.getChildren().remove(drawer));
+			transition.setOnFinished(event -> mc.getClientView().getRoot().setLeft(null));
 		}
 		transition.play();
 	}
@@ -328,7 +350,7 @@ public class SearchBarView  {
 		} else {
 			transition.setFromY(0);
 			transition.setToY(searchForm.getLayoutY());
-			transition.setOnFinished(event -> mainContent.getChildren().remove(searchForm));
+			transition.setOnFinished(event -> footer.getChildren().remove(searchForm));
 		}
 		transition.play();
 	}
@@ -352,6 +374,10 @@ public class SearchBarView  {
 		return searchOptions;
 	}
 
+	public Button getSearchBarHelpButton(){
+		return searchBarHelpButton;
+	}
+
 	public TextField getSearchField() {
 		return searchField;
 	}
@@ -372,6 +398,10 @@ public class SearchBarView  {
 		return advancedFieldsComboBoxString;
 	}
 
+	public ClientController getMc() {
+		return mc;
+	}
+
 	static class SliderData {
 		String labelText;
 		int minValue;
@@ -387,4 +417,6 @@ public class SearchBarView  {
 			this.searchoption = searchoption;
 		}
 	}
+
+
 }
