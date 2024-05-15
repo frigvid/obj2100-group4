@@ -35,7 +35,7 @@ public class ClientView {
 
 		String css = getClass().getResource("/style.css").toExternalForm();
 		mainContent.getStylesheets().addAll("search.css");
-
+		root.setTop(generateMainMenu());
 		root.setCenter(tabs);
 		root.getStylesheets().add(css);
 		root.setBottom(mainContent); //TODO mainContent skal døpes til footer
@@ -51,6 +51,41 @@ public class ClientView {
 		);
 		
 	}
+	
+	public MenuBar generateMainMenu(){
+		// Lager en meny
+		MenuBar menuBar = new MenuBar();
+		
+		// Lager en filmeny ( fil valg i meny)
+		Menu fileMenu = new Menu("Fil");
+		menuBar.getMenus().add(fileMenu);
+		
+		// Lage nytt inventar menyvalg
+		MenuItem newItem = new MenuItem("Nytt inventar");
+		newItem.setOnAction(event -> System.out.println("New File Created!"));
+		
+		// Generer raport
+		MenuItem rapport = new MenuItem("Inventar-rapport");
+		rapport.setOnAction(event -> System.out.println("Rapport!"));
+		
+		// Menyvalg for å avslutte
+		MenuItem exitItem = new MenuItem("Avslutt");
+		exitItem.setOnAction(event -> System.exit(0));
+		
+		// Legge til menyer på filmeny.
+		fileMenu.getItems().addAll(newItem, rapport,  new SeparatorMenuItem(), exitItem);
+		
+		// Legge til flere menyer på toppnivå i meny.
+		
+		Menu helpMenu = new Menu("Help");
+		MenuItem help = new MenuItem("Hjelp til å bruke appen");
+		MenuItem omOss = new MenuItem("Om oss");
+		helpMenu.getItems().addAll(help, omOss);
+		
+		menuBar.getMenus().add(helpMenu);
+		return menuBar;
+	}
+	
 
 	public TabPane getTabs() {
 		return tabs;
