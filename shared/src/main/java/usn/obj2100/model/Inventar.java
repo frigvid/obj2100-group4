@@ -4,6 +4,7 @@ import usn.obj2100.Type;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * This class represents an item in the inventory.
@@ -170,8 +171,34 @@ public class Inventar
 		return Type.Inventar;
 	}
 	
-	/* Setters. */
+	// TODO: Implement this method, den er ikke ferdig, må finne likheter mellom to objekter
+	@Override
+	public boolean equals(Object object)
+	{
+		if (this == object)
+		{
+			return true;
+		}
+		
+		if (object == null || getClass() != object.getClass())
+		{
+			return false;
+		}
+		
+		Inventar inventar = (Inventar) object;
+		return Double.compare(inventar.innkjopspris, innkjopspris) == 0
+			&& beskrivelse.equals(inventar.beskrivelse)
+			&& innkjopsdato.equals(inventar.innkjopsdato)
+			&& Objects.equals(plassering, inventar.plassering);
+	}
 	
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(beskrivelse, innkjopspris, innkjopsdato, plassering);
+	}
+	
+	/* Setters. */
 	/**
 	 * Method to set the SKU/ID of the item.
 	 *
