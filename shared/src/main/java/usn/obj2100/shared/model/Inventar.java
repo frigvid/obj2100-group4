@@ -168,7 +168,7 @@ public class Inventar
 	 */
 	public Type typeOf()
 	{
-		return Type.Inventar;
+		return Type.INVENTAR;
 	}
 	
 	// TODO: Implement this method, den er ikke ferdig, må finne likheter mellom to objekter
