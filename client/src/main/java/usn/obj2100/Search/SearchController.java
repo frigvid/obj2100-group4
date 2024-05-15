@@ -3,6 +3,7 @@ package usn.obj2100.Search;
 import javafx.scene.layout.VBox;
 import usn.obj2100.ClientView;
 import usn.obj2100.Inventar.Inventar;
+import usn.obj2100.Inventar.Kategori;
 
 import java.util.Date;
 
@@ -23,15 +24,20 @@ public class SearchController {
 	}
 
 	public void initDummyData() {
+		Kategori[] kategorier = new Kategori[3];
+		kategorier[0] = new Kategori("Møbler");
+		kategorier[1] = new Kategori("Elektronikk");
+		kategorier[2] = new Kategori("Kjøkkenutstyr");
+
 		searchResults = new Inventar[8];
-		searchResults[0] = new Inventar("Stol", 1000, "2023-04-30" );
-		searchResults[1] = new Inventar("Bord", 2000, "2023-04-30" );
-		searchResults[2] = new Inventar("Sofa", 3000, "2023-04-30" );
-		searchResults[3] = new Inventar("Lampe", 4000, "2023-04-30" );
-		searchResults[4] = new Inventar("Bokhylle", 5000, "2023-04-30" );
-		searchResults[5] = new Inventar("TV", 6000, "2023-04-30") ;
-		searchResults[6] = new Inventar("Kaffemaskin", 7000,  "2023-04-30" );
-		searchResults[7] = new Inventar("Kjøleskap", 8000, "2023-04-30" );
+		searchResults[0] = new Inventar("Stol", kategorier[0] , 1000, "2023-04-30" );
+		searchResults[1] = new Inventar("Bord",kategorier[0], 2000, "2023-04-30" );
+		searchResults[2] = new Inventar("Sofa", kategorier[0], 3000, "2023-04-30" );
+		searchResults[3] = new Inventar("Lampe", kategorier[1],4000, "2023-04-30" );
+		searchResults[4] = new Inventar("Bokhylle", kategorier[0], 5000, "2023-04-30" );
+		searchResults[5] = new Inventar("TV",  kategorier[1], 6000, "2023-04-30") ;
+		searchResults[6] = new Inventar("Kaffemaskin",kategorier[2], 7000,  "2023-04-30" );
+		searchResults[7] = new Inventar("Kjøleskap", kategorier[2],8000, "2023-04-30" );
 	}
 
 

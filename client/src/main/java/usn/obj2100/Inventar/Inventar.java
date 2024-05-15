@@ -9,6 +9,8 @@ public class Inventar {
 	private double innkjøpsPris;
 	private String innkjøpsDato;
 	private String plassering;
+	private String Type;
+	private Kategori kategori;
 
 
 	public Inventar(String beskrivelse, double innkjøpsPris, String innkjøpsDato, String plassering) {
@@ -18,20 +20,21 @@ public class Inventar {
 		this.plassering = plassering;
 	}
 
-	public Inventar( String beskrivelse, double innkjøpsPris, String innkjøpsDato) {
+	public Inventar( String beskrivelse, Kategori kategori, double innkjøpsPris, String innkjøpsDato) {
 
+		this.beskrivelse = beskrivelse;
+		this.innkjøpsPris = innkjøpsPris;
+		this.innkjøpsDato = innkjøpsDato;
+		this.kategori = kategori;
+	}
+
+	public Inventar( String beskrivelse, double innkjøpsPris, String innkjøpsDato) {
 		this.beskrivelse = beskrivelse;
 		this.innkjøpsPris = innkjøpsPris;
 		this.innkjøpsDato = innkjøpsDato;
 	}
 
-	@Override
-	public boolean equals( Object o ) { // TODO: Implement this method, den er ikke ferdig, må finne likheter mellom to objekter
-		if ( this == o ) return true;
-		if ( o == null || getClass() != o.getClass() ) return false;
-		Inventar inventar = (Inventar) o;
-		return Double.compare(inventar.innkjøpsPris, innkjøpsPris) == 0  && beskrivelse.equals(inventar.beskrivelse) && innkjøpsDato.equals(inventar.innkjøpsDato) && Objects.equals(plassering, inventar.plassering);
-	}
+
 
 	@Override
 	public int hashCode() {
@@ -76,6 +79,14 @@ public class Inventar {
 
 	public void setPlassering( String plassering ) {
 		this.plassering = plassering;
+	}
+
+	public String getType() {
+		return Type;
+	}
+
+	public Kategori getKategori() {
+		return kategori;
 	}
 
 	public String getDetaljer() {
