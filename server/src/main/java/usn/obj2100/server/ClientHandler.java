@@ -34,6 +34,8 @@ public class ClientHandler
 	 */
 	public ClientHandler(Socket socket)
 	{
+		System.out.println("Client connected.");
+		
 		this.socket = socket;
 		this.inventarController = new InventarController();
 		this.plasseringController = new PlasseringController();
