@@ -102,6 +102,21 @@ public class InventarTest
 		assertEquals(newInventar.getSKU(), retrievedObject.getSKU(), "SKU er ikke lik.");
 	}
 	
+	@Test
+	@DisplayName("hent alle")
+	public void getAllObjects()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Object response = client.request(Command.READALL, null);
+		
+		System.out.println("Respons: " + response);
+		
+		assertNotNull(response, "Kunne ikke hente alle Inventar objekter.");
+	}
+	
+	
 	/**
 	 * Update an Inventar object.
 	 */
