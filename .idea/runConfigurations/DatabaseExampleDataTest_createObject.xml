@@ -11,6 +11,7 @@
     <option name="MAIN_CLASS_NAME" value="usn.obj2100.server.serverTests.DatabaseExampleDataTest" />
     <option name="METHOD_NAME" value="createObject" />
     <option name="TEST_OBJECT" value="method" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
