@@ -43,7 +43,7 @@ public class StartView extends HBox
 		
 		
 		Button addNewInv = new Button("Legg til nytt inventar");
-		addNewInv.getStyleClass().add("nyttInventarBtn");
+		addNewInv.getStyleClass().add("blue-button");
 		addNewInv.setTooltip(new Tooltip("Trykk for å legge til nytt inventar"));
 		addNewInv.setAlignment(Pos.CENTER);
 		
@@ -52,7 +52,7 @@ public class StartView extends HBox
 		});
 		
 		Button seeAllInv = new Button("Se alle inventar");
-		seeAllInv.getStyleClass().add("seeAllInventarBtn");
+		seeAllInv.getStyleClass().add("blue-button");
 		seeAllInv.setTooltip(new Tooltip("Trykk for å se alle inventar"));
 		seeAllInv.setAlignment(Pos.CENTER);
 		

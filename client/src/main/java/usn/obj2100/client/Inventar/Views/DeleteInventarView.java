@@ -21,6 +21,7 @@ public class DeleteInventarView extends HBox
 		this.mc = mc;
 		this.selectedInventar = mc.getSelectedInvetar();
 		this.getChildren().add(generateDeleteView());
+
 	}
 	
 	
@@ -36,6 +37,9 @@ public class DeleteInventarView extends HBox
 			KasseringCombo kassering = new KasseringCombo();
 			
 			Button deleteButton = new Button("Kasser inventar");
+			deleteButton.getStyleClass().add("delete-button");
+
+
 			deleteButton.setOnMouseClicked(e
 				->{System.out.println("delete");});
 				
