@@ -23,7 +23,7 @@ public class NewInventarView extends HBox
 		form.setAlignment(Pos.CENTER);
 		
 		ComboBox<String> typeComboBox = new ComboBox<>();
-		typeComboBox.getItems().addAll("Møbler", "Utsmykning", "Teknisk Utstyr");
+		typeComboBox.getItems().addAll("Mobler", "Utsmykning", "Teknisk Utstyr");
 		
 		ComboBox<String> categoryComboBox = new ComboBox<>();
 		categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
@@ -53,7 +53,7 @@ public class NewInventarView extends HBox
 		
 		typeComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
 			categoryComboBox.getItems().clear();
-			if ("Møbler".equals(newVal)) {
+			if ("Mobler".equals(newVal)) {
 				categoryComboBox.getItems().addAll("Bord", "Stol", "Sofa", "Skap", "Hylle", "Tavle", "Annet");
 				categoryComboBox.setEditable(false);
 				lifespanField.setDisable(false);
@@ -73,7 +73,7 @@ public class NewInventarView extends HBox
 				LocalDate purchaseDate = purchaseDatePicker.getValue();
 				double price = Double.parseDouble(priceField.getText());
 				int quantity = Integer.parseInt(quantityField.getText());
-				Integer lifespan = "Møbler".equals(typeComboBox.getValue()) ? Integer.parseInt(lifespanField.getText()) : null;
+				Integer lifespan = "Mobler".equals(typeComboBox.getValue()) ? Integer.parseInt(lifespanField.getText()) : null;
 				String description = descriptionField.getText();
 				categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
 				
