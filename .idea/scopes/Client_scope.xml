@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Client scope" pattern="src[client]:*..*&amp;&amp;!src[server]:*..*" />
+</component>
