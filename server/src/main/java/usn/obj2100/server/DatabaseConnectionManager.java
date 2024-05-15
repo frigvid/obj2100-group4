@@ -1,5 +1,7 @@
 package usn.obj2100.server;
 
+import usn.obj2100.shared.Constants;
+
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -140,6 +142,60 @@ public class DatabaseConnectionManager
 				{
 					stmt.execute(statement);
 				}
+			}
+			
+			if (Constants.CREATE_EXAMPLE_DATA)
+			{
+				/* Eksempeldata plasseres manuelt med en execution hver. Dette er ganske basic stuff,
+				 * så skader ikke å gjøre det slik. Enklere å legge til mer data senere slik.
+				 */
+				Statement statement = connection.createStatement();
+				
+				/* Plassering. */
+				statement.execute("INSERT INTO plassering (id, bygg, floy, etasje, rom) VALUES (1, 'Bygg A', 1, 2, 101)");
+				statement.execute("INSERT INTO plassering (id, bygg, floy, etasje, rom) VALUES (2, 'Bygg B', 2, 3, 202)");
+				
+				/* KategoriType. */
+				statement.execute("INSERT INTO kategoriType (id, type) VALUES (1, 'Møbler')");
+				statement.execute("INSERT INTO kategoriType (id, type) VALUES (2, 'Utsmykning')");
+				statement.execute("INSERT INTO kategoriType (id, type) VALUES (3, 'Teknisk Utstyr')");
+				
+				/* Kategori. */
+				// Mobler.
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (1, 1, 'Bord')");
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (2, 1, 'Stol')");
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (3, 1, 'Sofa')");
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (4, 1, 'Hylle')");
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (5, 1, 'Tavle')");
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (6, 1, 'Annet')");
+				
+				// Utsmykning.
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (7, 2, 'Maleri')");
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (8, 2, 'Grafikk')");
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (9, 2, 'Tekstil')");
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (10, 2, 'Bilde')");
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (11, 2, 'Skulptur')");
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (12, 2, 'Annet')");
+				
+				// Teknisk utstyr.
+				statement.execute("INSERT INTO kategori (id, type, kategori) VALUES (13, 3, 'Datamaskiner')");
+				
+				/* KassertType. */
+				statement.execute("INSERT INTO kassertType (id, begrunnelse) VALUES (1, 'Solgt')");
+				statement.execute("INSERT INTO kassertType (id, begrunnelse) VALUES (2, 'Kassert')");
+				statement.execute("INSERT INTO kassertType (id, begrunnelse) VALUES (3, 'På lager')");
+				statement.execute("INSERT INTO kassertType (id, begrunnelse) VALUES (4, 'Annet')");
+				
+				/* Kassert. */
+				statement.execute("INSERT INTO kassert (id, dato, tid, begrunnelse) VALUES (1, '2022-01-01', '10:00:00', 1)");
+				statement.execute("INSERT INTO kassert (id, dato, tid, begrunnelse) VALUES (2, '2022-02-01', '11:00:00', 2)");
+				
+				/* Finally, Inventar data. */
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (1, 'Stol', '2022-01-01 10:00:00', 100.0, 10, 5, 1, 1, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (2, 'Maleri', '2022-02-01 11:00:00', 200.0, 20, 7, 2, 2, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (3, 'Lyse brun, mahogany', '2024-12-24 22:38:21', 300.0, 30, 4, 1, 2, null)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (4, 'Gaming stol/pult kombo ting', '2021-01-13 12:14:13', 50.0, 85, 3, 6, 2, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (5, 'Bilde av mamma', '2025-01-13 12:14:13', 74.38, 12, 7, 10, 1, 4)");
 			}
 		}
 		catch (SQLException error)

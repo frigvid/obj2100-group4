@@ -103,7 +103,11 @@ public class InventarService
 					resultSet.getInt("antall"),
 					resultSet.getShort("forventetLevetid"),
 					resultSet.getInt("kategori"),
-					resultSet.getInt("plassering"),
+					(
+						resultSet.getInt("plassering") == 0
+							? 0
+							: resultSet.getInt("plassering")
+					),
 					resultSet.getInt("kassert")
 				));
 			}
