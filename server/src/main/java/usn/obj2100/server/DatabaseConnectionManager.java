@@ -26,8 +26,15 @@ import java.sql.Statement;
  */
 public class DatabaseConnectionManager
 {
-	/* "user.dir" corresponds to IntelliJ's $PROJECT_DIR$ variable. */
-	private final String DB_PATH = System.getProperty("user.dir") + "/database.sqlite";
+	/* BE WARNED
+	 *
+	 * JetBrains have decided that all tests are ran in a module scope by default,
+	 * instead of being explicitly configured. This will cause the database to be
+	 * created in <root>/server/database.sqlite when run as a test, and created in
+	 * <root>/database.sqlite when actually built.
+	 */
+	private final String DB_PATH = "database.sqlite";
+	
 	private final String DB_URL = "jdbc:sqlite:" + DB_PATH;
 	private static DatabaseConnectionManager instance;
 	
