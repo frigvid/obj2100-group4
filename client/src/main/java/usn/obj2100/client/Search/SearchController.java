@@ -3,6 +3,7 @@ package usn.obj2100.client.Search;
 import javafx.scene.layout.VBox;
 import usn.obj2100.client.ClientView;
 import usn.obj2100.shared.model.Inventar;
+import usn.obj2100.shared.model.Kategori;
 import usn.obj2100.shared.model.Search;
 
 public class SearchController {
@@ -23,11 +24,13 @@ public class SearchController {
 
 	public void initDummyData() {
 		Kategori[] kategorier = new Kategori[3];
-		kategorier[0] = new Kategori("Møbler");
-		kategorier[1] = new Kategori("Elektronikk");
-		kategorier[2] = new Kategori("Kjøkkenutstyr");
+		// FIXME: Temporary removal after merging.
+		//kategorier[0] = new Kategori("Møbler");
+		//kategorier[1] = new Kategori("Elektronikk");
+		//kategorier[2] = new Kategori("Kjøkkenutstyr");
 
 		searchResults = new Inventar[8];
+		// FIXME: Temporary removal after merging.
 		//searchResults[0] = new Inventar("Stol", 1000, "2023-04-30" );
 		//searchResults[1] = new Inventar("Bord", 2000, "2023-04-30" );
 		//searchResults[2] = new Inventar("Sofa", 3000, "2023-04-30" );

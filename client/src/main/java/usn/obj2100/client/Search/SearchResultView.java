@@ -98,15 +98,17 @@ public class SearchResultView extends VBox {
 		int rowIndex = 1;
 		for (Inventar inventar : searchResults) {
 			//Label typeLabel = createStyledLabel(inventar.getType());
-			Label kategoriLabel = createStyledLabel(inventar.getKategori().getKategoriNavn());
+			// FIXME: Temporary removal after merging.
+			//Label kategoriLabel = createStyledLabel(inventar.getKategori().getKategoriNavn());
 			Label beskrivelseLabel = createStyledLabel(inventar.getBeskrivelse());
-			Label innkjøpsPrisLabel = createStyledLabel(inventar.getInnkjøpsPris() + " kr");
-			Label innkjøpsDatoLabel = createStyledLabel(inventar.getInnkjøpsDato().toString());
+			Label innkjøpsPrisLabel = createStyledLabel(inventar.getInnkjopspris() + " kr");
+			Label innkjøpsDatoLabel = createStyledLabel(inventar.getInnkjopsdato().toString());
 			HBox actionsBox = createActionButtons(inventar);
 
 			// Add the data labels and actions box to the grid pane
 			//gridPane.add(typeLabel, 0, rowIndex);
-			gridPane.add(kategoriLabel, 1, rowIndex);
+			// FIXME: Temporary removal after merging.
+			//gridPane.add(kategoriLabel, 1, rowIndex);
 			gridPane.add(beskrivelseLabel, 2, rowIndex);
 			gridPane.add(innkjøpsPrisLabel, 3, rowIndex);
 			gridPane.add(innkjøpsDatoLabel, 4, rowIndex);
@@ -114,7 +116,8 @@ public class SearchResultView extends VBox {
 
 			// Style the data row
 			//typeLabel.getStyleClass().add("data-label");
-			kategoriLabel.getStyleClass().add("data-label");
+			// FIXME: Temporary removal after merging.
+			//kategoriLabel.getStyleClass().add("data-label");
 			beskrivelseLabel.getStyleClass().add("data-label");
 			innkjøpsPrisLabel.getStyleClass().add("data-label");
 			innkjøpsDatoLabel.getStyleClass().add("data-label");
@@ -132,12 +135,14 @@ public class SearchResultView extends VBox {
 
 		switch (column) {
 			case "type":
-				comparator = Comparator.comparing(Inventar::getType);
+				// FIXME: Temporary removal after merging.
+				//comparator = Comparator.comparing(Inventar::getType);
 				sortAscending = sortAscendingType;
 				sortAscendingType = !sortAscendingType;
 				break;
 			case "kategori":
-				comparator = Comparator.comparing(inventar -> inventar.getKategori().getKategoriNavn());
+				// FIXME: Temporary removal after merging.
+				//comparator = Comparator.comparing(inventar -> inventar.getKategori().getKategoriNavn());
 				sortAscending = sortAscendingKategori;
 				sortAscendingKategori = !sortAscendingKategori;
 				break;
@@ -147,12 +152,12 @@ public class SearchResultView extends VBox {
 				sortAscendingBeskrivelse = !sortAscendingBeskrivelse;
 				break;
 			case "innkjøpsPris":
-				comparator = Comparator.comparing(Inventar::getInnkjøpsPris);
+				comparator = Comparator.comparing(Inventar::getInnkjopspris);
 				sortAscending = sortAscendingInnkjøpsPris;
 				sortAscendingInnkjøpsPris = !sortAscendingInnkjøpsPris;
 				break;
 			case "innkjøpsDato":
-				comparator = Comparator.comparing(Inventar::getInnkjøpsDato);
+				comparator = Comparator.comparing(Inventar::getInnkjopsdato);
 				sortAscending = sortAscendingInnkjøpsDato;
 				sortAscendingInnkjøpsDato = !sortAscendingInnkjøpsDato;
 				break;

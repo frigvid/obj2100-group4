@@ -4,6 +4,7 @@ import usn.obj2100.shared.model.Inventar;
 
 public class TekniskUtstyrInventar extends Inventar
 {
+	// FIXME: Temporary removal after merging.
 	//private String kategori;
 	//public TekniskUtstyrInventar( String beskrivelse, double innkjøpsPris, String innkjøpsDato, String plassering, String kategori ) {
 	//	super(beskrivelse, innkjøpsPris, innkjøpsDato, plassering );

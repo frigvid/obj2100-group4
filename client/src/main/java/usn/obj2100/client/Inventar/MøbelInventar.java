@@ -8,6 +8,7 @@ public class MøbelInventar extends Inventar
 	private Kategori kategori;
 	private int forventetLevetid;
 	
+	// FIXME: Temporary removal after merging.
 	//public MøbelInventar( String beskrivelse, double innkjøpsPris, String innkjøpsDato, String plassering, Kategori kategori, int forventetLevetid ) {
 	//	super(beskrivelse, innkjøpsPris, innkjøpsDato, plassering);
 	//	this.kategori = kategori;

@@ -7,6 +7,7 @@ public class UtsmykningInventar extends Inventar
 {
 	private Kategori kategori;
 	
+	// FIXME: Temporary removal after merging.
 	//public UtsmykningInventar( String beskrivelse, double innkjøpsPris, String innkjøpsDato, String plassering, Kategori kategori ) {
 	//	super(beskrivelse, innkjøpsPris, innkjøpsDato, plassering);
 	//	this.kategori = kategori;
