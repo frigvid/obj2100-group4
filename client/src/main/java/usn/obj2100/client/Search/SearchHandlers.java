@@ -36,10 +36,10 @@ public class SearchHandlers {
 
 				searchBarView.getSearchField().textProperty().addListener(new ChangeListener<String>() {
 					int count = 0;
-					Label searchLabel;
+					String searchLabel;
 					@Override
 					public void changed( ObservableValue<? extends String> observable, String oldValue, String newValue) {
-						searchLabel = new Label("Søkeresultater for: " + newValue);
+						searchLabel = "Søkeresultater for: " + newValue;
 
 						if(count < 1) {
 							clientView.setNewTabContent(searchLabel);

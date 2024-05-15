@@ -15,8 +15,9 @@
 }
 
 .tab {
-	-fx-background-color: #fff;
+	-fx-background-color: gray;
 	-fx-border-color: #ddd;
+	-fx-text-fill: black;
 }
 
 .tab:selected {
@@ -26,6 +27,15 @@
 
 .tab-label {
 	-fx-font-weight: bold;
+	-fx-text-fill: white;
+}
+
+.tab-pane .tab .tab-close-button {
+	-fx-background-color: white; /* Sets the background of the close button */
+}
+
+.tab-pane .tab:hover .tab-close-button {
+	-fx-background-color: red; /* Optional: change color on hover */
 }
 
 /* Form styling */

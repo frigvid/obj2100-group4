@@ -50,12 +50,16 @@ public class StartView extends HBox
 		addNewInv.setOnMouseReleased(event -> {
 			mc.getClientView().setNewTabContentNewInventar(mc.getClientView().getNewInventarView());
 		});
-		
+
 		Button seeAllInv = new Button("Se alle inventar");
 		seeAllInv.getStyleClass().add("blue-button");
 		seeAllInv.setTooltip(new Tooltip("Trykk for å se alle inventar"));
 		seeAllInv.setAlignment(Pos.CENTER);
-		
+
+			seeAllInv.setOnMouseReleased(event -> {
+				mc.getClientView().setNewTabContentAllInventar(mc.getScreen().getViewAllScreen());
+			});
+
 		form.getChildren().addAll(inventarStats, addNewInv, seeAllInv);
 		return form;
 		}

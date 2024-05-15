@@ -33,8 +33,8 @@ public class ClientView {
 		this.footer = new StackPane();
 		this.footer.setPickOnBounds(false);
 		this.clientController = clientController;
-		this.newInventarView = new NewInventarView(clientController);
-		this.startView = new StartView(clientController);
+		this.newInventarView = clientController.getScreen().getNewInventarScreen();
+		this.startView = clientController.getScreen().getStartScreen();
 		footer.setAlignment(Pos.TOP_LEFT);
 		initializeTabs();
 
@@ -140,16 +140,22 @@ public class ClientView {
 		tabs.getTabs().add(tempTab);
 		setTab(tabs.getTabs().size()-1);
 	}
-	
-	public void setNewTabContent ( Node content) {
 
-		VBox searchResults = clientController.getSearchController().getSearchResultsView();
-		Tab tempTab = new Tab("Nytt Søk", searchResults);
+	public void setNewTabContentAllInventar(Node content){
+		Tab tempTab = new Tab("Alle inventar", content);
 		tabs.getTabs().add(tempTab);
 		setTab(tabs.getTabs().size()-1);
 	}
 
-	public void updateTabContent ( Node content) {
+	public void setNewTabContent ( String content) {
+		VBox searchResults = clientController.getScreen().getSearchResultScreen();
+
+		Tab tempTab = new Tab(content, searchResults);
+		tabs.getTabs().add(tempTab);
+		setTab(tabs.getTabs().size()-1);
+	}
+
+	public void updateTabContent ( String content) {
 		//tabs.getSelectionModel().getSelectedItem().setContent(content);
 	}
 

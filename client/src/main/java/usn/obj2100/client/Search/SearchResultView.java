@@ -33,6 +33,12 @@ public class SearchResultView extends VBox {
 		// Initialize search results
 		searchResults = FXCollections.observableArrayList(searchController.getSearchResults());
 
+		if(searchResults.isEmpty()){
+			Label empty = new Label("Ingen resultat for ditt søk!");
+			getChildren().add(empty);
+			return;
+		}
+
 		// Create the GridPane for search results
 		GridPane gridPane = new GridPane();
 		gridPane.setHgap(10);

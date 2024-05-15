@@ -25,6 +25,7 @@ public class ClientController {
 	private ArrayList<Inventar>  allInvenatar;
 	private Inventar selectedInventar;
 	private InventarController inventarController;
+	private ScreenController screen;
 	/**
 	 * Konstruktør for ClientController
 
@@ -32,6 +33,7 @@ public class ClientController {
 	 */
 	ClientController(BorderPane root, Client serverConnection) {
 		this.serverConnection = serverConnection;
+		this.screen = new ScreenController(this);
 		this.clientView = new ClientView(root, this);
 		this.searchController = new SearchController(this);
 		initStartData();
@@ -78,5 +80,9 @@ public class ClientController {
 	
 	public InventarController getInventarController(){
 		return inventarController;
+	}
+
+	public ScreenController getScreen() {
+		return screen;
 	}
 }
