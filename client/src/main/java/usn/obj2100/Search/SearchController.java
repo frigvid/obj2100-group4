@@ -2,7 +2,7 @@ package usn.obj2100.Search;
 
 import javafx.scene.layout.VBox;
 import usn.obj2100.ClientView;
-import usn.obj2100.Inventar.Inventar;
+import usn.obj2100.model.Inventar;
 import usn.obj2100.model.Search;
 
 public class SearchController {

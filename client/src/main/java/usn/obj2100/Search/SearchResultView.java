@@ -4,7 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import usn.obj2100.Inventar.Inventar;
+import usn.obj2100.model.Inventar;
 
 public class SearchResultView extends VBox {
 	private SearchController searchController;
