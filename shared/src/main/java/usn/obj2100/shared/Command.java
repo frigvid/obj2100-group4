@@ -8,6 +8,7 @@ public enum Command
 	/* CRUD. */
 	CREATE,
 	READ,
+	READALL,
 	UPDATE,
 	DELETE
 }
