@@ -1,6 +1,7 @@
 package usn.obj2100.client;
 
 import javafx.scene.layout.BorderPane;
+import usn.obj2100.client.Inventar.InventarController;
 import usn.obj2100.client.Search.SearchBarView;
 import usn.obj2100.client.Search.SearchController;
 import usn.obj2100.shared.Command;
@@ -23,6 +24,7 @@ public class ClientController {
 	private Client serverConnection;
 	private ArrayList<Inventar>  allInvenatar;
 	private Inventar selectedInventar;
+	private InventarController inventarController;
 	/**
 	 * Konstruktør for ClientController
 
@@ -33,6 +35,7 @@ public class ClientController {
 		this.clientView = new ClientView(root, this);
 		this.searchController = new SearchController(this);
 		initStartData();
+		this.inventarController = new InventarController(this);
 	}
 	
 	private void initStartData()
@@ -71,5 +74,9 @@ public class ClientController {
 	
 	public Inventar getSelectedInvetar(){
 		return selectedInventar;
+	}
+	
+	public InventarController getInventarController(){
+		return inventarController;
 	}
 }

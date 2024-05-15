@@ -6,13 +6,15 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import usn.obj2100.client.ClientController;
 
 import java.time.LocalDate;
 
 public class NewInventarView extends HBox
 {
-	
-	public NewInventarView(){
+	private ClientController mc;
+	public NewInventarView(ClientController mc){
+		this.mc = mc;
 		getChildren().add(buildAddForm());
 	}
 	
@@ -93,6 +95,7 @@ public class NewInventarView extends HBox
 				//);
 					
 					//TODO insert into db here !
+				//mc.getInventarController().addInventar(inventar);
 			} catch (NumberFormatException e) {
 				new Alert(Alert.AlertType.ERROR, "Sjekk at alle tallfelt er korrekt fylt ut.").show();
 			}

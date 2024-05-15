@@ -31,7 +31,7 @@ public class ClientView {
 		this.mainContent = new StackPane();
 		this.mainContent.setPickOnBounds(false);
 		this.clientController = clientController;
-		this.newInventarView = new NewInventarView();
+		this.newInventarView = new NewInventarView(clientController);
 		this.startView = new StartView(clientController);
 		mainContent.setAlignment(Pos.TOP_LEFT);
 		initializeTabs();
