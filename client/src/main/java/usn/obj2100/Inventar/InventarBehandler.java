@@ -1,4 +1,4 @@
-package usn.obj2100.model.Inventar;
+package usn.obj2100.Inventar;
 
 import java.util.Date;
 
