@@ -1,6 +1,5 @@
 package usn.obj2100.server;
 
-import usn.obj2100.controller.*;
 import usn.obj2100.server.controller.*;
 import usn.obj2100.shared.Command;
 import usn.obj2100.shared.model.*;
