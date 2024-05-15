@@ -256,6 +256,21 @@ public class ClientHandler
 							break;
 					}
 				}
+				else if (object instanceof Search search)
+				{
+					switch (command)
+					{
+						case READ:
+							objectOutputStream.writeObject("Ikke implementert enda!");
+							break;
+						case CREATE:
+						case UPDATE:
+						case DELETE:
+						default:
+							objectOutputStream.writeObject("Feil aksjon! Søk kan bare lese.");
+							break;
+					}
+				}
 			}
 		}
 		catch (IOException | ClassNotFoundException error)
