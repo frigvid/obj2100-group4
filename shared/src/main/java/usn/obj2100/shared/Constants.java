@@ -18,4 +18,7 @@ public final class Constants
 	
 	/* NETWORKING. */
 	public static final int PORT = 8765;
+	
+	/* DATABASE. */
+	public static final boolean CREATE_EXAMPLE_DATA = true;
 }
