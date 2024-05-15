@@ -107,6 +107,8 @@ public class DatabaseConnectionManager
 		}
 	}
 	
+	// TODO: Add example data to the database when it's first created.
+	//			See DatabaseExampleDataTest for this.
 	/**
 	 * Initializes the database by creating the necessary tables.
 	 * <p/>
