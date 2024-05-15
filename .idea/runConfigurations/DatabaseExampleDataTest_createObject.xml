@@ -7,8 +7,8 @@
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
-    <option name="PACKAGE_NAME" value="usn.obj2100.server" />
-    <option name="MAIN_CLASS_NAME" value="usn.obj2100.server.DatabaseExampleDataTest" />
+    <option name="PACKAGE_NAME" value="usn.obj2100.server.serverTests" />
+    <option name="MAIN_CLASS_NAME" value="usn.obj2100.server.serverTests.DatabaseExampleDataTest" />
     <option name="METHOD_NAME" value="createObject" />
     <option name="TEST_OBJECT" value="method" />
     <method v="2">
