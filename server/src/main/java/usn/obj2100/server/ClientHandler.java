@@ -2,6 +2,7 @@ package usn.obj2100.server;
 
 import usn.obj2100.server.controller.*;
 import usn.obj2100.shared.Command;
+import usn.obj2100.shared.Type;
 import usn.obj2100.shared.model.*;
 
 import java.io.*;
@@ -69,7 +70,25 @@ public class ClientHandler
 			{
 				object = objectInputStream.readObject();
 				
-				if (object instanceof Inventar inventar)
+				/* If a client is looking to get all objects of a certain type,
+				 * it'll be done so long as their Command is READALL.
+				 *
+				 * They also need to include a Type enum matching the object
+				 * they're looking for.
+				 */
+				if (command == Command.READALL)
+				{
+					switch ((Type) object)
+					{
+						case INVENTAR -> objectOutputStream.writeObject(inventarController.getAll());
+						case PLASSERING -> objectOutputStream.writeObject(plasseringController.getAll());
+						case KATEGORI -> objectOutputStream.writeObject(kategoriController.getAll());
+						case KATEGORI_TYPE -> objectOutputStream.writeObject(kategoriTypeController.getAll());
+						case KASSERT -> objectOutputStream.writeObject(kassertController.getAll());
+						case KASSERT_TYPE -> objectOutputStream.writeObject(kassertTypeController.getAll());
+					}
+				}
+				else if (object instanceof Inventar inventar)
 				{
 					boolean state;
 					Inventar retrievedInventar;
