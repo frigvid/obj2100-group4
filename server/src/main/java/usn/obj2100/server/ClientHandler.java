@@ -1,6 +1,7 @@
 package usn.obj2100.server;
 
 import usn.obj2100.server.controller.*;
+import usn.obj2100.server.handler.SearchHandler;
 import usn.obj2100.shared.Command;
 import usn.obj2100.shared.Type;
 import usn.obj2100.shared.model.*;
@@ -96,7 +97,9 @@ public class ClientHandler
 				}
 				else if (command == Command.SEARCH)
 				{
-					objectOutputStream.writeObject("Ikke implementert enda!");
+					SearchHandler searchHandler = new SearchHandler();
+					Object response = searchHandler.handleSearch((Search) object);
+					objectOutputStream.writeObject(response);
 				}
 				else if (object instanceof Inventar inventar)
 				{
