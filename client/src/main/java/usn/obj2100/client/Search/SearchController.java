@@ -22,6 +22,11 @@ public class SearchController {
 	}
 
 	public void initDummyData() {
+		Kategori[] kategorier = new Kategori[3];
+		kategorier[0] = new Kategori("Møbler");
+		kategorier[1] = new Kategori("Elektronikk");
+		kategorier[2] = new Kategori("Kjøkkenutstyr");
+
 		searchResults = new Inventar[8];
 		//searchResults[0] = new Inventar("Stol", 1000, "2023-04-30" );
 		//searchResults[1] = new Inventar("Bord", 2000, "2023-04-30" );

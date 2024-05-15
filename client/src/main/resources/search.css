@@ -3,14 +3,16 @@
 
 }
 
-.search-box .text-field {
+.search-box .text-field-main-search {
 	-fx-min-height: 45px;
 	-fx-max-height: 45px;
 	-fx-background-radius: 15px 0 0 15px;
 	-fx-background-color: #fff; /* Lys bakgrun */
 	-fx-border-color: transparent; /* Hjemme border */
-	-fx-padding: 0 30px 0 10px; /* Padding for kanpp inne i tekstfeldt */
+	-fx-padding: 10px 30px 10px 40px; /* Padding for kanpp inne i tekstfeldt */
 }
+
+
 
 .search-box .search-button {
 	-fx-background-radius: 15px;
@@ -72,4 +74,14 @@
 }
 .search-box .search-button:hover {
 	-fx-background-color: #000; /* Lysegrå bg på hover */
+}
+
+
+.search-box .help-icon {
+	-fx-cursor: pointer; /* Sørg for at muspekeren endres til en hånd ved hovering */
+	-fx-opacity: 0.6; /* Gjør ikonet litt gjennomsiktig */
+}
+
+.search-box .help-icon:hover {
+	-fx-opacity: 1.0; /* Gjør ikonet helt opakt når du holder musen over det */
 }

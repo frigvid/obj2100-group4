@@ -120,12 +120,22 @@
 	-fx-pref-width: 100%;
 }
 
+.data-row:hover {
+	-fx-background-color: #f9f9f9;
+}
+
 /* Label styling */
 .data-label {
 	-fx-font-size: 14px;
 	-fx-text-fill: #333;
 	-fx-padding: 5;
 	-fx-pref-width: 200; /* Adjust as necessary */
+	-fx-text-alignment: left;
+}
+
+.data-label-text {
+	-fx-padding: 5;
+	-fx-pref-width: 200;
 }
 
 /* Button styling */

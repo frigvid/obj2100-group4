@@ -93,7 +93,7 @@ public class SearchBarView  {
 		form.getStyleClass().add("search-box");
 
 		searchField = new TextField();
-		searchField.getStyleClass().add("text-field");
+		searchField.getStyleClass().add("text-field-main-search");
 		searchField.setPrefWidth(400);
 		searchField.setPrefHeight(46);
 		searchField.setPromptText("Søk etter inventar...");
@@ -109,11 +109,28 @@ public class SearchBarView  {
 		imageView.setFitWidth(20);  // bredden på bildet
 		imageView.setFitHeight(20); // høyden på bildet
 
+
+
+
 		searchButton.setGraphic(imageView);
 		searchButton.getStyleClass().add("search-button");
 
+		Image help = new Image("help-icon.png");
+		ImageView helpView = new ImageView(help);
+		helpView.setFitWidth(30);
+		helpView.setFitHeight(30);
+
+		helpView.getStyleClass().add("help-icon");
+
+		StackPane searchFieldContainer = new StackPane();
+		searchFieldContainer.getChildren().addAll(searchField, helpView);
+		StackPane.setAlignment(helpView, Pos.CENTER_LEFT);
+		helpView.setTranslateX(-10); // Juster denne verdien for å plassere ikonet riktig
+
+
+
 		HBox buttonGroup = new HBox();
-		buttonGroup.getChildren().addAll(searchField, searchOptions, searchButton);
+		buttonGroup.getChildren().addAll(searchFieldContainer, searchOptions, searchButton);
 		buttonGroup.setPrefHeight(45);
 		buttonGroup.setAlignment(Pos.BOTTOM_CENTER);
 		buttonGroup.setEffect(dropShadow); // Legger til skyggeeffekt
