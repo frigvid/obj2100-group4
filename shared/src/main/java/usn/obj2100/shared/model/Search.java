@@ -1,6 +1,10 @@
 package usn.obj2100.shared.model;
 
-public class Search {
+import java.io.Serializable;
+
+public class Search
+	implements Serializable
+{
 	private String searchByBeskrivelse;
 	private String searchByType;
 	private String searchByKategori;
