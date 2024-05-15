@@ -1,4 +1,4 @@
-package usn.obj2100.model;
+package usn.obj2100.shared.model;
 
 public class Search {
 	private String searchByBeskrivelse;

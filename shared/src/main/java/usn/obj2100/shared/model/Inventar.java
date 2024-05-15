@@ -1,6 +1,6 @@
-package usn.obj2100.model;
+package usn.obj2100.shared.model;
 
-import usn.obj2100.Type;
+import usn.obj2100.shared.Type;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package usn.obj2100;
+package usn.obj2100.shared;
 
 /**
  * Shared Enums for CRUD operations.

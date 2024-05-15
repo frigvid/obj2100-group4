@@ -1,11 +1,11 @@
-package usn.obj2100;
+package usn.obj2100.shared;
 
 /**
  * A class for storing shared constants used for the server and client modules.
  * <p/>
  * Example usage:
  * {@snippet id = "ConstantsExample" lang = "java" group = "Constants":
- * 	import static usn.obj2100.Constants.PORT;
+ * 	import static usn.obj2100.shared.Constants.PORT;
  * 	System.out.println(PORT);
  *}
  *

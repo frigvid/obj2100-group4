@@ -1,4 +1,4 @@
-package usn.obj2100.model;
+package usn.obj2100.shared.model;
 
 import java.io.Serializable;
 import java.sql.Date;
