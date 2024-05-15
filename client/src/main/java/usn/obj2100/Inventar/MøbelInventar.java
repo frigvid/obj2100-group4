@@ -1,8 +1,12 @@
-package usn.obj2100.model.Inventar;
+package usn.obj2100.Inventar;
+
+import usn.obj2100.model.Inventar;
+import usn.obj2100.model.Kategori;
 
 import java.util.Date;
 
-public class MøbelInventar extends Inventar{
+public class MøbelInventar extends Inventar
+{
 	private Kategori kategori;
 	private int forventetLevetid;
 

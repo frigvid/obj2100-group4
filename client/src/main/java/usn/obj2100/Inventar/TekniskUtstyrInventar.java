@@ -1,8 +1,11 @@
-package usn.obj2100.model.Inventar;
+package usn.obj2100.Inventar;
+
+import usn.obj2100.model.Inventar;
 
 import java.util.Date;
 
-public class TekniskUtstyrInventar extends Inventar{
+public class TekniskUtstyrInventar extends Inventar
+{
 	private String kategori;
 	public TekniskUtstyrInventar( String beskrivelse, double innkjøpsPris, String innkjøpsDato, String plassering, String kategori ) {
 		super(beskrivelse, innkjøpsPris, innkjøpsDato, plassering );
