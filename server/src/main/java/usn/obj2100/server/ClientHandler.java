@@ -68,6 +68,12 @@ public class ClientHandler
 			 */
 			while ((command = (Command) objectInputStream.readObject()) != null)
 			{
+				// TODO: There has to be a command that allows you to get the object you're
+				//  		looking for, and its dependent objects. They are packaged together
+				//			in one object, so you need to unpack it on the client.
+				//			If you want KategoriType for an Inventar object, you'll call this
+				//			command, and it'll return a "[Inventar{...},Kategori{...},KategoriType{...}]".
+				//			Maybe call the command READ_WITH_DEPENDENTS?
 				object = objectInputStream.readObject();
 				
 				/* If a client is looking to get all objects of a certain type,
