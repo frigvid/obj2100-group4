@@ -11,11 +11,9 @@ import usn.obj2100.client.ClientController;
 import usn.obj2100.client.GUI.EditTextField;
 import usn.obj2100.client.GUI.KategoriCombo;
 import usn.obj2100.client.GUI.TypeCombo;
-import usn.obj2100.shared.Type;
 import usn.obj2100.shared.model.Inventar;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import usn.obj2100.client.InventarElement;
 
 import java.time.LocalDate;
 
@@ -63,11 +61,15 @@ public class EditInventarView extends HBox
 			form.setPadding(new Insets(20));
 			form.setAlignment(Pos.CENTER);
 			String[] typer = {"Møbler", "Utsmykning", "Teknisk Utstyr"};
-			TypeCombo<String> typeComboBox = new TypeCombo(typer);
+			String selectedType = "Møbler"; // TODO gjøre dynamisk, skal lastes fra db..
+			TypeCombo<String> typeComboBox = new TypeCombo(typer, selectedType);
 			
 			
-			KategoriCombo<String> categoryComboBox = new KategoriCombo<>();
+			KategoriCombo<String> categoryComboBox = new KategoriCombo<>(); //TODO gjøre dynamisk!!!
 			categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
+			
+			
+			
 			DatePicker purchaseDatePicker = new DatePicker();
 			purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
 			EditTextField priceField = new EditTextField("" + selectedInventar.getInnkjopspris());
@@ -122,17 +124,18 @@ public class EditInventarView extends HBox
 					
 					purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
 					
-					InventarElement newElement = new InventarElement(
-						typeComboBox.getValue(),
-						categoryComboBox.getValue(),
-						description,
-						
-						purchaseDate.toString(),
-						price,
-						locationField.getText(),
-						quantity,
-						lifespan
-					);
+					// FIXME: Use Shared model Inventar.
+					//InventarElement newElement = new InventarElement(
+					//	typeComboBox.getValue(),
+					//	categoryComboBox.getValue(),
+					//	description,
+					//
+					//	purchaseDate.toString(),
+					//	price,
+					//	locationField.getText(),
+					//	quantity,
+					//	lifespan
+					//);
 					
 					//TODO insert into db here !
 				} catch (NumberFormatException e) {

@@ -2,12 +2,10 @@ package usn.obj2100.client.Inventar;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import usn.obj2100.client.InventarElement;
 
 import java.time.LocalDate;
 
@@ -81,17 +79,18 @@ public class NewInventarView extends HBox
 				
 				purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
 				
-				InventarElement newElement = new InventarElement(
-					typeComboBox.getValue(),
-					categoryComboBox.getValue(),
-					description,
-					
-					purchaseDate.toString(),
-					price,
-					locationField.getText(),
-					quantity,
-					lifespan
-				);
+				// FIXME: Use Shared model Inventar.
+				//InventarElement newElement = new InventarElement(
+				//	typeComboBox.getValue(),
+				//	categoryComboBox.getValue(),
+				//	description,
+				//
+				//	purchaseDate.toString(),
+				//	price,
+				//	locationField.getText(),
+				//	quantity,
+				//	lifespan
+				//);
 					
 					//TODO insert into db here !
 			} catch (NumberFormatException e) {

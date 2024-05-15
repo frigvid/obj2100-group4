@@ -5,9 +5,12 @@ import usn.obj2100.client.Client;
 import usn.obj2100.client.ClientController;
 import usn.obj2100.client.ClientView;
 import usn.obj2100.shared.Command;
+import usn.obj2100.shared.Type;
 import usn.obj2100.shared.model.Inventar;
 import usn.obj2100.shared.model.Kategori;
 import usn.obj2100.shared.model.Search;
+
+import java.util.List;
 
 public class SearchController {
 
@@ -15,7 +18,7 @@ public class SearchController {
 	private SearchBarView searchView;
 	private ClientView clientView;
 	SearchHandlers searchHandlers;
-	private Inventar[] searchResults;
+	private List<Inventar> searchResults;
 	private ClientController clientController;
 	private Client con;
 	public SearchController( ClientController clientController ) {
@@ -31,10 +34,18 @@ public class SearchController {
 
 	public void initData() {
 	
-		
-		
-		
-		//Kategori[] kategorier = new Kategori[3];
+		Object newSearchResults =  clientController.getServerConnection().request(Type.INVENTAR);
+		try
+		{
+			@SuppressWarnings("unchecked")  // This annotation suppresses unchecked casting warnings
+			List<Inventar> inventarList = (List<Inventar>) newSearchResults;
+			searchResults = inventarList;
+		} catch (Exception e){
+			System.out.println("Search does not return init data!");
+		}
+			
+			
+			//Kategori[] kategorier = new Kategori[3];
 		// FIXME: Temporary removal after merging.
 		//kategorier[0] = new Kategori("Møbler");
 		//kategorier[1] = new Kategori("Elektronikk");
@@ -53,7 +64,7 @@ public class SearchController {
 	}
 
 
-	public Inventar[] getSearchResults() {
+	public List<Inventar> getSearchResults() {
 		return searchResults;
 	}
 

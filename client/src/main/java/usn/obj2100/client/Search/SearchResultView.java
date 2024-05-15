@@ -20,7 +20,7 @@ public class SearchResultView extends VBox {
 	private boolean sortAscendingBeskrivelse = true;
 	private boolean sortAscendingInnkjøpsPris = true;
 	private boolean sortAscendingInnkjøpsDato = true;
-
+	
 
 	public SearchResultView(SearchController searchController) {
 		this.searchController = searchController;
@@ -214,16 +214,18 @@ public class SearchResultView extends VBox {
 	// Event handler methods for buttons
 	private void handleViewAction(Inventar inventar) {
 		// Implement the view action
+		searchController.getClientView().setViewInventarTabContent(inventar);
 		System.out.println("Viewing: " + inventar.getBeskrivelse());
 	}
 
 	private void handleEditAction(Inventar inventar) {
-		// Implement the edit action
+		searchController.getClientView().setEditInventarTabContent(inventar);
 		System.out.println("Editing: " + inventar.getBeskrivelse());
 	}
 
 	private void handleDeleteAction(Inventar inventar) {
 		// Implement the delete action
+		searchController.getClientView().setDeleteInventarTabContent(inventar);
 		System.out.println("Deleting: " + inventar.getBeskrivelse());
 	}
 

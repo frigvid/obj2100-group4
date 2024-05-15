@@ -8,6 +8,7 @@ public class EditTextField extends TextField
 	private String newValue;
 	public EditTextField(String value){
 		this.value = value;
+		this.setText(value);
 		this.newValue = "";
 	}
 	

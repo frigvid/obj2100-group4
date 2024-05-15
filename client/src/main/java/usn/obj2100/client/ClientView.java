@@ -11,6 +11,9 @@ import java.time.LocalDate;
 import javafx.scene.paint.Color;
 import usn.obj2100.client.GUI.StartView;
 import usn.obj2100.client.Inventar.NewInventarView;
+import usn.obj2100.client.Inventar.Views.DeleteInventarView;
+import usn.obj2100.client.Inventar.Views.EditInventarView;
+import usn.obj2100.client.Inventar.Views.SelectedInventarView;
 import usn.obj2100.client.Search.SearchBarView;
 import usn.obj2100.shared.model.Inventar;
 
@@ -95,9 +98,43 @@ public class ClientView {
 		tabs.getSelectionModel().select(index);
 	}
 	
+	public void setEditInventarTabContent(Inventar inventar){
+		HBox content = new HBox();
+		content.setAlignment(Pos.CENTER);
+		clientController.setSelectedInvetar(inventar);
+		content.getChildren().add(new EditInventarView(clientController));
+		String tittel = inventar.getBeskrivelse().length() > 15 ? inventar.getBeskrivelse().substring(0, 15) : inventar.getBeskrivelse();
+		Tab tempTab = new Tab("Rediger " + tittel, content);
+		tabs.getTabs().add(tempTab);
+		setTab(tabs.getTabs().size()-1);
+	}
+	
+	public void setViewInventarTabContent(Inventar inventar){
+		HBox content = new HBox();
+		content.setAlignment(Pos.CENTER);
+		clientController.setSelectedInvetar(inventar);
+		content.getChildren().add(new SelectedInventarView(clientController));
+		String tittel = inventar.getBeskrivelse().length() > 15 ? inventar.getBeskrivelse().substring(0, 15) : inventar.getBeskrivelse();
+		Tab tempTab = new Tab("Se på " + tittel, content);
+		tabs.getTabs().add(tempTab);
+		setTab(tabs.getTabs().size()-1);
+	}
+	
+	public void setDeleteInventarTabContent(Inventar inventar){
+		
+		HBox content = new HBox();
+		content.setAlignment(Pos.CENTER);
+		clientController.setSelectedInvetar(inventar);
+		content.getChildren().add(new DeleteInventarView(clientController));
+		String tittel = inventar.getBeskrivelse().length() > 15 ? inventar.getBeskrivelse().substring(0, 15) : inventar.getBeskrivelse();
+		Tab tempTab = new Tab("Slett " + tittel, content);
+		tabs.getTabs().add(tempTab);
+		setTab(tabs.getTabs().size()-1);
+	}
+	
 	public void setNewTabContentNewInventar ( HBox content) {
 		content.setAlignment(Pos.CENTER);
-		Tab tempTab = new Tab("Nytt Søk", content);
+		Tab tempTab = new Tab("Nytt inventar", content);
 		tabs.getTabs().add(tempTab);
 		setTab(tabs.getTabs().size()-1);
 	}

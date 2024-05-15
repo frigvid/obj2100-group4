@@ -6,8 +6,10 @@ import usn.obj2100.shared.Type;
 public class TypeCombo<String> extends ComboBox<String>
 {
 	private String[] typer;
-	public TypeCombo(String[] typer){
+	private String type;
+	public TypeCombo(String[] typer, String selectedType){
 		this.typer = typer;
+		this.type = selectedType;
 		initCombo();
 	}
 	
@@ -15,5 +17,6 @@ public class TypeCombo<String> extends ComboBox<String>
 		for(String type: typer){
 			getItems().add(type);
 		}
+		setValue(type);
 	}
 }
