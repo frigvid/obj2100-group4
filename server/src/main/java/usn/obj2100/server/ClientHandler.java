@@ -88,6 +88,10 @@ public class ClientHandler
 						case KASSERT_TYPE -> objectOutputStream.writeObject(kassertTypeController.getAll());
 					}
 				}
+				else if (command == Command.SEARCH)
+				{
+					objectOutputStream.writeObject("Ikke implementert enda!");
+				}
 				else if (object instanceof Inventar inventar)
 				{
 					boolean state;
@@ -253,21 +257,6 @@ public class ClientHandler
 							break;
 						default:
 							objectOutputStream.writeObject("Feil aksjon!");
-							break;
-					}
-				}
-				else if (object instanceof Search search)
-				{
-					switch (command)
-					{
-						case READ:
-							objectOutputStream.writeObject("Ikke implementert enda!");
-							break;
-						case CREATE:
-						case UPDATE:
-						case DELETE:
-						default:
-							objectOutputStream.writeObject("Feil aksjon! Søk kan bare lese.");
 							break;
 					}
 				}
