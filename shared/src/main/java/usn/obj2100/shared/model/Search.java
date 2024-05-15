@@ -29,7 +29,7 @@ import java.io.Serializable;
  * 	System.out.println(response2);
  * }
  *
- * @created 2024-04-14
+ * @created 2024-05-14
  * @since 0.5
  */
 public class Search
@@ -228,7 +228,7 @@ public class Search
 	 * ekstraheres, ville det øke kompleksiteten til søk uten
 	 * noen betydelig gevinst.
 	 *
-	 * @created 2024-04-15
+	 * @created 2024-05-15
 	 */
 	public static class Builder
 	{
