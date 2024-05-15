@@ -5,8 +5,10 @@ package usn.obj2100.shared;
  */
 public enum Type
 {
-	Inventar,
-	Plassering,
-	Kategori,
-	Kassert
+	INVENTAR,
+	PLASSERING,
+	KATEGORI,
+	KATEGORI_TYPE,
+	KASSERT,
+	KASSERT_TYPE
 }
