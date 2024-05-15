@@ -14,8 +14,6 @@ public class ClientView {
 
 	private TabPane tabs;
 	private StackPane mainContent;
-
-	private InventarSearch inventarSearch;
 	private SearchBarView searchBarView;
 	private DatabaseManager dbManager;
 	private ClientController clientController;

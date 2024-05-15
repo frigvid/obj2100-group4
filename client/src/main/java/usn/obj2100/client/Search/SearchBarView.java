@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class SearchBarView  {
 
 	private StackPane mainContent;
-	private InventarSearch inventarSearch;
 	private DropShadow dropShadow;
 	private HBox searchForm = buildSearchForm();
 	private HBox searchToggle = searchFormToggle();
