@@ -10,5 +10,6 @@ public enum Command
 	READ,
 	READALL,
 	UPDATE,
-	DELETE
+	DELETE,
+	SEARCH
 }
