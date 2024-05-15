@@ -5,6 +5,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import usn.obj2100.shared.Command;
 import usn.obj2100.server.clientTests.utils.FakeClient;
+import usn.obj2100.shared.Type;
 import usn.obj2100.shared.model.Inventar;
 
 import java.time.LocalDateTime;
@@ -109,7 +110,7 @@ public class InventarTest
 		/* The client should be connected. */
 		assertTrue(client.isConnected());
 		
-		Object response = client.request(Command.READALL, null);
+		Object response = client.request(Type.INVENTAR);
 		
 		System.out.println("Respons: " + response);
 		
