@@ -1,7 +1,10 @@
 package usn.obj2100.client.Search;
 
 import javafx.scene.layout.VBox;
+import usn.obj2100.client.Client;
+import usn.obj2100.client.ClientController;
 import usn.obj2100.client.ClientView;
+import usn.obj2100.shared.Command;
 import usn.obj2100.shared.model.Inventar;
 import usn.obj2100.shared.model.Kategori;
 import usn.obj2100.shared.model.Search;
@@ -13,23 +16,31 @@ public class SearchController {
 	private ClientView clientView;
 	SearchHandlers searchHandlers;
 	private Inventar[] searchResults;
-
-	public SearchController( ClientView clientView ) {
+	private ClientController clientController;
+	private Client con;
+	public SearchController( ClientController clientController ) {
+		this.clientController = clientController;
+		this.con = clientController.getServerConnection();
 		this.search = new Search();
-		this.clientView = clientView;
+		this.clientView = clientController.getClientView();
 		this.searchView = new SearchBarView( this);
 		this.searchHandlers = new SearchHandlers(this);
-		initDummyData();
+		initData();
+		
 	}
 
-	public void initDummyData() {
-		Kategori[] kategorier = new Kategori[3];
+	public void initData() {
+	
+		
+		
+		
+		//Kategori[] kategorier = new Kategori[3];
 		// FIXME: Temporary removal after merging.
 		//kategorier[0] = new Kategori("Møbler");
 		//kategorier[1] = new Kategori("Elektronikk");
 		//kategorier[2] = new Kategori("Kjøkkenutstyr");
 
-		searchResults = new Inventar[8];
+		//searchResults = new Inventar[8];
 		// FIXME: Temporary removal after merging.
 		//searchResults[0] = new Inventar("Stol", 1000, "2023-04-30" );
 		//searchResults[1] = new Inventar("Bord", 2000, "2023-04-30" );

@@ -8,8 +8,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
+		  Client serverConnection = new Client();
         BorderPane root = new BorderPane();
-		  ClientController clientController = new ClientController(root);
+		  ClientController clientController = new ClientController(root, serverConnection);
 		  Scene scene = new Scene(root, 800, 600);
 		  primaryStage.setScene(scene);
 		  primaryStage.setTitle("Inventarstyringssystem");

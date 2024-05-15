@@ -16,8 +16,6 @@ import javafx.util.Duration;
 import org.controlsfx.control.RangeSlider;
 
 
-import usn.obj2100.client.InventarSearch;
-
 import java.util.ArrayList;
 
 public class SearchBarView  {
