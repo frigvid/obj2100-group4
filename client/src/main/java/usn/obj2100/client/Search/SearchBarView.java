@@ -1,10 +1,9 @@
-package usn.obj2100.Search;
+package usn.obj2100.client.Search;
 
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -17,9 +16,8 @@ import javafx.util.Duration;
 import org.controlsfx.control.RangeSlider;
 
 
-import usn.obj2100.InventarSearch;
+import usn.obj2100.client.InventarSearch;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class SearchBarView  {

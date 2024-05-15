@@ -1,8 +1,8 @@
-package usn.obj2100;
+package usn.obj2100.client;
 
 import javafx.scene.layout.BorderPane;
-import usn.obj2100.Search.SearchBarView;
-import usn.obj2100.Search.SearchController;
+import usn.obj2100.client.Search.SearchBarView;
+import usn.obj2100.client.Search.SearchController;
 
 /**
  * ClientController er en klasse som fungerer som kontroller for klient, den kaller på andre kontrollere og den initierer views med handlers

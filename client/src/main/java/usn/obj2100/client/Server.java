@@ -1,4 +1,4 @@
-package usn.obj2100;
+package usn.obj2100.client;
 
 import java.net.*;
 import java.io.*;

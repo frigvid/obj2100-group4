@@ -1,4 +1,4 @@
-package usn.obj2100.Search;
+package usn.obj2100.client.Search;
 
 public enum SEARCHOPTION {
 	 BESKRIVELSE,

@@ -1,9 +1,9 @@
-package usn.obj2100.Search;
+package usn.obj2100.client.Search;
 
 import javafx.scene.layout.VBox;
-import usn.obj2100.ClientView;
-import usn.obj2100.model.Inventar;
-import usn.obj2100.model.Search;
+import usn.obj2100.client.ClientView;
+import usn.obj2100.shared.model.Inventar;
+import usn.obj2100.shared.model.Search;
 
 public class SearchController {
 
@@ -23,14 +23,14 @@ public class SearchController {
 
 	public void initDummyData() {
 		searchResults = new Inventar[8];
-		searchResults[0] = new Inventar("Stol", 1000, "2023-04-30" );
-		searchResults[1] = new Inventar("Bord", 2000, "2023-04-30" );
-		searchResults[2] = new Inventar("Sofa", 3000, "2023-04-30" );
-		searchResults[3] = new Inventar("Lampe", 4000, "2023-04-30" );
-		searchResults[4] = new Inventar("Bokhylle", 5000, "2023-04-30" );
-		searchResults[5] = new Inventar("TV", 6000, "2023-04-30") ;
-		searchResults[6] = new Inventar("Kaffemaskin", 7000,  "2023-04-30" );
-		searchResults[7] = new Inventar("Kjøleskap", 8000, "2023-04-30" );
+		//searchResults[0] = new Inventar("Stol", 1000, "2023-04-30" );
+		//searchResults[1] = new Inventar("Bord", 2000, "2023-04-30" );
+		//searchResults[2] = new Inventar("Sofa", 3000, "2023-04-30" );
+		//searchResults[3] = new Inventar("Lampe", 4000, "2023-04-30" );
+		//searchResults[4] = new Inventar("Bokhylle", 5000, "2023-04-30" );
+		//searchResults[5] = new Inventar("TV", 6000, "2023-04-30") ;
+		//searchResults[6] = new Inventar("Kaffemaskin", 7000,  "2023-04-30" );
+		//searchResults[7] = new Inventar("Kjøleskap", 8000, "2023-04-30" );
 	}
 
 

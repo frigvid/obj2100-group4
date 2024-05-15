@@ -1,17 +1,13 @@
-package usn.obj2100.Search;
+package usn.obj2100.client.Search;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
-import javafx.event.EventType;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import org.controlsfx.control.RangeSlider;
-import usn.obj2100.ClientView;
-
-import java.sql.ResultSet;
+import usn.obj2100.client.ClientView;
 
 public class SearchHandlers {
 	private SearchBarView searchBarView;

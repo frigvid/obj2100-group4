@@ -1,4 +1,4 @@
-package usn.obj2100;
+package usn.obj2100.client;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

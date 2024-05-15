@@ -1,10 +1,10 @@
-package usn.obj2100.Search;
+package usn.obj2100.client.Search;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import usn.obj2100.model.Inventar;
+import usn.obj2100.shared.model.Inventar;
 
 public class SearchResultView extends VBox {
 	private SearchController searchController;
@@ -36,8 +36,8 @@ public class SearchResultView extends VBox {
 			HBox row = new HBox();
 			row.getChildren().addAll(
 				createStyledLabel(inventar.getBeskrivelse()),
-				createStyledLabel(inventar.getInnkjøpsPris() + " kr"),
-				createStyledLabel(inventar.getInnkjøpsDato().toString()),
+				createStyledLabel(inventar.getInnkjopspris() + " kr"),
+				createStyledLabel(inventar.getInnkjopsdato().toString()),
 				createActionButtons(inventar)
 			);
 			row.setSpacing(10);

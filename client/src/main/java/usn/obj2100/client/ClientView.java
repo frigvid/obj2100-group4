@@ -1,14 +1,14 @@
-package usn.obj2100;
+package usn.obj2100.client;
 
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import java.sql.ResultSet;
+
 import java.time.LocalDate;
-import java.sql.ResultSet;
-import usn.obj2100.Search.SearchBarView;
+
+import usn.obj2100.client.Search.SearchBarView;
 
 public class ClientView {
 
