@@ -2,9 +2,40 @@ package usn.obj2100.shared.model;
 
 import java.io.Serializable;
 
+/**
+ * Søk klasse for å bygge søk.
+ * <p/>
+ * Man kan enten ta et enkelt søk, som bare består av en streng,
+ * som slår opp i databasetabellene inventar.beskrivelse og kategori.kategori,
+ * eller om man vil ta et avansert søk med filter.
+ * <p/>
+ * Søk må bygges opp med den underliggende Builder klassen, ettersom at
+ * det ville vært hundrevis av variasjoner for avanserte søk, siden filtere
+ * er valgfrie.
+ * <p/>
+ * Eksempel på bruk:
+ * {@snippet id="SearchExample" lang="java" group="Search" :
+ * 	Search query = new Search.Builder()
+ * 		.search("Ost")
+ * 		.searchByBeskrivelse("Ost")
+ * 		.build();
+ * 	// Generisk objekt.
+ * 	Client client = new Client();
+ * 	Object response = client.request(query);
+ * 	System.out.println(response);
+ *
+ * 	// Castet type.
+ * 	List<List<Object>> response2 = (List<List<Object>>) client.request(query);
+ * 	System.out.println(response2);
+ * }
+ *
+ * @created 2024-04-14
+ * @since 0.5
+ */
 public class Search
 	implements Serializable
 {
+	/* Filtre. */
 	private String searchByBeskrivelse;
 	private String searchByType;
 	private String searchByKategori;
@@ -15,50 +46,106 @@ public class Search
 	private int[] searchByLevetid;
 	private int[] searchByForventetKassering;
 	private boolean searchByIBruk;
-	
 	private boolean searchByIkkeIBruk;
 	private String searchByTattUtAvBrukÅrsak;
 	private int searchByTattUtAvBrukÅr;
+	
+	/* Grunnleggende søkestreng. */
 	private String search;
 	
-	public Search() {}
-	
-	public Search(String search)
+	/**
+	 * Konstruktør for å bygge et søk.
+	 * <p/>
+	 * Denne er bare brukt gjennom den underliggende Builder klassen.
+	 *
+	 * @param builder Builder objektet.
+	 */
+	private Search(Builder builder)
 	{
-		this.search = search;
+		this.searchByBeskrivelse = builder.searchByBeskrivelse;
+		this.searchByType = builder.searchByType;
+		this.searchByKategori = builder.searchByKategori;
+		this.searchByInnkjopsdato = builder.searchByInnkjopsdato;
+		this.searchByPris = builder.searchByPris;
+		this.searchByPlassering = builder.searchByPlassering;
+		this.searchByAntall = builder.searchByAntall;
+		this.searchByLevetid = builder.searchByLevetid;
+		this.searchByForventetKassering = builder.searchByForventetKassering;
+		this.searchByIBruk = builder.searchByIBruk;
+		this.searchByIkkeIBruk = builder.searchByIkkeIBruk;
+		this.searchByTattUtAvBrukÅrsak = builder.searchByTattUtAvBrukÅrsak;
+		this.searchByTattUtAvBrukÅr = builder.searchByTattUtAvBrukÅr;
+		this.search = builder.search;
 	}
 	
-	public Search
-	(
-		String SearchByBeskrivelse,
-		String searchByType,
-		String searchByKategori,
-		int searchByInnkjopsdato,
-		int[] searchByPris,
-		String searchByPlassering,
-		int[] searchByAntall,
-		int[] searchByLevetid,
-		int[] searchByForventetKassering,
-		boolean searchByIBruk,
-		boolean searchByIkkeIBruk,
-		String searchByTattUtAvBrukÅrsak,
-		int searchByTattUtAvBrukÅr,
-		String search
-	)
+	/* Setters */
+	public void setSearchByBeskrivelse(String searchByBeskrivelse)
 	{
-		this.searchByBeskrivelse = SearchByBeskrivelse;
+		this.searchByBeskrivelse = searchByBeskrivelse;
+	}
+	
+	public void setSearchByType(String searchByType)
+	{
 		this.searchByType = searchByType;
+	}
+	
+	public void setSearchByKategori(String searchByKategori)
+	{
 		this.searchByKategori = searchByKategori;
+	}
+	
+	public void setSearchByInnkjopsdato(int searchByInnkjopsdato)
+	{
 		this.searchByInnkjopsdato = searchByInnkjopsdato;
-		this.searchByPris = searchByPris;
+	}
+	
+	public void setSearchByPris(int min, int max)
+	{
+		this.searchByPris = new int[]{min, max};
+	}
+	
+	public void setSearchByPlassering(String searchByPlassering)
+	{
 		this.searchByPlassering = searchByPlassering;
-		this.searchByAntall = searchByAntall;
-		this.searchByLevetid = searchByLevetid;
-		this.searchByForventetKassering = searchByForventetKassering;
+	}
+	
+	public void setSearchByAntall(int min, int max)
+	{
+		this.searchByAntall = new int[]{min, max};
+	}
+	
+	public void setSearchByLevetid(int min, int max)
+	{
+		this.searchByLevetid = new int[]{min, max};
+	}
+	
+	public void setSearchByForventetKassering(int min, int max)
+	{
+		this.searchByForventetKassering = new int[]{min, max};
+	}
+	
+	public void setSearchByIBruk(boolean searchByIBruk)
+	{
 		this.searchByIBruk = searchByIBruk;
+	}
+	
+	public void setSearchByIkkeIBruk(boolean searchByIkkeIBruk)
+	{
 		this.searchByIkkeIBruk = searchByIkkeIBruk;
+	}
+	
+	public void setSearchByTattUtAvBrukÅrsak(String searchByTattUtAvBrukÅrsak)
+	{
 		this.searchByTattUtAvBrukÅrsak = searchByTattUtAvBrukÅrsak;
+	}
+	
+	public void setSearchByTattUtAvBrukÅr(int searchByTattUtAvBrukÅr)
+	{
 		this.searchByTattUtAvBrukÅr = searchByTattUtAvBrukÅr;
+	}
+	
+	public void setSearch(String search)
+	{
 		this.search = search;
 	}
 	
@@ -133,75 +220,257 @@ public class Search
 		return search;
 	}
 	
-	/* Setters */
-	
-	public void setSearchByBeskrivelse(String searchByBeskrivelse)
+	/**
+	 * Builder klasse for å bygge et søk.
+	 * <p/>
+	 * Denne er tett relatert til Search klassen, og det er mer
+	 * gunstig å innkludere den i samme fil. Dersom den skulle
+	 * ekstraheres, ville det øke kompleksiteten til søk uten
+	 * noen betydelig gevinst.
+	 *
+	 * @created 2024-04-15
+	 */
+	public static class Builder
 	{
-		this.searchByBeskrivelse = searchByBeskrivelse;
-	}
-	
-	public void setSearchByType(String searchByType)
-	{
-		this.searchByType = searchByType;
-	}
-	
-	public void setSearchByKategori(String searchByKategori)
-	{
-		this.searchByKategori = searchByKategori;
-	}
-	
-	public void setSearchByInnkjopsdato(int searchByInnkjopsdato)
-	{
-		this.searchByInnkjopsdato = searchByInnkjopsdato;
-	}
-	
-	public void setSearchByPris(int min, int max)
-	{
-		this.searchByPris = new int[]{min, max};
-	}
-	
-	public void setSearchByPlassering(String searchByPlassering)
-	{
-		this.searchByPlassering = searchByPlassering;
-	}
-	
-	public void setSearchByAntall(int min, int max)
-	{
-		this.searchByAntall = new int[]{min, max};
-	}
-	
-	public void setSearchByLevetid(int min, int max)
-	{
-		this.searchByLevetid = new int[]{min, max};
-	}
-	
-	public void setSearchByForventetKassering(int min, int max)
-	{
-		this.searchByForventetKassering = new int[]{min, max};
-	}
-	
-	public void setSearchByIBruk(boolean searchByIBruk)
-	{
-		this.searchByIBruk = searchByIBruk;
-	}
-	
-	public void setSearchByIkkeIBruk(boolean searchByIkkeIBruk)
-	{
-		this.searchByIkkeIBruk = searchByIkkeIBruk;
-	}
-	
-	public void setSearchByTattUtAvBrukÅrsak(String searchByTattUtAvBrukÅrsak)
-	{
-		this.searchByTattUtAvBrukÅrsak = searchByTattUtAvBrukÅrsak;
-	}
-	
-	public void setSearchByTattUtAvBrukÅr(int searchByTattUtAvBrukÅr)
-	{
-		this.searchByTattUtAvBrukÅr = searchByTattUtAvBrukÅr;
-	}
-	
-	public void setSearch(String search)
-	{
-		this.search = search;
+		private String searchByBeskrivelse;
+		private String searchByType;
+		private String searchByKategori;
+		private int searchByInnkjopsdato;
+		private int[] searchByPris;
+		private String searchByPlassering;
+		private int[] searchByAntall;
+		private int[] searchByLevetid;
+		private int[] searchByForventetKassering;
+		private boolean searchByIBruk;
+		private boolean searchByIkkeIBruk;
+		private String searchByTattUtAvBrukÅrsak;
+		private int searchByTattUtAvBrukÅr;
+		private String search;
+		
+		public Builder() {}
+		
+		/**
+		 * Grunnsøket.
+		 * <p/>
+		 * Slår opp i databasetabellene:
+		 * - inventar.beskrivelse.
+		 * - kategori.kategori.
+		 *
+		 * @param search Søket.
+		 * @return Builder objektet.
+		 */
+		public Builder search(String search)
+		{
+			this.search = search;
+			return this;
+		}
+		
+		/**
+		 * Søk med filter for beskrivelse.
+		 * <p/>
+		 * Slår opp i databasetabellen inventar.beskrivelse.
+		 *
+		 * @param searchByBeskrivelse Filtersøkeverdien.
+		 * @return Builder objektet.
+		 */
+		public Builder searchByBeskrivelse(String searchByBeskrivelse)
+		{
+			this.searchByBeskrivelse = searchByBeskrivelse;
+			return this;
+		}
+		
+		/**
+		 * Søk med filter for type.
+		 * <p/>
+		 * Slår opp i databasetabellen kategoriType.type.
+		 *
+		 * @param searchByType Filtersøkeverdien.
+		 * @return Builder objektet.
+		 */
+		public Builder searchByType(String searchByType)
+		{
+			this.searchByType = searchByType;
+			return this;
+		}
+		
+		/**
+		 * Søk med filter for kategori.
+		 * <p/>
+		 * Slår opp i databasetabellen kategori.kategori.
+		 *
+		 * @param searchByKategori Filtersøkeverdien.
+		 * @return Builder objektet.
+		 */
+		public Builder searchByKategori(String searchByKategori)
+		{
+			this.searchByKategori = searchByKategori;
+			return this;
+		}
+		
+		/**
+		 * Søk med filter for innkjøpsdato.
+		 * <p/>
+		 * Slår opp i databasetabellen inventar.innkjopsdato.
+		 *
+		 * @param searchByInnkjopsdato Filtersøkeverdien.
+		 * @return Builder objektet.
+		 */
+		public Builder searchByInnkjopsdato(int searchByInnkjopsdato)
+		{
+			this.searchByInnkjopsdato = searchByInnkjopsdato;
+			return this;
+		}
+		
+		/**
+		 * Søk med filter for pris.
+		 * <p/>
+		 * Slår opp i databasetabellen inventar.pris.
+		 *
+		 * @param min Filtersøkets minimumsverdien.
+		 * @param max Filtersøkets maksimumsverdien.
+		 * @return Builder objektet.
+		 */
+		public Builder searchByPris(int min, int max)
+		{
+			this.searchByPris = new int[]{min, max};
+			return this;
+		}
+		
+		/**
+		 * Søk med filter for plassering.
+		 * <p/>
+		 * Slår opp i databasetabellen:
+		 * - plassering.bygg.
+		 * - plassering.floy.
+		 * - plassering.etasje.
+		 * - plassering.rom.
+		 *
+		 * @param searchByPlassering Filtersøkeverdien. Konstruert som "bygg/floy/etasje/rom".
+		 * @return Builder objektet.
+		 */
+		public Builder searchByPlassering(String searchByPlassering)
+		{
+			this.searchByPlassering = searchByPlassering;
+			return this;
+		}
+		
+		/**
+		 * Søk med filter for antall.
+		 * <p/>
+		 * Slår opp i databasetabellen inventar.antall.
+		 *
+		 * @param min Filtersøkets minimumsverdien.
+		 * @param max Filtersøkets maksimumsverdien.
+		 * @return Builder objektet.
+		 */
+		public Builder searchByAntall(int min, int max)
+		{
+			this.searchByAntall = new int[]{min, max};
+			return this;
+		}
+		
+		// TODO: Denne burde begrenses til levetiden som beskrives i eksamensoppgaven
+		//			for anbefalt intervall av år.
+		/**
+		 * Søk med filter for levetid.
+		 * <p/>
+		 * Slår opp i databasetabellen inventar.levetid.
+		 *
+		 * @param min Filtersøkets minimumsverdien.
+		 * @param max Filtersøkets maksimumsverdien.
+		 * @return Builder objektet.
+		 */
+		public Builder searchByLevetid(int min, int max)
+		{
+			this.searchByLevetid = new int[]{min, max};
+			return this;
+		}
+		
+		// TODO: Denne må regnes ut fra dato tatt i bruk og forventet levetid,
+		//			men man skal bare angi dette som en intervall av år.
+		/**
+		 * Søk med filter for forventet kassering.
+		 * <p/>
+		 * Slår opp i databasetabellen inventar.forventetKassering.
+		 *
+		 * @param min Filtersøkets minimumsverdien.
+		 * @param max Filtersøkets maksimumsverdien.
+		 * @return Builder objektet.
+		 */
+		public Builder searchByForventetKassering(int min, int max)
+		{
+			this.searchByForventetKassering = new int[]{min, max};
+			return this;
+		}
+		
+		/**
+		 * Søk med filter for om gjenstanden er i bruk.
+		 * <p/>
+		 * Slår opp i databasetabellen inventar.kassert.
+		 *
+		 * @param searchByIBruk Filtersøkeverdien. True/False.
+		 * @return Builder objektet.
+		 */
+		public Builder searchByIBruk(boolean searchByIBruk)
+		{
+			// TODO: Dersom inventar.kassert er "0" eller "null",
+			// 		er gjenstanden i bruk.
+			this.searchByIBruk = searchByIBruk;
+			return this;
+		}
+		
+		/**
+		 * Søk med filter for om gjenstanden ikke er i bruk.
+		 * <p/>
+		 * Slår opp i databasetabellen inventar.kassert.
+		 *
+		 * @param searchByIkkeIBruk Filtersøkeverdien. True/False.
+		 * @return Builder objektet.
+		 */
+		public Builder searchByIkkeIBruk(boolean searchByIkkeIBruk)
+		{
+			// TODO: Dersom inventar.kassert ikke er "0" eller "null",
+			// 		er gjenstanden i ikke bruk.
+			this.searchByIkkeIBruk = searchByIkkeIBruk;
+			return this;
+		}
+		
+		/**
+		 * Søk med filter for kassert årsak.
+		 * <p/>
+		 * Slår opp i databasetabellen inventar.kassertType.
+		 *
+		 * @param searchByTattUtAvBrukÅrsak Filtersøkeverdien. F.eks. "Solgt".
+		 * @return Builder objektet.
+		 */
+		public Builder searchByTattUtAvBrukÅrsak(String searchByTattUtAvBrukÅrsak)
+		{
+			this.searchByTattUtAvBrukÅrsak = searchByTattUtAvBrukÅrsak;
+			return this;
+		}
+		
+		/**
+		 * Søk med filter for kassert år.
+		 * <p/>
+		 * Slår opp i databasetabellen inventar.kassertAr.
+		 *
+		 * @param searchByTattUtAvBrukÅr Årstall, f.eks. 2024.
+		 * @return Builder objektet.
+		 */
+		public Builder searchByTattUtAvBrukÅr(int searchByTattUtAvBrukÅr)
+		{
+			this.searchByTattUtAvBrukÅr = searchByTattUtAvBrukÅr;
+			return this;
+		}
+		
+		/**
+		 * Bygg søket.
+		 *
+		 * @return Search objektet.
+		 */
+		public Search build()
+		{
+			return new Search(this);
+		}
 	}
 }
