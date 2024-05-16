@@ -6,9 +6,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.LocalTimeStringConverter;
 import usn.obj2100.client.ClientController;
+import usn.obj2100.shared.model.Inventar;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class NewInventarView extends HBox
 {
@@ -77,6 +81,9 @@ public class NewInventarView extends HBox
 				int quantity = Integer.parseInt(quantityField.getText());
 				Integer lifespan = "Mobler".equals(typeComboBox.getValue()) ? Integer.parseInt(lifespanField.getText()) : null;
 				String description = descriptionField.getText();
+				String category = categoryComboBox.getValue();
+				int location = Integer.parseInt(locationField.getText());
+				int kassert = 0;
 				categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
 				
 				purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
@@ -93,9 +100,22 @@ public class NewInventarView extends HBox
 				//	quantity,
 				//	lifespan
 				//);
-					
+				LocalTime timeStamp = LocalTime.now();
+				LocalDateTime purchaseDateTime = purchaseDate.atTime(timeStamp);
+
+				int katTeller = 0;
+
+				for(String cat: categoryComboBox.getItems()){
+					if(cat.equals(category)){
+						return;
+					}
+					katTeller++;
+				}
+
+
+					Inventar inventar = new Inventar( 123321456, description, purchaseDateTime, price, quantity, lifespan, katTeller, location, kassert);
 					//TODO insert into db here !
-				//mc.getInventarController().addInventar(inventar);
+				mc.getInventarController().addInventar(inventar);
 			} catch (NumberFormatException e) {
 				new Alert(Alert.AlertType.ERROR, "Sjekk at alle tallfelt er korrekt fylt ut.").show();
 			}

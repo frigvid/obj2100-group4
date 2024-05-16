@@ -110,6 +110,7 @@ public class ClientHandler
 					{
 						case CREATE:
 							retrievedInventar = inventarController.create(inventar);
+							System.out.println(retrievedInventar);
 							objectOutputStream.writeObject(retrievedInventar);
 							break;
 						case READ:
