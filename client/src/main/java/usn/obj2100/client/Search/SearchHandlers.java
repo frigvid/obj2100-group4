@@ -38,25 +38,7 @@ public class SearchHandlers {
 				clientView.getFooter().getChildren().remove(searchBarView.getSearchToggle());
 
 
-				searchBarView.getSearchField().textProperty().addListener(new ChangeListener<String>() {
-					int count = 0;
-					String searchLabel;
-					@Override
-					public void changed( ObservableValue<? extends String> observable, String oldValue, String newValue) {
-						searchLabel = "Søkeresultater for: " + newValue;
 
-						if(count < 1) {
-							clientView.setNewTabContent(searchLabel);
-							count++;
-						}else{
-							clientView.updateTabContent(searchLabel);
-						}
-
-
-						System.out.println("Søkefelt oppdatert: " + newValue);
-						// Legg til koden som oppdaterer noe her
-					}
-				});
 
 
 				clientView.getFooter().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
@@ -107,7 +89,8 @@ public class SearchHandlers {
 
 		//TODO Performance: If the action triggered by the text change is heavy (like querying a database), consider debouncing the input or waiting until the user stops typing for a certain duration before executing the action, to avoid performing the action too frequently.
 		searchBarView.getSearchField().textProperty().addListener(e -> {
-			searchController.setSearchMode(searchBarView.getSearchField().getText());
+			String newSearch = searchBarView.getSearchField().getText();
+			mc.getClientView().setNewTabContent(newSearch);
 		});
 
 		searchBarView.getSearchButton().setOnAction(event -> {

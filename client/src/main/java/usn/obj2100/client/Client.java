@@ -29,11 +29,11 @@ public class Client
 				socket = new Socket(InetAddress.getLocalHost().getHostAddress(), port);
 				objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 				objectInputStream = new ObjectInputStream(socket.getInputStream());
-				
 				break;
 			}
 			catch (IOException error)
 			{
+				System.out.println("Server slo seg av!");
 				error.printStackTrace(System.err);
 			}
 		}

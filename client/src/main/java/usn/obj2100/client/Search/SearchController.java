@@ -28,9 +28,7 @@ public class SearchController {
 		this.search = new Search.Builder();
 		this.clientView = clientController.getClientView();
 		this.helper = new HelpView();
-
 		initData();
-		
 	}
 
 	private void initData() {
@@ -40,12 +38,14 @@ public class SearchController {
 	public void setSearchMode(String seachString){
 		Search.Builder search1 = new Search.Builder();
 		search1.searchByBeskrivelse(seachString);
-		Object newSearchResults =  clientController.getServerConnection().request(search1.build());
-		try
+		search1.searchByBeskrivelse(seachString);
+			try
 		{
 			@SuppressWarnings("unchecked")  // This annotation suppresses unchecked casting warnings
-			List<Inventar> inventarList = (List<Inventar>) newSearchResults;
+			List<Inventar> inventarList = (List<Inventar>) clientController.getServerConnection().request(search1.build());
+
 			searchResults = inventarList;
+
 		} catch (Exception e){
 			System.out.println("Search does not return init data!");
 		}

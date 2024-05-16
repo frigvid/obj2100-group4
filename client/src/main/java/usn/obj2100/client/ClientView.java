@@ -27,6 +27,7 @@ public class ClientView {
 	private ScreenController screen;
 	private StartView startScreen;
 	private SearchBarView searchBar;
+	private int searchTabIndex = 0;
 
 	public ClientView( ClientController clientController) {
 		this.root = clientController.getRoot();
@@ -156,16 +157,20 @@ public class ClientView {
 	public void setNewTabContent ( String content) {
 		VBox searchResults = clientController.getScreen().getSearchResultScreen(content);
 		Tab tempTab = new Tab(content, searchResults);
+		if (searchTabIndex > 0){
+			updateTabContent(tempTab, searchTabIndex);
+			return;
+		}
+
 		tabs.getTabs().add(tempTab);
-		setTab(tabs.getTabs().size()-1);
+		searchTabIndex = tabs.getTabs().size()-1;
+		setTab(searchTabIndex);
 	}
 
-	public void updateTabContent ( String content) {
-		/*VBox searchResults = clientController.getScreen().getSearchResultScreen();
-		Tab tempTab = new Tab(content, searchResults);
-		tabs.getTabs().remove(2);
-		tabs.getTabs().add(2,tempTab);
-		tabs.getSelectionModel().select(2);*/
+	public void updateTabContent ( Tab content, int index) {
+		tabs.getTabs().remove(index);
+		tabs.getTabs().add(index,content);
+		tabs.getSelectionModel().select(index);
 	}
 
 

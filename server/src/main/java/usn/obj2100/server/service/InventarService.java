@@ -87,28 +87,28 @@ public class InventarService
 	public List<Inventar> getAll()
 	{
 		List<Inventar> inventarList = new ArrayList<>();
-		
-		try
-		{
-			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM inventar");
-			
-			while (resultSet.next())
+
+		try (Connection conn = DatabaseConnectionManager.getInstance().getConnection();
+			  Statement stmt = conn.createStatement();
+			  ResultSet rs = stmt.executeQuery("select * from inventar")) {
+
+
+			while (rs.next())
 			{
 				inventarList.add(new Inventar(
-					resultSet.getInt("sku"),
-					resultSet.getString("beskrivelse"),
-					resultSet.getTimestamp("innkjopsdato").toLocalDateTime(),
-					resultSet.getDouble("innkjopspris"),
-					resultSet.getInt("antall"),
-					resultSet.getShort("forventetLevetid"),
-					resultSet.getInt("kategori"),
+					rs.getInt("sku"),
+					rs.getString("beskrivelse"),
+					rs.getTimestamp("innkjopsdato").toLocalDateTime(),
+					rs.getDouble("innkjopspris"),
+					rs.getInt("antall"),
+					rs.getShort("forventetLevetid"),
+					rs.getInt("kategori"),
 					(
-						resultSet.getInt("plassering") == 0
+						rs.getInt("plassering") == 0
 							? 0
-							: resultSet.getInt("plassering")
+							: rs.getInt("plassering")
 					),
-					resultSet.getInt("kassert")
+					rs.getInt("kassert")
 				));
 			}
 			
@@ -147,6 +147,7 @@ public class InventarService
 	{
 		try
 		{
+
 			PreparedStatement statement = connection.prepareStatement("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (?,?,?,?,?,?,?,?,?)");
 			statement.setInt(1, inventar.getSKU());
 			statement.setString(2, inventar.getBeskrivelse());

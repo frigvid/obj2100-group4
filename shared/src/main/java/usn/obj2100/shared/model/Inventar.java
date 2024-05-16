@@ -188,7 +188,7 @@ public class Inventar
 		Inventar inventar = (Inventar) object;
 		return Double.compare(inventar.innkjopspris, innkjopspris) == 0
 			&& beskrivelse.equals(inventar.beskrivelse)
-			&& innkjopsdato.equals(inventar.innkjopsdato)
+			&& innkjopsdato == inventar.innkjopsdato
 			&& Objects.equals(plassering, inventar.plassering);
 	}
 	

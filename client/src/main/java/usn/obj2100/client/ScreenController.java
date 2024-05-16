@@ -42,7 +42,6 @@ public class ScreenController {
 			mc.getSearchController().setSearchMode(search);
 			searchResultScreen = new SearchResultView(mc.getSearchController());
 			return searchResultScreen;
-
 	}
 
 	public NewInventarView getNewInventarScreen(){

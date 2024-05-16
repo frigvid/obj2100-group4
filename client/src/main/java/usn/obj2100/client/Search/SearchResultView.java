@@ -111,7 +111,7 @@ public class SearchResultView extends VBox {
 			//Label kategoriLabel = createStyledLabel(inventar.getKategori().getKategoriNavn());
 			Label beskrivelseLabel = createStyledLabel(inventar.getBeskrivelse());
 			Label innkjøpsPrisLabel = createStyledLabel(inventar.getInnkjopspris() + " kr");
-			Label innkjøpsDatoLabel = createStyledLabel(inventar.getInnkjopsdato().toString());
+			Label innkjøpsDatoLabel = createStyledLabel(inventar.getInnkjopsdato() + "");
 			HBox actionsBox = createActionButtons(inventar);
 
 			// Add the data labels and actions box to the grid pane

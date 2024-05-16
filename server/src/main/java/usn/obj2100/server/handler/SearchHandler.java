@@ -1,8 +1,11 @@
 package usn.obj2100.server.handler;
 
 import usn.obj2100.server.controller.*;
+import usn.obj2100.server.service.InventarSokService;
+import usn.obj2100.shared.model.Inventar;
 import usn.obj2100.shared.model.Search;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchHandler
@@ -41,8 +44,15 @@ public class SearchHandler
 		this.kassertController = kassertController;
 		this.kassertTypeController = kassertTypeController;
 	}
-	public List<Object> handleSearch(Search search)
+	public List<Inventar> handleSearch(Search search)
 	{
+
+		InventarSokService inventarSok = new InventarSokService();
+		List<Inventar> result = inventarSok.searchInventory(search);
+		System.out.println(result);
+		if(result != null){
+			return result;
+		}
 		return null;
 	}
 

@@ -62,7 +62,7 @@ public class SelectedInventarView extends HBox
 		Label kategori = bigLabel("testkategori"); //TODO gjøre dynamisk!!!
 		
 		
-		Label innkjøpsDato = bigLabel(selectedInventar.getInnkjopsdato().toString());
+		Label innkjøpsDato = bigLabel(selectedInventar.getInnkjopsdato() + "");
 		Label priceField = bigLabel("" + selectedInventar.getInnkjopspris());
 		Label locationField = bigLabel("" +selectedInventar.getPlassering());
 		Label quantityField = bigLabel("" + selectedInventar.getAntall());
