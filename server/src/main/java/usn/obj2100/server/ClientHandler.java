@@ -29,7 +29,7 @@ public class ClientHandler
 	private final KassertController kassertController;
 	private final KassertTypeController kassertTypeController;
 	
-	/**
+	/**test
 	 * Create a new client handler.
 	 *
 	 * @param socket The socket to the client.

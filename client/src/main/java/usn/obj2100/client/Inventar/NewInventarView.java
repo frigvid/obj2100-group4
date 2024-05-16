@@ -93,7 +93,7 @@ public class NewInventarView extends HBox
 				//	typeComboBox.getValue(),
 				//	categoryComboBox.getValue(),
 				//	description,
-				//
+				//tt
 				//	purchaseDate.toString(),
 				//	price,
 				//	locationField.getText(),
