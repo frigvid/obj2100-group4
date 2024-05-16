@@ -23,27 +23,27 @@ public class SearchHandler
 		kassertController = new KassertController();
 		kassertTypeController = new KassertTypeController();
 	}
-	
-	//private SearchHandler
-	//(
-	//	InventarController inventarController,
-	//	PlasseringController plasseringController,
-	//	KategoriController kategoriController,
-	//	KategoriTypeController kategoriTypeController,
-	//	KassertController kassertController,
-	//	KassertTypeController kassertTypeController
-	//)
-	//{
-	//	this.inventarController = inventarController;
-	//	this.plasseringController = plasseringController;
-	//	this.kategoriController = kategoriController;
-	//	this.kategoriTypeController = kategoriTypeController;
-	//	this.kassertController = kassertController;
-	//	this.kassertTypeController = kassertTypeController;
-	//}
-	
-	//public List<Object> handleSearch(Search search)
-	//{
-	//
-	//}
+
+	private SearchHandler
+	(
+		InventarController inventarController,
+		PlasseringController plasseringController,
+		KategoriController kategoriController,
+		KategoriTypeController kategoriTypeController,
+		KassertController kassertController,
+		KassertTypeController kassertTypeController
+	)
+	{
+		this.inventarController = inventarController;
+		this.plasseringController = plasseringController;
+		this.kategoriController = kategoriController;
+		this.kategoriTypeController = kategoriTypeController;
+		this.kassertController = kassertController;
+		this.kassertTypeController = kassertTypeController;
+	}
+	public List<Object> handleSearch(Search search)
+	{
+		return null;
+	}
+
 }

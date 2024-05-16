@@ -14,7 +14,7 @@ import usn.obj2100.shared.model.Search;
 import java.util.List;
 
 public class SearchController {
-	private Search search;
+	private Search.Builder search;
 	private SearchBarView searchView;
 	private ClientView clientView;
 	SearchHandlers searchHandlers;
@@ -25,9 +25,8 @@ public class SearchController {
 	public SearchController( ClientController clientController ) {
 		this.clientController = clientController;
 		this.con = clientController.getServerConnection();
-		this.search = new Search();
+		this.search = new Search.Builder();
 		this.clientView = clientController.getClientView();
-		this.search = new Search();
 		this.helper = new HelpView();
 
 		initData();
@@ -39,9 +38,9 @@ public class SearchController {
 	}
 
 	public void setSearchMode(String seachString){
-		Search search1 = new Search();
-		search1.setSearch(seachString);
-		Object newSearchResults =  clientController.getServerConnection().request(search1);
+		Search.Builder search1 = new Search.Builder();
+		search1.searchByBeskrivelse(seachString);
+		Object newSearchResults =  clientController.getServerConnection().request(search1.build());
 		try
 		{
 			@SuppressWarnings("unchecked")  // This annotation suppresses unchecked casting warnings
@@ -71,7 +70,7 @@ public class SearchController {
 	public void search() {
 		// Søk i databasen via kall til server!
 	}
-	public Search getSearch() {
+	public Search.Builder getSearch() {
 		return search;
 	}
 	public SearchBarView getSearchView() {
@@ -81,7 +80,7 @@ public class SearchController {
 		return clientView;
 	}
 
-	public void setSearch(Search search) {
+	public void setSearch(Search.Builder search) {
 		this.search = search;
 	}
 

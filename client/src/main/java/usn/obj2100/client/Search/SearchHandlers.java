@@ -138,10 +138,10 @@ public class SearchHandlers {
 			System.out.println(field + " oppdatert: " + newValue);
 			switch (field) {
 				case IBRUK -> {
-					searchController.getSearch().setSearchByIBruk(newValue);
+					searchController.getSearch().searchByIBruk(newValue);
 				}
 				case IKKEIBRUK -> {
-					searchController.getSearch().setSearchByIkkeIBruk(newValue);
+					searchController.getSearch().searchByIkkeIBruk(newValue);
 				}
 			}
 		});
@@ -152,16 +152,16 @@ public class SearchHandlers {
 			System.out.println(fieldType + " oppdatert: " + s + " " + t1);
 			switch (fieldType) {
 				case SEARCH -> {
-					searchController.getSearch().setSearch(t1);
+					searchController.getSearch().search(t1);
 				}
 				case PLASSERING -> {
-					searchController.getSearch().setSearchByPlassering(t1);
+					searchController.getSearch().searchByPlassering(t1);
 				}
 				case BESKRIVELSE -> {
-					searchController.getSearch().setSearchByBeskrivelse(t1);
+					searchController.getSearch().searchByBeskrivelse(t1);
 				}
 				case INNKJOPSDATO -> {
-					searchController.getSearch().setSearchByInnkjopsdato(Integer.parseInt(t1));
+					searchController.getSearch().searchByInnkjopsdato(Integer.parseInt(t1));
 				}
 		}
 		});
@@ -179,19 +179,19 @@ public class SearchHandlers {
 			switch (field) {
 				case PRIS -> {
 					// Oppdaterer søkekriteriene for prisområdet.
-					searchController.getSearch().setSearchByPris((int) range.getLowValue(), (int) range.getHighValue());
+					searchController.getSearch().searchByPris((int) range.getLowValue(), (int) range.getHighValue());
 				}
 				case ANTALL -> {
 					// Oppdaterer søkekriteriene for antallområdet.
-					searchController.getSearch().setSearchByAntall((int) range.getLowValue(), (int) range.getHighValue());
+					searchController.getSearch().searchByAntall((int) range.getLowValue(), (int) range.getHighValue());
 				}
 				case LEVETID -> {
 					// Oppdaterer søkekriteriene for levetidsområdet.
-					searchController.getSearch().setSearchByLevetid((int) range.getLowValue(), (int) range.getHighValue());
+					searchController.getSearch().searchByLevetid((int) range.getLowValue(), (int) range.getHighValue());
 				}
 				case FORVENTETKASSERING -> {
 					// Oppdaterer søkekriteriene for forventet kassering område.
-					searchController.getSearch().setSearchByForventetKassering((int) range.getLowValue(), (int) range.getHighValue());
+					searchController.getSearch().searchByForventetKassering((int) range.getLowValue(), (int) range.getHighValue());
 				}
 				default -> throw new IllegalStateException("Uventet verdi: " + field);
 			}
@@ -203,16 +203,16 @@ public class SearchHandlers {
 			System.out.println(field + " oppdatert: " + newValue);
 			switch (field) {
 				case TYPE -> {
-					searchController.getSearch().setSearchByType(newValue.toString());
+					searchController.getSearch().searchByType(newValue.toString());
 				}
 				case KATEGORI -> {
-					searchController.getSearch().setSearchByKategori(newValue.toString());
+					searchController.getSearch().searchByKategori(newValue.toString());
 				}
 				case TATTUTAVBRUKAARSAK -> {
-					searchController.getSearch().setSearchByTattUtAvBrukÅrsak(newValue.toString());
+					searchController.getSearch().searchByTattUtAvBrukÅrsak(newValue.toString());
 				}
 				case TATTUTAVBRUKAAR -> {
-					searchController.getSearch().setSearchByTattUtAvBrukÅr((int) newValue);
+					searchController.getSearch().searchByTattUtAvBrukÅr((int) newValue);
 				}
 
 			}

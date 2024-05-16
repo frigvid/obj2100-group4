@@ -127,9 +127,7 @@ public class SearchResultView extends VBox {
 			//typeLabel.getStyleClass().add("data-label");
 			// FIXME: Temporary removal after merging.
 			//kategoriLabel.getStyleClass().add("data-label");
-			beskrivelseLabel.getStyleClass().add("data-label");
-			innkjøpsPrisLabel.getStyleClass().add("data-label");
-			innkjøpsDatoLabel.getStyleClass().add("data-label");
+
 			actionsBox.getStyleClass().add("data-row");
 
 			gridPane.getChildren().get(rowIndex).getStyleClass().add("data-row");
@@ -188,7 +186,7 @@ public class SearchResultView extends VBox {
 	// Method to create styled labels
 	private Label createStyledLabel(String text) {
 		Label label = new Label(text);
-		label.getStyleClass().add("data-label");
+
 		return label;
 	}
 
