@@ -8,6 +8,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import usn.obj2100.client.Inventar.InventarController;
 import usn.obj2100.shared.model.Inventar;
 import usn.obj2100.shared.model.InventarExtended;
 
@@ -261,18 +262,21 @@ public class SearchResultViewAll extends VBox {
 	// Event handler methods for buttons
 	private void handleViewAction(Inventar inventar) {
 		// Implement the view action
-		searchController.getClientView().setViewInventarTabContentAll(inventar);
+		searchController.getClientController().getClientView().setViewInventarTabContentAll(inventar);
 		System.out.println("Viewing: " + inventar.getBeskrivelse());
 	}
 
 	private void handleEditAction(Inventar inventar) {
-		searchController.getClientView().setEditInventarTabContentAll(inventar);
+		searchController.getClientController().getClientView().setEditInventarTabContentAll(inventar);
 		System.out.println("Editing: " + inventar.getBeskrivelse());
 	}
 
 	private void handleDeleteAction(Inventar inventar) {
 		// Implement the delete action
-		searchController.getClientView().setDeleteInventarTabContentAll(inventar);
+		//searchController.getClientController().getClientView().setDeleteInventarTabContentAll(inventar);
+		InventarController ic = new InventarController(searchController.getClientController());
+		ic.deleteInventar(inventar.getSKU());
+		//searchController.getClientController().getInventarController().deleteInventar(inventar);
 		System.out.println("Deleting: " + inventar.getBeskrivelse());
 	}
 

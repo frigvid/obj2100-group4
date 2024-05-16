@@ -17,6 +17,8 @@ import javafx.scene.layout.GridPane;
 import usn.obj2100.shared.model.InventarExtended;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * Denne klassen representerer en visning for redigering av inventarobjekter i systemet.
  * Brukergrensesnittet lar brukeren endre informasjon om et eksisterende inventar, inkludert type, kategori,
@@ -171,8 +173,20 @@ public class EditInventarView extends HBox
 					//	quantity,
 					//	lifespan
 					//);
-					
+					LocalDateTime localDateTime = LocalDateTime.now();
+
+
+
+
+					Inventar inventar = new Inventar( 12344444, description, localDateTime, price, quantity, lifespan, 1, 1, 1);
 					//TODO insert into db here !
+
+					System.out.println(inventar);
+					try {
+						mc.getInventarController().editInventar(inventar);
+					} catch (Exception e){
+						System.out.println(e);
+					}
 				} catch (NumberFormatException e) {
 					new Alert(Alert.AlertType.ERROR, "Sjekk at alle tallfelt er korrekt fylt ut.").show();
 				}

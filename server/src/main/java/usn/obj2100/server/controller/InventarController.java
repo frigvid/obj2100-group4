@@ -97,4 +97,15 @@ public class InventarController
 	{
 		return inventarService.delete(inventar);
 	}
+
+	/**
+	 * Delete an inventar object by SKU.
+	 *
+	 * @param sku The inventar object to delete.
+	 * @return True if the inventar object was deleted, false otherwise.
+	 */
+	public boolean deleteBySku(int inventar)
+	{
+		return inventarService.deleteBySku(inventar);
+	}
 }

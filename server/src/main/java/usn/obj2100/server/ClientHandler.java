@@ -8,6 +8,7 @@ import usn.obj2100.shared.model.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.Connection;
 
 /**
  * This class is a handler for the clients.
@@ -103,18 +104,28 @@ public class ClientHandler
 				}
 				else if (command == Command.SEARCH)
 				{
+
 					SearchHandler searchHandler = new SearchHandler();
 					Object response = searchHandler.handleSearch((Search) object);
 					objectOutputStream.writeObject(response);
-				}
-				else if (object instanceof Inventar inventar)
+				} else if (object instanceof Integer sku) {
+					if(command == Command.DELETE){
+						boolean state;
+						state = inventarController.deleteBySku(sku);
+						objectOutputStream.writeObject(state);
+
+						break;
+					}
+
+				} else if (object instanceof Inventar inventar)
 				{
 					boolean state;
 					Inventar retrievedInventar;
-					
+
 					switch (command)
 					{
 						case CREATE:
+							System.out.println("from clientHandler: " + inventar);
 							retrievedInventar = inventarController.create(inventar);
 							System.out.println(retrievedInventar);
 							objectOutputStream.writeObject(retrievedInventar);

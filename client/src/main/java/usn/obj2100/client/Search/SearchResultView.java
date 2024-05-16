@@ -246,7 +246,7 @@ public class SearchResultView extends VBox {
 		// Add event handlers for buttons
 		viewButton.setOnAction(e -> handleViewAction(inventar));
 		editButton.setOnAction(e -> handleEditAction(inventar));
-		deleteButton.setOnAction(e -> handleDeleteAction(inventar));
+		deleteButton.setOnAction(e -> handleDeleteAction(inventar.getSKU()));
 
 		HBox actionButtons = new HBox(viewButton, editButton, deleteButton);
 		actionButtons.setSpacing(5);
@@ -257,19 +257,19 @@ public class SearchResultView extends VBox {
 	// Event handler methods for buttons
 	private void handleViewAction(InventarExtended inventar) {
 		// Implement the view action
-		searchController.getClientView().setViewInventarTabContent(inventar);
+		searchController.getClientController().getClientView().setViewInventarTabContent(inventar);
 		System.out.println("Viewing: " + inventar.getBeskrivelse());
 	}
 
 	private void handleEditAction(InventarExtended inventar) {
-		searchController.getClientView().setEditInventarTabContent(inventar);
+		searchController.getClientController().getClientView().setEditInventarTabContent(inventar);
 		System.out.println("Editing: " + inventar.getBeskrivelse());
 	}
 
-	private void handleDeleteAction(InventarExtended inventar) {
+	private void handleDeleteAction(int sku) {
 		// Implement the delete action
-		searchController.getClientView().setDeleteInventarTabContent(inventar);
-		System.out.println("Deleting: " + inventar.getBeskrivelse());
+		searchController.getClientController().getInventarController().deleteInventar(sku);
+		System.out.println("Deleting: " + sku);
 	}
 
 

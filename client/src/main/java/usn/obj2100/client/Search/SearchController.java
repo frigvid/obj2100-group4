@@ -171,4 +171,8 @@ public class SearchController {
 	public VBox getHelper(){
 		return helper;
 	}
+
+	public ClientController getClientController(){
+		return clientController;
+	}
 }

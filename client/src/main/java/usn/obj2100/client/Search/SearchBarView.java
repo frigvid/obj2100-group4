@@ -102,7 +102,6 @@ public class SearchBarView  {
 		HBox toggleContainer = new HBox();
 
 		searchToggleButton = new Button();
-		searchToggleButton.setPadding(new Insets(20, 0, 20, 0)); // Setter 20 piksler på toppen og bunnen
 		searchToggleButton.getStyleClass().add("search-box-toggle");
 
 		Image image = new Image("search-icon.png");
@@ -115,10 +114,8 @@ public class SearchBarView  {
 		searchToggleButton.setEffect(dropShadow);
 		searchToggleButton.setAlignment(Pos.CENTER);
 
-		Label searchLabel = new Label("Søk i inventar");
-		searchLabel.setAlignment(Pos.CENTER);
 
-		toggleContainer.getChildren().addAll(searchToggleButton, searchLabel);
+		toggleContainer.getChildren().addAll(searchToggleButton);
 		toggleContainer.setAlignment(Pos.BOTTOM_RIGHT);
 		toggleContainer.setPadding(new Insets(0, 20, 20, 0)); // Setter 20 piksler på høyre side og bunnen
 		return toggleContainer;
