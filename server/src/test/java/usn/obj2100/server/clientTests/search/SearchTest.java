@@ -199,21 +199,19 @@ public class SearchTest
 	}
 	
 	
-	// FIXME: Fungerer ikke riktig akkurat nå.
 	/**
 	 * Search for an item that exists and filter by purchase price.
 	 */
 	@Test
 	@DisplayName("noe og filtrer etter pris")
-	@Disabled("Denne er ikke ferdig implementert.")
 	public void searchWithFilterPrice()
 	{
 		/* The client should be connected. */
 		assertTrue(client.isConnected());
 		
 		Search query = new Search.Builder()
-			.search("e")
-			.searchByPris(13.0, 48.0)
+			.search("mamma")
+			.searchByPris(13.0, 88.0)
 			.build();
 		
 		/* Known type. */
@@ -223,13 +221,11 @@ public class SearchTest
 		System.out.println("Respons: " + response);
 	}
 	
-	// FIXME: Fungerer ikke riktig akkurat nå.
 	/**
 	 * Search for an item that exists and filter by amount.
 	 */
 	@Test
 	@DisplayName("noe og filtrer etter type")
-	@Disabled("Denne er ikke ferdig implementert.")
 	public void searchWithFilterType()
 	{
 		/* The client should be connected. */
@@ -237,7 +233,7 @@ public class SearchTest
 		
 		Search query = new Search.Builder()
 			.search("e")
-			.searchByType("a")
+			.searchByType("Møbler")
 			.build();
 		
 		/* Known type. */
@@ -603,6 +599,30 @@ public class SearchTest
 			.searchByLevetid(1, 7)
 			.searchByForventetKassering(1, 2)
 			.searchByInnkjopsdato(Date.valueOf("2023-01-01"))
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse, kategori, plassering, levetid, innkjøpsdato og type")
+	public void searchWithFilterDescriptionCategoryLocationLifetimeDatePurchaseDateAndType()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("de")
+			.searchByBeskrivelse("mamma")
+			.searchByKategori("Bilde")
+			.searchByType("Utsmykning")
+			.searchByPlassering("Bygg A")
+			.searchByLevetid(1, 12)
+			.searchByInnkjopsdato(Date.valueOf("2025-01-13"))
 			.build();
 		
 		/* Known type. */

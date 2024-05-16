@@ -164,7 +164,15 @@ public class SearchHandler
 			isFiltered = true;
 		}
 		
-		/* Filter segment: Forventet Kassering. */
+		/* Filter segment: Forventet Kassering.
+		 * FIXME: getSearchByForventetKassering assumes ints,
+		 * 		 but should probably be Dates instead.
+		 *
+		 * Example solution:
+		 * .append(Date.valueOf(String.valueOf(Date.valueOf(String.valueOf(search.getSearchByForventetKassering()[0])))))
+		 *	.append("' AND '")
+		 *	.append(Date.valueOf(String.valueOf(Date.valueOf(String.valueOf(search.getSearchByForventetKassering()[1])))))
+		 */
 		if (search.getSearchByForventetKassering() != null)
 		{
 			query
