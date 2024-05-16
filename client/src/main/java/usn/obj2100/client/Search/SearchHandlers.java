@@ -172,8 +172,8 @@ public class SearchHandlers {
 					searchController.getSearch().searchByBeskrivelse(t1);
 				}
 				case INNKJOPSDATO -> {
+					// FIXME: Incompatible type.
 					//searchController.getSearch().searchByInnkjopsdato(Integer.parseInt(t1));
-					//TODO fix datatyp!
 				}
 		}
 		});

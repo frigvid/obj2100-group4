@@ -7,6 +7,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for handling the Kassert objects in the database.
+ *
+ * @created 2024-05-13
+ */
 public class KassertService
 	implements IService<Kassert>
 {
@@ -17,6 +22,12 @@ public class KassertService
 		connection = DatabaseConnectionManager.getInstance().getConnection();
 	}
 	
+	/**
+	 * Get a Kassert object from the database.
+	 *
+	 * @param id The ID of the Kassert object.
+	 * @return The Kassert object.
+	 */
 	@Override
 	public Kassert get(int id)
 	{
@@ -58,6 +69,11 @@ public class KassertService
 		return null;
 	}
 	
+	/**
+	 * Get all Kassert objects from the database.
+	 *
+	 * @return A list of Kassert objects.
+	 */
 	@Override
 	public List<Kassert> getAll()
 	{
@@ -100,6 +116,18 @@ public class KassertService
 		return null;
 	}
 	
+	/**
+	 * Create a Kassert object in the database.
+	 * <p/>
+	 * Note that if you create an object with an ID, and it is not
+	 * available, the database sets an available one for it. So if you
+	 * need to get the newly created object's ID, you just save the
+	 * response to an Object of Kassert or a generic Object, and get
+	 * the ID from there.
+	 *
+	 * @param kassert The Kassert object to create.
+	 * @return The created Kassert object.
+	 */
 	@Override
 	public Kassert create(Kassert kassert)
 	{
@@ -151,6 +179,12 @@ public class KassertService
 		}
 	}
 	
+	/**
+	 * Update a Kassert object in the database.
+	 *
+	 * @param kassert The Kassert object to update.
+	 * @return True if the update was successful, false otherwise.
+	 */
 	@Override
 	public boolean update(Kassert kassert)
 	{
@@ -195,6 +229,12 @@ public class KassertService
 		}
 	}
 	
+	/**
+	 * Delete a Kassert object from the database.
+	 *
+	 * @param kassert The Kassert object to delete.
+	 * @return True if the deletion was successful, false otherwise.
+	 */
 	@Override
 	public boolean delete(Kassert kassert)
 	{

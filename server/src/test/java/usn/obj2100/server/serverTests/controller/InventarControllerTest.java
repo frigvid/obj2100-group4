@@ -12,6 +12,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * A test class for the Inventar controller.
+ * <p/>
+ * Ensures that the Inventar controller can retrieve all Inventar objects from the database.
+ */
 @DisplayName("InventarController")
 @TestMethodOrder(OrderAnnotation.class)
 public class InventarControllerTest
@@ -34,6 +39,9 @@ public class InventarControllerTest
 		inventarController = new InventarController();
 	}
 	
+	/**
+	 * Test that the Inventar controller can retrieve all Inventar objects from the database.
+	 */
 	@Test
 	@Order(1)
 	@DisplayName("kan hente alle")

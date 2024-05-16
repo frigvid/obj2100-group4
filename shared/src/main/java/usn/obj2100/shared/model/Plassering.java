@@ -1,5 +1,7 @@
 package usn.obj2100.shared.model;
 
+import usn.obj2100.shared.Type;
+
 import java.io.Serializable;
 
 /**
@@ -87,6 +89,11 @@ public class Plassering
 			", etasje=" + etasje +
 			", rom=" + rom +
 			"}";
+	}
+	
+	public Type typeOf()
+	{
+		return Type.PLASSERING;
 	}
 	
 	/* Setters. */

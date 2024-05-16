@@ -7,6 +7,10 @@ import java.util.List;
 
 /**
  * Controller for the Inventar model.
+ * <p/>
+ * Essentially just a wrapper for the service right now, but having a controller
+ * allows it to be expanded in the future if needed. E.g. by checking input
+ * beforehand, etc.
  *
  * @created 2024-05-13
  * @version 0.1
@@ -42,6 +46,12 @@ public class InventarController
 	
 	/**
 	 * Create a new inventar object.
+	 * <p/>
+	 * Note that if you create an object with an ID, and it is not
+	 * available, the database sets an available one for it. So if you
+	 * need to get the newly created object's ID, you just save the
+	 * response to an Object of Plassering or a generic Object, and get
+	 * the ID from there.
 	 *
 	 * @param inventar The inventar object to create.
 	 * @return The created inventar object.

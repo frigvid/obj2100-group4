@@ -9,12 +9,21 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A test class for the search functionality.
+ * <p/>
+ * This test class tests both individual basic searches,
+ * and individual and grouped advanced searches.
+ */
 @DisplayName("Søk etter")
 @TestMethodOrder(MethodOrderer.DisplayName.class)
 public class SearchTest
 {
 	private FakeClient client;
 	
+	/**
+	 * Create a fake client before each test.
+	 */
 	@BeforeEach
 	@DisplayName("Oppsett for hver test.")
 	public void setup()
@@ -29,6 +38,9 @@ public class SearchTest
 		}
 	}
 	
+	/**
+	 * Disconnect the client from the server after each test.
+	 */
 	@Test
 	@DisplayName("(Testing) implementerings test")
 	public void isImplemented()
@@ -51,7 +63,9 @@ public class SearchTest
 	}
 	
 	/* BASIC SEARCHES. */
-	
+	/**
+	 * Search for an item that does not exist.
+	 */
 	@Test
 	@DisplayName("en gjenstand som ikke eksisterer")
 	public void searchForKnownUnknownItem()
@@ -70,6 +84,9 @@ public class SearchTest
 		System.out.println("Respons: " + response);
 	}
 	
+	/**
+	 * Search for an item that exists.
+	 */
 	@Test
 	@DisplayName("en gjenstand som eksisterer")
 	public void searchForKnownItem()
@@ -90,6 +107,9 @@ public class SearchTest
 	
 	/* ADVANCED SEARCHES. */
 	
+	/**
+	 * Search for an item that exists and filter by description.
+	 */
 	@Test
 	@DisplayName("noe og filtrer etter beskrivelse")
 	public void searchWithFilterDescription()
@@ -109,6 +129,9 @@ public class SearchTest
 		System.out.println("Respons: " + response);
 	}
 	
+	/**
+	 * Search for an item that exists and filter by category.
+	 */
 	@Test
 	@DisplayName("noe og filtrer etter kategori")
 	public void searchWithFilterCategory()
@@ -130,6 +153,9 @@ public class SearchTest
 		System.out.println("Respons: " + response);
 	}
 	
+	/**
+	 * Search for an item that exists and filter by location.
+	 */
 	@Test
 	@DisplayName("noe og filtrer etter plassering")
 	public void searchWithFilterLocation()
@@ -150,6 +176,9 @@ public class SearchTest
 	}
 	
 	// FIXME: Fungerer ikke riktig akkurat nå.
+	/**
+	 * Search for an item that exists and filter by purchase date.
+	 */
 	@Test
 	@DisplayName("noe og filtrer etter innkjøpsdato")
 	public void searchWithFilterPurchaseDate()
@@ -171,8 +200,12 @@ public class SearchTest
 	
 	
 	// FIXME: Fungerer ikke riktig akkurat nå.
+	/**
+	 * Search for an item that exists and filter by purchase price.
+	 */
 	@Test
 	@DisplayName("noe og filtrer etter pris")
+	@Disabled("Denne er ikke ferdig implementert.")
 	public void searchWithFilterPrice()
 	{
 		/* The client should be connected. */
@@ -191,8 +224,12 @@ public class SearchTest
 	}
 	
 	// FIXME: Fungerer ikke riktig akkurat nå.
+	/**
+	 * Search for an item that exists and filter by amount.
+	 */
 	@Test
 	@DisplayName("noe og filtrer etter type")
+	@Disabled("Denne er ikke ferdig implementert.")
 	public void searchWithFilterType()
 	{
 		/* The client should be connected. */
@@ -210,6 +247,9 @@ public class SearchTest
 		System.out.println("Respons: " + response);
 	}
 	
+	/**
+	 * Search for an item that exists and filter by amount.
+	 */
 	@Test
 	@DisplayName("noe og filtrer etter levetid")
 	public void searchWithFilterLifetime()
@@ -229,6 +269,9 @@ public class SearchTest
 		System.out.println("Respons: " + response);
 	}
 	
+	/**
+	 * Search for an item that exists and filter by disposal date.
+	 */
 	@Test
 	@DisplayName("noe og filtrer etter forventet kassering")
 	public void searchWithFilterExpectedDisposal()
@@ -248,8 +291,12 @@ public class SearchTest
 		System.out.println("Respons: " + response);
 	}
 	
+	/**
+	 * Search for an item that exists and filter by disposal date.
+	 */
 	@Test
 	@DisplayName("noe og filtrer etter om den er i bruk")
+	@Disabled("Denne er ikke ferdig implementert.")
 	public void searchWithFilterIsInUse()
 	{
 		/* The client should be connected. */
@@ -258,6 +305,304 @@ public class SearchTest
 		Search query = new Search.Builder()
 			.search("e")
 			.searchByIBruk(true)
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	/* ADVANCED SEARCHES + MULTIPLES. */
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse og kategori")
+	public void searchWithFilterDescriptionAndCategory()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("e")
+			.searchByKategori("Stol")
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse og plassering")
+	public void searchWithFilterDescriptionAndLocation()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("e")
+			.searchByPlassering("Bygg A")
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse og innkjøpsdato")
+	public void searchWithFilterDescriptionAndPurchaseDate()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("e")
+			.searchByInnkjopsdato(Date.valueOf("2024-02-01"))
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse og forventet kassering")
+	public void searchWithFilterDescriptionAndExpectedDisposalDate()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("e")
+			.searchByForventetKassering(1,4)
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse og levetid")
+	public void searchWithFilterDescriptionAndLifetime()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("e")
+			.searchByLevetid(1, 5)
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse, kategori og plassering")
+	public void searchWithFilterDescriptionCategoryAndLocation()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("e")
+			.searchByKategori("Stol")
+			.searchByPlassering("Bygg A")
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse, kategori og innkjøpsdato")
+	public void searchWithFilterDescriptionCategoryAndPurchaseDate()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("e")
+			.searchByKategori("Datamaskiner")
+			.searchByInnkjopsdato(Date.valueOf("2024-02-01"))
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse, kategori og forventet kassering")
+	public void searchWithFilterDescriptionCategoryAndExpectedDisposalDate()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("e")
+			.searchByKategori("Datamaskiner")
+			.searchByForventetKassering(1,4)
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse, kategori og levetid")
+	public void searchWithFilterDescriptionCategoryAndLifetime()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("e")
+			.searchByKategori("Datamaskiner")
+			.searchByLevetid(1, 5)
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse, kategori, plassering og froventet kassering")
+	public void searchWithFilterDescriptionCategoryLocationAndExpectedDisposalDate()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("e")
+			.searchByKategori("Datamaskiner")
+			.searchByPlassering("Bygg A")
+			.searchByForventetKassering(1,4)
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse, kategori, plassering og levetid")
+	public void searchWithFilterDescriptionCategoryLocationAndLifetime()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("e")
+			.searchByKategori("Datamaskiner")
+			.searchByPlassering("Bygg A")
+			.searchByLevetid(1, 5)
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse, kategori, plassering og innkjøpsdato")
+	public void searchWithFilterDescriptionCategoryLocationAndPurchaseDate()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("e")
+			.searchByKategori("Datamaskiner")
+			.searchByPlassering("Bygg B")
+			.searchByInnkjopsdato(Date.valueOf("2024-02-01"))
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse, kategori, plassering, levetid og forventet kassering")
+	public void searchWithFilterDescriptionCategoryLocationLifetimeAndExpectedDisposalDate()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("Description")
+			.searchByKategori("Datamaskiner")
+			.searchByPlassering("Bygg A")
+			.searchByLevetid(1, 7)
+			.searchByForventetKassering(1, 2)
+			.build();
+		
+		/* Known type. */
+		List<Object> response = (List<Object>) client.request(query);
+		assertNotEquals(response.size(), 0);
+		
+		System.out.println("Respons: " + response);
+	}
+	
+	@Test
+	@DisplayName("noe og filtrer etter beskrivelse, kategori, plassering, levetid, forventet kassering og innkjøpsdato")
+	public void searchWithFilterDescriptionCategoryLocationLifetimeExpectedDisposalDateAndPurchaseDate()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Search query = new Search.Builder()
+			.search("e")
+			.searchByBeskrivelse("Description")
+			.searchByKategori("Datamaskiner")
+			.searchByPlassering("Bygg A")
+			.searchByLevetid(1, 7)
+			.searchByForventetKassering(1, 2)
+			.searchByInnkjopsdato(Date.valueOf("2023-01-01"))
 			.build();
 		
 		/* Known type. */

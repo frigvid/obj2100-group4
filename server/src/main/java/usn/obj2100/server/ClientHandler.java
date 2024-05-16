@@ -8,7 +8,6 @@ import usn.obj2100.shared.model.*;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.List;
 
 /**
  * This class is a handler for the clients.
@@ -30,7 +29,7 @@ public class ClientHandler
 	private final KassertController kassertController;
 	private final KassertTypeController kassertTypeController;
 	
-	/**test
+	/**
 	 * Create a new client handler.
 	 *
 	 * @param socket The socket to the client.
@@ -50,6 +49,10 @@ public class ClientHandler
 	
 	/**
 	 * Handle input/output from/to the client.
+	 * <p/>
+	 * As you can see by the TODOs inside this method, the handling
+	 * is pretty rough, and not exactly the most maintainable. But due
+	 * time constraints, this is what we have for now, and it works fine..
 	 */
 	@Override
 	public void run()

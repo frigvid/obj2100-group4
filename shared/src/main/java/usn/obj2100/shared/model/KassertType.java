@@ -1,5 +1,7 @@
 package usn.obj2100.shared.model;
 
+import usn.obj2100.shared.Type;
+
 import java.io.Serializable;
 
 public class KassertType
@@ -38,6 +40,11 @@ public class KassertType
 			"id=" + id +
 			", begrunnelse='" + begrunnelse + '\'' +
 			'}';
+	}
+	
+	public Type typeOf()
+	{
+		return Type.KASSERT_TYPE;
 	}
 	
 	/* Setters. */

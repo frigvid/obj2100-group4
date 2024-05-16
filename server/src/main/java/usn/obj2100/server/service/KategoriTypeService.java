@@ -7,6 +7,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for handling the KategoriType objects in the database.
+ *
+ * @created 2024-05-13
+ */
 public class KategoriTypeService
 	implements IService<KategoriType>
 {
@@ -17,6 +22,12 @@ public class KategoriTypeService
 		connection = DatabaseConnectionManager.getInstance().getConnection();
 	}
 	
+	/**
+	 * Get a KategoriType object from the database.
+	 *
+	 * @param id The ID of the KategoriType object.
+	 * @return The KategoriType object.
+	 */
 	@Override
 	public KategoriType get(int id)
 	{
@@ -56,6 +67,11 @@ public class KategoriTypeService
 		return null;
 	}
 	
+	/**
+	 * Get all KategoriType objects from the database.
+	 *
+	 * @return A list of KategoriType objects.
+	 */
 	@Override
 	public List<KategoriType> getAll()
 	{
@@ -96,6 +112,18 @@ public class KategoriTypeService
 		return null;
 	}
 	
+	/**
+	 * Create a KategoriType object in the database.
+	 * <p/>
+	 * Note that if you create an object with an ID, and it is not
+	 * available, the database sets an available one for it. So if you
+	 * need to get the newly created object's ID, you just save the
+	 * response to an Object of KategoriType or a generic Object, and get
+	 * the ID from there.
+	 *
+	 * @param kategoriType The KategoriType object to create.
+	 * @return The created KategoriType object.
+	 */
 	@Override
 	public KategoriType create(KategoriType kategoriType)
 	{
@@ -146,6 +174,12 @@ public class KategoriTypeService
 		}
 	}
 	
+	/**
+	 * Update a KategoriType object in the database.
+	 *
+	 * @param kategoriType The KategoriType object to update.
+	 * @return True if the update was successful, false otherwise.
+	 */
 	@Override
 	public boolean update(KategoriType kategoriType)
 	{
@@ -186,6 +220,12 @@ public class KategoriTypeService
 		}
 	}
 	
+	/**
+	 * Delete a KategoriType object from the database.
+	 *
+	 * @param kategoriType The KategoriType object to delete.
+	 * @return True if the deletion was successful, false otherwise.
+	 */
 	@Override
 	public boolean delete(KategoriType kategoriType)
 	{
