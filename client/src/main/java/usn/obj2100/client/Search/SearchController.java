@@ -14,8 +14,8 @@ import usn.obj2100.shared.model.Search;
 import java.util.List;
 
 public class SearchController {
-
-	private Search search;
+	// FIXME: Needs to be changed following change to Search model.
+	//private Search search;
 	private SearchBarView searchView;
 	private ClientView clientView;
 	SearchHandlers searchHandlers;
@@ -26,7 +26,8 @@ public class SearchController {
 	public SearchController( ClientController clientController ) {
 		this.clientController = clientController;
 		this.con = clientController.getServerConnection();
-		this.search = new Search();
+		// FIXME: Needs to be changed following change to Search model.
+		//this.search = new Search();
 		this.clientView = clientController.getClientView();
 		this.searchView = new SearchBarView( clientController);
 		this.searchHandlers = new SearchHandlers(this);
@@ -78,9 +79,10 @@ public class SearchController {
 	public void search() {
 		// Søk i databasen via kall til server!
 	}
-	public Search getSearch() {
-		return search;
-	}
+	// FIXME: Needs to be changed following change to Search model.
+	//public Search getSearch() {
+	//	return search;
+	//}
 	public SearchBarView getSearchView() {
 		return searchView;
 	}
@@ -88,9 +90,10 @@ public class SearchController {
 		return clientView;
 	}
 
-	public void setSearch(Search search) {
-		this.search = search;
-	}
+	// FIXME: Needs to be changed following change to Search model.
+	//public void setSearch(Search search) {
+	//	this.search = search;
+	//}
 
 	public void setSearchView(SearchBarView searchView) {
 		this.searchView = searchView;
