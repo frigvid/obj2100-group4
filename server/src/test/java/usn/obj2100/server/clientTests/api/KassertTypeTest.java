@@ -4,10 +4,19 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import usn.obj2100.shared.Command;
 import usn.obj2100.server.clientTests.utils.FakeClient;
+import usn.obj2100.shared.Type;
 import usn.obj2100.shared.model.KassertType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A test class for the KassertType model.
+ * <p/>
+ * Ensures that a simulated client can create, read, update, and delete a KassertType object.
+ *
+ * @created 2024-05-14
+ * @since 0.3
+ */
 @DisplayName("En kassert type er")
 @TestMethodOrder(OrderAnnotation.class)
 public class KassertTypeTest
@@ -15,6 +24,9 @@ public class KassertTypeTest
 	private FakeClient client;
 	private static KassertType newKassertType;
 	
+	/**
+	 * Create a new KassertType object before all tests.
+	 */
 	@BeforeAll
 	@DisplayName("Delt oppsett for alle tester.")
 	public static void preSetup()
@@ -24,6 +36,9 @@ public class KassertTypeTest
 		);
 	}
 	
+	/**
+	 * Create a fake client before each test.
+	 */
 	@BeforeEach
 	@DisplayName("Oppsett for hver test.")
 	public void setup()
@@ -38,6 +53,9 @@ public class KassertTypeTest
 		}
 	}
 	
+	/**
+	 * Create a new KassertType object.
+	 */
 	@Test
 	@Order(1)
 	@DisplayName("opprettet.")
@@ -56,6 +74,9 @@ public class KassertTypeTest
 		}
 	}
 	
+	/**
+	 * Get the KassertType object.
+	 */
 	@Test
 	@Order(2)
 	@DisplayName("hentet.")
@@ -75,6 +96,21 @@ public class KassertTypeTest
 	
 	@Test
 	@Order(3)
+	@DisplayName("hent alle")
+	public void getAllObjects()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Object response = client.request(Type.KASSERT_TYPE);
+		
+		System.out.println("Respons: " + response);
+		
+		assertNotNull(response, "Kunne ikke hente alle kassert typer.");
+	}
+	
+	@Test
+	@Order(4)
 	@DisplayName("oppdatert.")
 	public void updateObject()
 	{
@@ -87,7 +123,7 @@ public class KassertTypeTest
 	}
 	
 	@Test
-	@Order(4)
+	@Order(5)
 	@DisplayName("slettet.")
 	public void deleteObject()
 	{

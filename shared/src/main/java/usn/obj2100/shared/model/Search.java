@@ -1,5 +1,7 @@
 package usn.obj2100.shared.model;
 
+import usn.obj2100.shared.Type;
+
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -79,143 +81,301 @@ public class Search
 		this.search = builder.search;
 	}
 	
+	/* Utilities. */
+	
+	/**
+	 * Returnerer typen av søk.
+	 *
+	 * @return Type.SEARCH.
+	 */
+	public Type typeOf()
+	{
+		return Type.SEARCH;
+	}
+	
 	/* Setters */
+	
+	/**
+	 * Setter beskrivelse filterverdien.
+	 *
+	 * @param searchByBeskrivelse Filtersøkeverdien.
+	 */
 	public void setSearchByBeskrivelse(String searchByBeskrivelse)
 	{
 		this.searchByBeskrivelse = searchByBeskrivelse;
 	}
 	
+	/**
+	 * Setter type filterverdien.
+	 *
+	 * @param searchByType Filtersøkeverdien.
+	 */
 	public void setSearchByType(String searchByType)
 	{
 		this.searchByType = searchByType;
 	}
 	
+	/**
+	 * Setter kategori filterverdien.
+	 *
+	 * @param searchByKategori Filtersøkeverdien.
+	 */
 	public void setSearchByKategori(String searchByKategori)
 	{
 		this.searchByKategori = searchByKategori;
 	}
 	
+	/**
+	 * Setter innkjøpsdato filterverdien.
+	 *
+	 * @param searchByInnkjopsdato Filtersøkeverdien.
+	 */
 	public void setSearchByInnkjopsdato(Date searchByInnkjopsdato)
 	{
 		this.searchByInnkjopsdato = searchByInnkjopsdato;
 	}
 	
+	/**
+	 * Setter pris filterverdien.
+	 *
+	 * @param min Filtersøkets minimumsverdien.
+	 * @param max Filtersøkets maksimumsverdien.
+	 */
 	public void setSearchByPris(double min, double max)
 	{
 		this.searchByPris = new double[]{min, max};
 	}
 	
+	/**
+	 * Setter plassering filterverdien.
+	 *
+	 * @param searchByPlassering Filtersøkeverdien.
+	 */
 	public void setSearchByPlassering(String searchByPlassering)
 	{
 		this.searchByPlassering = searchByPlassering;
 	}
 	
+	/**
+	 * Setter antall filterverdien.
+	 *
+	 * @param min Filtersøkets minimumsverdien.
+	 * @param max Filtersøkets maksimumsverdien.
+	 */
 	public void setSearchByAntall(int min, int max)
 	{
 		this.searchByAntall = new int[]{min, max};
 	}
 	
+	/**
+	 * Setter levetid filterverdien.
+	 *
+	 * @param min Filtersøkets minimumsverdien.
+	 * @param max Filtersøkets maksimumsverdien.
+	 */
 	public void setSearchByLevetid(int min, int max)
 	{
 		this.searchByLevetid = new int[]{min, max};
 	}
 	
+	/**
+	 * Setter forventet kassering filterverdien.
+	 *
+	 * @param min Filtersøkets minimumsverdien.
+	 * @param max Filtersøkets maksimumsverdien.
+	 */
 	public void setSearchByForventetKassering(int min, int max)
 	{
 		this.searchByForventetKassering = new int[]{min, max};
 	}
 	
+	/**
+	 * Setter om gjenstanden er i bruk filterverdien.
+	 *
+	 * @param searchByIBruk Filtersøkeverdien. True/False.
+	 */
 	public void setSearchByIBruk(boolean searchByIBruk)
 	{
 		this.searchByIBruk = searchByIBruk;
 	}
 	
+	/**
+	 * Setter om gjenstanden ikke er i bruk filterverdien.
+	 *
+	 * @param searchByIkkeIBruk Filtersøkeverdien. True/False.
+	 */
 	public void setSearchByIkkeIBruk(boolean searchByIkkeIBruk)
 	{
 		this.searchByIkkeIBruk = searchByIkkeIBruk;
 	}
 	
+	/**
+	 * Setter kassert årsak filterverdien.
+	 *
+	 * @param searchByTattUtAvBrukÅrsak Filtersøkeverdien.
+	 */
 	public void setSearchByTattUtAvBrukÅrsak(String searchByTattUtAvBrukÅrsak)
 	{
 		this.searchByTattUtAvBrukÅrsak = searchByTattUtAvBrukÅrsak;
 	}
 	
+	/**
+	 * Setter kassert år filterverdien.
+	 *
+	 * @param searchByTattUtAvBrukÅr Årstall, f.eks. 2024.
+	 */
 	public void setSearchByTattUtAvBrukÅr(int searchByTattUtAvBrukÅr)
 	{
 		this.searchByTattUtAvBrukÅr = searchByTattUtAvBrukÅr;
 	}
 	
+	/**
+	 * Setter grunnsøkestrengen..
+	 *
+	 * @param search Søket.
+	 */
 	public void setSearch(String search)
 	{
 		this.search = search;
 	}
 	
 	/* Getters. */
+	
+	/**
+	 * Returnerer beskrivelse filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public String getSearchByBeskrivelse()
 	{
 		return searchByBeskrivelse;
 	}
 	
+	/**
+	 * Returnerer type filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public String getSearchByType()
 	{
 		return searchByType;
 	}
 	
+	/**
+	 * Returnerer kategori filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public String getSearchByKategori()
 	{
 		return searchByKategori;
 	}
 	
+	/**
+	 * Returnerer innkjøpsdato filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public Date getSearchByInnkjopsdato()
 	{
 		return searchByInnkjopsdato;
 	}
 	
+	/**
+	 * Returnerer pris filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public double[] getSearchByPris()
 	{
 		return searchByPris;
 	}
 	
+	/**
+	 * Returnerer plassering filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public String getSearchByPlassering()
 	{
 		return searchByPlassering;
 	}
 	
+	/**
+	 * Returnerer antall filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public int[] getSearchByAntall()
 	{
 		return searchByAntall;
 	}
 	
+	/**
+	 * Returnerer levetid filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public int[] getSearchByLevetid()
 	{
 		return searchByLevetid;
 	}
 	
+	/**
+	 * Returnerer forventet kassering filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public int[] getSearchByForventetKassering()
 	{
 		return searchByForventetKassering;
 	}
 	
+	/**
+	 * Returnerer om gjenstanden er i bruk filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public boolean isSearchByIBruk()
 	{
 		return searchByIBruk;
 	}
 	
+	/**
+	 * Returnerer om gjenstanden ikke er i bruk filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public boolean isSearchByIkkeIBruk()
 	{
 		return searchByIkkeIBruk;
 	}
 	
+	/**
+	 * Returnerer kassert årsak filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public String getSearchByTattUtAvBrukÅrsak()
 	{
 		return searchByTattUtAvBrukÅrsak;
 	}
 	
+	/**
+	 * Returnerer kassert år filterverdien.
+	 *
+	 * @return Filtersøkeverdien.
+	 */
 	public int getSearchByTattUtAvBrukÅr()
 	{
 		return searchByTattUtAvBrukÅr;
 	}
 	
+	/**
+	 * Returnerer grunnsøkestrengen.
+	 *
+	 * @return Søket.
+	 */
 	public String getSearch()
 	{
 		return search;
@@ -392,7 +552,9 @@ public class Search
 		/**
 		 * Søk med filter for forventet kassering.
 		 * <p/>
-		 * Slår opp i databasetabellen inventar.forventetKassering.
+		 * Beregnes ut fra innkjøpsdato og forventet levetid.
+		 * Så innkjøpsdato året + forventet levetid, gir fremtidige
+		 * dato.
 		 *
 		 * @param min Filtersøkets minimumsverdien.
 		 * @param max Filtersøkets maksimumsverdien.

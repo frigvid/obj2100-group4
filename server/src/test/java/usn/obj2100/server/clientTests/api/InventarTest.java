@@ -103,7 +103,11 @@ public class InventarTest
 		assertEquals(newInventar.getSKU(), retrievedObject.getSKU(), "SKU er ikke lik.");
 	}
 	
+	/**
+	 * Get all Inventar objects.
+	 */
 	@Test
+	@Order(3)
 	@DisplayName("hent alle")
 	public void getAllObjects()
 	{
@@ -122,7 +126,7 @@ public class InventarTest
 	 * Update an Inventar object.
 	 */
 	@Test
-	@Order(3)
+	@Order(4)
 	@DisplayName("oppdatert.")
 	public void updateObject()
 	{
@@ -138,7 +142,7 @@ public class InventarTest
 	 * Delete an Inventar object.
 	 */
 	@Test
-	@Order(4)
+	@Order(5)
 	@DisplayName("slettet.")
 	public void deleteObject()
 	{

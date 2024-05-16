@@ -212,6 +212,11 @@ public class InventarExtended
 		this.kategori = kategori;
 	}
 	
+	/**
+	 * Method to set the category type of the item.
+	 *
+	 * @param kategoriType The category type of the item.
+	 */
 	public void setKategoriType(String kategoriType)
 	{
 		this.kategoriType = kategoriType;
@@ -309,6 +314,11 @@ public class InventarExtended
 		return kategori;
 	}
 	
+	/**
+	 * Method to get the category type of the item.
+	 *
+	 * @return The category type of the item.
+	 */
 	public String getKategoriType()
 	{
 		return kategoriType;

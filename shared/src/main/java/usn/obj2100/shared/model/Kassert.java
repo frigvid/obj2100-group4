@@ -1,5 +1,7 @@
 package usn.obj2100.shared.model;
 
+import usn.obj2100.shared.Type;
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -46,6 +48,11 @@ public class Kassert
 	}
 	
 	/* Utilities. */
+	public Type typeOf()
+	{
+		return Type.KASSERT;
+	}
+	
 	/* Setters. */
 	public void setId(int id)
 	{
