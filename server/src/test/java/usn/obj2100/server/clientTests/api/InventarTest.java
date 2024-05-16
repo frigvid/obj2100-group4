@@ -5,6 +5,7 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import usn.obj2100.shared.Command;
 import usn.obj2100.server.clientTests.utils.FakeClient;
+import usn.obj2100.shared.Type;
 import usn.obj2100.shared.model.Inventar;
 
 import java.time.LocalDateTime;
@@ -103,10 +104,29 @@ public class InventarTest
 	}
 	
 	/**
-	 * Update an Inventar object.
+	 * Get all Inventar objects.
 	 */
 	@Test
 	@Order(3)
+	@DisplayName("hent alle")
+	public void getAllObjects()
+	{
+		/* The client should be connected. */
+		assertTrue(client.isConnected());
+		
+		Object response = client.request(Type.INVENTAR);
+		
+		System.out.println("Respons: " + response);
+		
+		assertNotNull(response, "Kunne ikke hente alle Inventar objekter.");
+	}
+	
+	
+	/**
+	 * Update an Inventar object.
+	 */
+	@Test
+	@Order(4)
 	@DisplayName("oppdatert.")
 	public void updateObject()
 	{
@@ -122,7 +142,7 @@ public class InventarTest
 	 * Delete an Inventar object.
 	 */
 	@Test
-	@Order(4)
+	@Order(5)
 	@DisplayName("slettet.")
 	public void deleteObject()
 	{

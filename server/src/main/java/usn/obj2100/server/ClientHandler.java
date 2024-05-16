@@ -1,11 +1,14 @@
 package usn.obj2100.server;
 
 import usn.obj2100.server.controller.*;
+import usn.obj2100.server.handler.SearchHandler;
 import usn.obj2100.shared.Command;
+import usn.obj2100.shared.Type;
 import usn.obj2100.shared.model.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.Connection;
 
 /**
  * This class is a handler for the clients.
@@ -34,6 +37,8 @@ public class ClientHandler
 	 */
 	public ClientHandler(Socket socket)
 	{
+		System.out.println("Client connected.");
+		
 		this.socket = socket;
 		this.inventarController = new InventarController();
 		this.plasseringController = new PlasseringController();
@@ -45,6 +50,10 @@ public class ClientHandler
 	
 	/**
 	 * Handle input/output from/to the client.
+	 * <p/>
+	 * As you can see by the TODOs inside this method, the handling
+	 * is pretty rough, and not exactly the most maintainable. But due
+	 * time constraints, this is what we have for now, and it works fine..
 	 */
 	@Override
 	public void run()
@@ -65,17 +74,60 @@ public class ClientHandler
 			 */
 			while ((command = (Command) objectInputStream.readObject()) != null)
 			{
+				// TODO: There has to be a command that allows you to get the object you're
+				//  		looking for, and its dependent objects. They are packaged together
+				//			in one object, so you need to unpack it on the client.
+				//			If you want KategoriType for an Inventar object, you'll call this
+				//			command, and it'll return a "[Inventar{...},Kategori{...},KategoriType{...}]".
+				//			Maybe call the command READ_WITH_DEPENDENTS?
 				object = objectInputStream.readObject();
 				
-				if (object instanceof Inventar inventar)
+				/* If a client is looking to get all objects of a certain type,
+				 * it'll be done so long as their Command is READALL.
+				 *
+				 * They also need to include a Type enum matching the object
+				 * they're looking for.
+				 */
+				if (command == Command.READALL)
+				{
+					System.out.println(inventarController.getAll());
+					switch ((Type) object)
+					{
+
+						case INVENTAR -> objectOutputStream.writeObject(inventarController.getAll());
+						case PLASSERING -> objectOutputStream.writeObject(plasseringController.getAll());
+						case KATEGORI -> objectOutputStream.writeObject(kategoriController.getAll());
+						case KATEGORI_TYPE -> objectOutputStream.writeObject(kategoriTypeController.getAll());
+						case KASSERT -> objectOutputStream.writeObject(kassertController.getAll());
+						case KASSERT_TYPE -> objectOutputStream.writeObject(kassertTypeController.getAll());
+					}
+				}
+				else if (command == Command.SEARCH)
+				{
+
+					SearchHandler searchHandler = new SearchHandler();
+					Object response = searchHandler.handleSearch((Search) object);
+					objectOutputStream.writeObject(response);
+				} else if (object instanceof Integer sku) {
+					if(command == Command.DELETE){
+						boolean state;
+						state = inventarController.deleteBySku(sku);
+						objectOutputStream.writeObject(state);
+
+						break;
+					}
+
+				} else if (object instanceof Inventar inventar)
 				{
 					boolean state;
 					Inventar retrievedInventar;
-					
+
 					switch (command)
 					{
 						case CREATE:
+							System.out.println("from clientHandler: " + inventar);
 							retrievedInventar = inventarController.create(inventar);
+							System.out.println(retrievedInventar);
 							objectOutputStream.writeObject(retrievedInventar);
 							break;
 						case READ:

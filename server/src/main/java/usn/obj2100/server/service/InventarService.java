@@ -87,24 +87,28 @@ public class InventarService
 	public List<Inventar> getAll()
 	{
 		List<Inventar> inventarList = new ArrayList<>();
-		
-		try
-		{
-			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM inventar");
-			
-			while (resultSet.next())
+
+		try (Connection conn = DatabaseConnectionManager.getInstance().getConnection();
+			  Statement stmt = conn.createStatement();
+			  ResultSet rs = stmt.executeQuery("select * from inventar")) {
+
+
+			while (rs.next())
 			{
 				inventarList.add(new Inventar(
-					resultSet.getInt("sku"),
-					resultSet.getString("beskrivelse"),
-					resultSet.getTimestamp("innkjopsdato").toLocalDateTime(),
-					resultSet.getDouble("innkjopspris"),
-					resultSet.getInt("antall"),
-					resultSet.getShort("forventetLevetid"),
-					resultSet.getInt("kategori"),
-					resultSet.getInt("plassering"),
-					resultSet.getInt("kassert")
+					rs.getInt("sku"),
+					rs.getString("beskrivelse"),
+					rs.getTimestamp("innkjopsdato").toLocalDateTime(),
+					rs.getDouble("innkjopspris"),
+					rs.getInt("antall"),
+					rs.getShort("forventetLevetid"),
+					rs.getInt("kategori"),
+					(
+						rs.getInt("plassering") == 0
+							? 0
+							: rs.getInt("plassering")
+					),
+					rs.getInt("kassert")
 				));
 			}
 			
@@ -133,7 +137,13 @@ public class InventarService
 	}
 	
 	/**
-	 * Create a new inventar object.
+	 * Create a new Inventar object.
+	 * <p/>
+	 * Note that if you create an object with an ID, and it is not
+	 * available, the database sets an available one for it. So if you
+	 * need to get the newly created object's ID, you just save the
+	 * response to an Object of Inventar or a generic Object, and get
+	 * the ID from there.
 	 *
 	 * @param inventar The inventar object to create.
 	 * @return Inventar object if the inventar object was created, null otherwise.
@@ -143,7 +153,9 @@ public class InventarService
 	{
 		try
 		{
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (?,?,?,?,?,?,?,?,?)");
+			//fixME må fikses, skal ikke være ny connection her, men blev hele tiden kastet ut av conn. dette er midlertidig
+			Connection conn2 = DatabaseConnectionManager.getInstance().getConnection();
+			PreparedStatement statement = conn2.prepareStatement("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (?,?,?,?,?,?,?,?,?)");
 			statement.setInt(1, inventar.getSKU());
 			statement.setString(2, inventar.getBeskrivelse());
 			statement.setTimestamp(3, Timestamp.valueOf(inventar.getInnkjopsdato()));
@@ -208,7 +220,9 @@ public class InventarService
 	{
 		try
 		{
-			PreparedStatement statement = connection.prepareStatement(
+			//fixME må fikses, skal ikke være ny connection her, men blev hele tiden kastet ut av conn. dette er midlertidig
+			Connection conn2 = DatabaseConnectionManager.getInstance().getConnection();
+			PreparedStatement statement = conn2.prepareStatement(
 				"""
 					UPDATE inventar SET
 						beskrivelse = ?,
@@ -269,10 +283,50 @@ public class InventarService
 	{
 		try
 		{
-			PreparedStatement statement = connection.prepareStatement("DELETE FROM inventar WHERE sku = ?");
+			//fixME må fikses, skal ikke være ny connection her, men blev hele tiden kastet ut av conn. dette er midlertidig
+
+			//TODO skulle egentlig lage kassering med kasseringsårsak, men rakk ikke dette...
+			Connection conn2 = DatabaseConnectionManager.getInstance().getConnection();
+			PreparedStatement statement = conn2.prepareStatement("DELETE FROM inventar WHERE sku = ?");
 			statement.setInt(1, inventar.getSKU());
 			statement.executeUpdate();
 			
+			return true;
+		}
+		catch (SQLException error)
+		{
+			error.printStackTrace(System.err);
+			return false;
+		}
+		finally
+		{
+			if (connection != null)
+			{
+				try
+				{
+					connection.close();
+				}
+				catch (SQLException error)
+				{
+					error.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	public boolean deleteBySku(int inventar)
+	{
+		try
+		{
+			//fixME må fikses, skal ikke være ny connection her, men blev hele tiden kastet ut av conn. dette er midlertidig
+
+			//TODO skulle egentlig lage kassering med kasseringsårsak, men rakk ikke dette...
+			Connection conn2 = DatabaseConnectionManager.getInstance().getConnection();
+			PreparedStatement statement = conn2.prepareStatement("DELETE FROM inventar WHERE sku = ?");
+			statement.setInt(1, inventar);
+			statement.executeUpdate();
+			System.out.println(statement);
+			conn2.close();
 			return true;
 		}
 		catch (SQLException error)

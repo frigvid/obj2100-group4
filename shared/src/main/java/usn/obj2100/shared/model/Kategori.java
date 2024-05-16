@@ -1,5 +1,7 @@
 package usn.obj2100.shared.model;
 
+import usn.obj2100.shared.Type;
+
 import java.io.Serializable;
 
 public class Kategori
@@ -48,6 +50,11 @@ public class Kategori
 			", type=" + type +
 			", kategori='" + kategori + '\'' +
 			'}';
+	}
+	
+	public Type typeOf()
+	{
+		return Type.KATEGORI;
 	}
 	
 	/* Setters. */

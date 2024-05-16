@@ -7,6 +7,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for handling the KassertType objects in the database.
+ *
+ * @created 2024-05-13
+ */
 public class KassertTypeService
 	implements IService<KassertType>
 {
@@ -17,6 +22,12 @@ public class KassertTypeService
 		connection = DatabaseConnectionManager.getInstance().getConnection();
 	}
 	
+	/**
+	 * Get a KassertType object from the database.
+	 *
+	 * @param id The ID of the KassertType object.
+	 * @return The KassertType object.
+	 */
 	@Override
 	public KassertType get(int id)
 	{
@@ -56,6 +67,11 @@ public class KassertTypeService
 		return null;
 	}
 	
+	/**
+	 * Get all KassertType objects from the database.
+	 *
+	 * @return A list of KassertType objects.
+	 */
 	@Override
 	public List<KassertType> getAll()
 	{
@@ -96,6 +112,18 @@ public class KassertTypeService
 		return null;
 	}
 	
+	/**
+	 * Create a KassertType object in the database.
+	 * <p/>
+	 * Note that if you create an object with an ID, and it is not
+	 * available, the database sets an available one for it. So if you
+	 * need to get the newly created object's ID, you just save the
+	 * response to an Object of KassertType or a generic Object, and get
+	 * the ID from there.
+	 *
+	 * @param kassertType The KassertType object to create.
+	 * @return The KassertType object.
+	 */
 	@Override
 	public KassertType create(KassertType kassertType)
 	{
@@ -146,6 +174,12 @@ public class KassertTypeService
 		}
 	}
 	
+	/**
+	 * Update a KassertType object in the database.
+	 *
+	 * @param kassertType The KassertType object to update.
+	 * @return True if the update was successful, false otherwise.
+	 */
 	@Override
 	public boolean update(KassertType kassertType)
 	{
@@ -186,6 +220,12 @@ public class KassertTypeService
 		}
 	}
 	
+	/**
+	 * Delete a KassertType object from the database.
+	 *
+	 * @param kassertType The KassertType object to delete.
+	 * @return True if the deletion was successful, false otherwise.
+	 */
 	@Override
 	public boolean delete(KassertType kassertType)
 	{

@@ -3,11 +3,19 @@ package usn.obj2100.server.clientTests.utils;
 import usn.obj2100.shared.Command;
 import usn.obj2100.shared.Constants;
 import usn.obj2100.server.Server;
+import usn.obj2100.shared.Type;
+import usn.obj2100.shared.model.Search;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
+// TODO: Make sure tests delete the <root>/server/database.sqlite file for TESTS.
+//			JetBrains, in their infinite wisdom, decided to make tests relative to the
+//			module by default. Which means a multi-module project like this, where you
+//			cannot EXPLICITLY tell it that "this" and "this" test are ONLY relevant to
+//			module, you cannot properly test cross-module functionality without some
+//			. . . major headaches, let's say.
 /**
  * This is a utility class for unit testing, and functions as a "fake" client.
  * Fake in the sense that it simulates a client, since the actual client is a GUI program,
@@ -78,6 +86,62 @@ public class FakeClient
 		{
 			objectOutputStream.writeObject(command);
 			objectOutputStream.writeObject(object);
+			objectOutputStream.flush();
+			
+			return objectInputStream.readObject();
+		}
+		catch (IOException error)
+		{
+			error.printStackTrace(System.err);
+		}
+		catch (ClassNotFoundException e)
+		{
+			throw new RuntimeException(e);
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Overloaded metode ment for å sende søk til serveren.
+	 *
+	 * @param query Search objektet som sendes til serveren.
+	 * @return Returnerer et søkerespons objekt fra serveren.
+	 */
+	public Object request(Search query)
+	{
+		try
+		{
+			objectOutputStream.writeObject(Command.SEARCH);
+			objectOutputStream.writeObject(query);
+			objectOutputStream.flush();
+			
+			return objectInputStream.readObject();
+		}
+		catch (IOException error)
+		{
+			error.printStackTrace(System.err);
+		}
+		catch (ClassNotFoundException e)
+		{
+			throw new RuntimeException(e);
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Overloaded metode ment for å hente alle objekter av en gitt type.
+	 *
+	 * @param type Typen objekt som skal hentes.
+	 * @return Returnerer en liste med objekter av en gitt type.
+	 */
+	public Object request(Type type)
+	{
+		try
+		{
+			objectOutputStream.writeObject(Command.READALL);
+			objectOutputStream.writeObject(type);
 			objectOutputStream.flush();
 			
 			return objectInputStream.readObject();

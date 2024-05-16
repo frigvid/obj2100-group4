@@ -9,5 +9,9 @@ public enum Command
 	CREATE,
 	READ,
 	UPDATE,
-	DELETE
+	DELETE,
+	
+	/* Other. */
+	READALL,
+	SEARCH
 }

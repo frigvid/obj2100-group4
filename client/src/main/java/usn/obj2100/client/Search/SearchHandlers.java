@@ -6,66 +6,66 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import org.controlsfx.control.RangeSlider;
+import usn.obj2100.client.ClientController;
 import usn.obj2100.client.ClientView;
-
+/**
+ * Håndterer alle søkerelaterte hendelser og interaksjoner i klientapplikasjonen.
+ * Denne klassen initialiserer og binder hendelseshåndterere til de ulike søkekomponentene i brukergrensesnittet,
+ * som knapper, tekstfelt og glidebrytere, for å administrere avansert og grunnleggende søkefunksjonalitet.
+ *
+ * @param mc Hovedkontrolleren for klienten som koordinerer søk og andre hovedfunksjoner.
+ * @param cw Hovedvisningen for klienten hvor søkefeltet og relaterte komponenter vises.
+ */
 public class SearchHandlers {
 	private SearchBarView searchBarView;
 	private SearchController searchController;
 	private ClientView clientView;
-
-	public SearchHandlers( SearchController searchController) {
-		this.clientView = searchController.getClientView();
-		this.searchController = searchController;
-		this.searchBarView = searchController.getSearchView();
+	private ClientController mc;
+	private ClientView cw;
+	/**
+	 * Konstruerer en ny søkehåndterer for gitt klientkontroller og klientvisning.
+	 * Denne konstruktøren setter opp nødvendig data og initierer søkehåndtererne.
+	 *
+	 * @param mc Kontrolleren som håndterer klientlogikk.
+	 * @param cw Visningen hvor søkefunksjonaliteten er integrert.
+	 */
+	public SearchHandlers( ClientController mc, ClientView cw) {
+		this.mc = mc;
+		this.cw = cw;
+		this.clientView = mc.getClientView();
+		this.searchController = mc.getSearchController();
+		this.searchBarView = cw.getSearchBar();
 		initSearchHandlers();
 		initAdvancedSearchHandlers();
 	}
-
+	/**
+	 * Initialiserer hendelseshåndterere for grunnleggende søkefunksjoner.
+	 * Kobler hendelser til UI-elementer som toggle-knapp for søkefeltet og søkeknappen.
+	 */
 	private void initSearchHandlers(){
 		searchBarView.getSearchToggleButton().setOnAction(event -> {
 			HBox advancedSearchForm = searchBarView.getSearchForm();
 
-			if (!clientView.getMainContent().getChildren().contains(searchBarView.getSearchForm())) {
+			if (!clientView.getFooter().getChildren().contains(searchBarView.getSearchForm())) {
 
-				clientView.getMainContent().getChildren().add(searchBarView.getSearchForm());
+				clientView.getFooter().getChildren().add(searchBarView.getSearchForm());
 				searchBarView.animateSearchForm(advancedSearchForm, true);
-				clientView.getMainContent().getChildren().remove(searchBarView.getSearchToggle());
+				clientView.getFooter().getChildren().remove(searchBarView.getSearchToggle());
 
-
-				searchBarView.getSearchField().textProperty().addListener(new ChangeListener<String>() {
-					int count = 0;
-					Label searchLabel;
-					@Override
-					public void changed( ObservableValue<? extends String> observable, String oldValue, String newValue) {
-						searchLabel = new Label("Søkeresultater for: " + newValue);
-
-						if(count < 1) {
-							clientView.setNewTabContent(searchLabel);
-							count++;
-						}else{
-							clientView.updateTabContent(searchLabel);
-						}
-
-
-						System.out.println("Søkefelt oppdatert: " + newValue);
-						// Legg til koden som oppdaterer noe her
-					}
-				});
-
-
-				clientView.getMainContent().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+				clientView.getFooter().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
 
 					if (advancedSearchForm != null && !advancedSearchForm.contains(e.getX(), e.getY())) {
 						searchBarView.animateSearchForm(advancedSearchForm, false);
-						clientView.getMainContent().getChildren().remove(advancedSearchForm);
-						clientView.getMainContent().getChildren().add(searchBarView.getSearchToggle());
+						clientView.getFooter().getChildren().remove(advancedSearchForm);
+						clientView.getFooter().getChildren().add(searchBarView.getSearchToggle());
 					}
 
 				});
 			} else {
 				searchBarView.animateSearchForm(searchBarView.getSearchForm(), false);
-				clientView.getMainContent().getChildren().add(searchBarView.getSearchToggle());
+				clientView.getFooter().getChildren().add(searchBarView.getSearchToggle());
 			}
 		});
 
@@ -73,11 +73,11 @@ public class SearchHandlers {
 			HBox advancedSearchForm = searchBarView.buildAdvancedSearchForm();
 			advancedSearchForm.setAlignment(Pos.TOP_LEFT);
 
-			if (!clientView.getMainContent().getChildren().contains(advancedSearchForm)) {
-				clientView.getMainContent().getChildren().add(advancedSearchForm);
+			if (!clientView.getRoot().getChildren().contains(advancedSearchForm)) {
+				clientView.getRoot().setLeft(advancedSearchForm);
 				searchBarView.animateDrawer(advancedSearchForm, true);
-				clientView.getMainContent().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
-					if (advancedSearchForm != null && !advancedSearchForm.contains(e.getX(), e.getY())) {
+				clientView.getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+					if (!advancedSearchForm.contains(e.getX(), e.getY())) {
 						searchBarView.animateDrawer(advancedSearchForm, false);
 					}
 				});
@@ -86,11 +86,34 @@ public class SearchHandlers {
 			}
 		});
 
+		searchBarView.getSearchBarHelpButton().setOnAction(event -> {
+			VBox helper = searchBarView.getMc().getSearchController().getHelper();
+			helper.setAlignment(Pos.TOP_LEFT);
+				clientView.getRoot().setRight(helper);
+				searchBarView.animateDrawerRight(helper, true);
+				clientView.getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+					if (!helper.contains(e.getX(), e.getY())) {
+						searchBarView.animateDrawerRight(helper, false);
+						clientView.getRoot().setRight(null);
+					}
+				});
+			});
+
+
+		//TODO Performance: If the action triggered by the text change is heavy (like querying a database), consider debouncing the input or waiting until the user stops typing for a certain duration before executing the action, to avoid performing the action too frequently.
+		searchBarView.getSearchField().textProperty().addListener(e -> {
+			String newSearch = searchBarView.getSearchField().getText();
+			mc.getClientView().setNewTabContent(newSearch);
+		});
+
 		searchBarView.getSearchButton().setOnAction(event -> {
 
 		});
 	}
-
+	/**
+	 * Initialiserer hendelseshåndterere for avansert søk.
+	 * Setter opp lyttere for avanserte søkefelter og håndterer dynamisk opprettelse og styring av disse feltene.
+	 */
 	private void initAdvancedSearchHandlers(){
 		for ( SearchField<TextField> field : searchBarView.getAdvancedFieldsText() ) {
 			System.out.println(field.getOption());
@@ -108,36 +131,49 @@ public class SearchHandlers {
 	}
 
 
-
+	/**
+	 * Legger til en hendelseslytter for tekstfelt basert på et spesifisert søkealternativ.
+	 * Denne metoden lytter til tekstendringer og oppdaterer søkekriteriene i søkekontrolleren.
+	 *
+	 * @param field     Tekstfeltet som skal overvåkes.
+	 * @param fieldType Søkealternativet som spesifiserer hvordan tekstendringene skal håndteres.
+	 */
 	private <T> void addEventHandler( CheckBox check, SEARCHOPTION field ){
 		check.selectedProperty().addListener(( observable, oldValue, newValue ) -> {
 			System.out.println(field + " oppdatert: " + newValue);
 			switch (field) {
 				case IBRUK -> {
-					searchController.getSearch().setSearchByIBruk(newValue);
+					searchController.getSearch().searchByIBruk(newValue);
 				}
 				case IKKEIBRUK -> {
-					searchController.getSearch().setSearchByIkkeIBruk(newValue);
+					searchController.getSearch().searchByIkkeIBruk(newValue);
 				}
 			}
 		});
 	}
-
+	/**
+	 * Legger til en hendelseslytter for en RangeSlider basert på et gitt søkealternativ.
+	 * Denne metoden lytter til endringer i slider-verdier og oppdaterer søkekriteriene tilsvarende.
+	 *
+	 * @param range Slideren som skal overvåkes.
+	 * @param field Søkealternativet som definerer hvordan sliderens verdiendringer skal håndteres.
+	 */
 	private <T> void addEventHandler( TextField field, SEARCHOPTION fieldType ){
 		field.textProperty().addListener(( observableValue, s, t1 ) -> {
 			System.out.println(fieldType + " oppdatert: " + s + " " + t1);
 			switch (fieldType) {
 				case SEARCH -> {
-					searchController.getSearch().setSearch(t1);
+					searchController.getSearch().search(t1);
 				}
 				case PLASSERING -> {
-					searchController.getSearch().setSearchByPlassering(t1);
+					searchController.getSearch().searchByPlassering(t1);
 				}
 				case BESKRIVELSE -> {
-					searchController.getSearch().setSearchByBeskrivelse(t1);
+					searchController.getSearch().searchByBeskrivelse(t1);
 				}
 				case INNKJOPSDATO -> {
-					searchController.getSearch().setSearchByInnkjopsdato(Integer.parseInt(t1));
+					// FIXME: Incompatible type.
+					//searchController.getSearch().searchByInnkjopsdato(Integer.parseInt(t1));
 				}
 		}
 		});
@@ -155,19 +191,19 @@ public class SearchHandlers {
 			switch (field) {
 				case PRIS -> {
 					// Oppdaterer søkekriteriene for prisområdet.
-					searchController.getSearch().setSearchByPris((int) range.getLowValue(), (int) range.getHighValue());
+					searchController.getSearch().searchByPris((int) range.getLowValue(), (int) range.getHighValue());
 				}
 				case ANTALL -> {
 					// Oppdaterer søkekriteriene for antallområdet.
-					searchController.getSearch().setSearchByAntall((int) range.getLowValue(), (int) range.getHighValue());
+					searchController.getSearch().searchByAntall((int) range.getLowValue(), (int) range.getHighValue());
 				}
 				case LEVETID -> {
 					// Oppdaterer søkekriteriene for levetidsområdet.
-					searchController.getSearch().setSearchByLevetid((int) range.getLowValue(), (int) range.getHighValue());
+					searchController.getSearch().searchByLevetid((int) range.getLowValue(), (int) range.getHighValue());
 				}
 				case FORVENTETKASSERING -> {
 					// Oppdaterer søkekriteriene for forventet kassering område.
-					searchController.getSearch().setSearchByForventetKassering((int) range.getLowValue(), (int) range.getHighValue());
+					searchController.getSearch().searchByForventetKassering((int) range.getLowValue(), (int) range.getHighValue());
 				}
 				default -> throw new IllegalStateException("Uventet verdi: " + field);
 			}
@@ -179,16 +215,16 @@ public class SearchHandlers {
 			System.out.println(field + " oppdatert: " + newValue);
 			switch (field) {
 				case TYPE -> {
-					searchController.getSearch().setSearchByType(newValue.toString());
+					searchController.getSearch().searchByType(newValue.toString());
 				}
 				case KATEGORI -> {
-					searchController.getSearch().setSearchByKategori(newValue.toString());
+					searchController.getSearch().searchByKategori(newValue.toString());
 				}
 				case TATTUTAVBRUKAARSAK -> {
-					searchController.getSearch().setSearchByTattUtAvBrukÅrsak(newValue.toString());
+					searchController.getSearch().searchByTattUtAvBrukÅrsak(newValue.toString());
 				}
 				case TATTUTAVBRUKAAR -> {
-					searchController.getSearch().setSearchByTattUtAvBrukÅr((int) newValue);
+					searchController.getSearch().searchByTattUtAvBrukÅr((int) newValue);
 				}
 
 			}

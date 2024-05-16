@@ -14,16 +14,37 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import org.controlsfx.control.RangeSlider;
+import usn.obj2100.client.ClientController;
+import usn.obj2100.client.ClientView;
 
-
-import usn.obj2100.client.InventarSearch;
 
 import java.util.ArrayList;
-
+/**
+ * Denne klassen representerer søkefeltet for å utføre søk i inventarsystemet.
+ * Det tilbyr grunnleggende og avanserte søkealternativer med støtte for dynamisk tilpasning av søkeparametrene
+ * basert på brukerens valg.
+ * <p>
+ * Denne visningen inkluderer et hovedsøkefelt, knapper for å aktivere avansert søk, hjelp for søk, og
+ * håndterer animasjoner for visning og skjuling av søkeformularet.
+ * <p>
+ * Søkeformularet tillater brukere å spesifisere søk basert på forskjellige felter som beskrivelse, plassering,
+ * prisklasser, og mange andre kriterier.
+ * <p>
+ * Eksempel på bruk:
+ * <pre>
+ * {@code
+ * ClientController clientController = new ClientController();
+ * ClientView clientView = new ClientView(clientController);
+ * SearchBarView searchBarView = new SearchBarView(clientController, clientView);
+ * }
+ * </pre>
+ *
+ * @param mc Håndterer logikken for klientkontrolleren som tilrettelegger interaksjon med modellene.
+ * @param cw Visningen av klientgrensesnittet som inneholder søkefeltet.
+ */
 public class SearchBarView  {
 
-	private StackPane mainContent;
-	private InventarSearch inventarSearch;
+	private StackPane footer;
 	private DropShadow dropShadow;
 	private HBox searchForm = buildSearchForm();
 	private HBox searchToggle = searchFormToggle();
@@ -31,6 +52,7 @@ public class SearchBarView  {
 	private Button searchToggleButton;
 	private Button searchOptions;
 	private Button searchButton;
+	private Button searchBarHelpButton;
 
 	private TextField searchField;
 
@@ -39,32 +61,47 @@ public class SearchBarView  {
 	private ArrayList<SearchField<ComboBox<String>>> advancedFieldsComboBoxString;
 	private ArrayList<SearchField<ComboBox<Integer>>> advancedFieldsComboBoxInt;
 
-	private SearchHandlers searchHandlers;
+	private ClientController mc;
 
-	public SearchBarView(SearchController searchController) {
-		this.mainContent = searchController.getClientView().getMainContent();
+	/**
+	 * Initialiserer en ny instans av søkefeltet med koblinger til klientkontrolleren og klientvisningen.
+	 * Setter opp UI-komponentene og konfigurerer nødvendige interaksjoner og animasjoner.
+	 *
+	 * @param mc Klientkontrolleren som koordinerer handlinger mellom brukergrensesnittet og dataene.
+	 * @param cw Hovedklientvisningen som inneholder denne søkevisningen.
+	 */
+	public SearchBarView(ClientController mc, ClientView cw) {
+		this.mc = mc;
+		this.footer = cw.getFooter();
 		this.dropShadow = new DropShadow();
 		this.advancedFieldsText = new ArrayList<>();
 		this.advancedFieldsRange = new ArrayList<>();
 		this.advancedFieldsComboBoxString = new ArrayList<>();
 		this.advancedFieldsComboBoxInt = new ArrayList<>();
 		init();
-	}
 
+	}
+	/**
+	 * Initialiserer grunnleggende UI-komponenter og legger til nødvendige lyttere og stiler.
+	 */
 	private void init() {
 		dropShadow.setColor(Color.GRAY);
 		dropShadow.setOffsetX(3.0);
 		dropShadow.setOffsetY(3.0);
 		dropShadow.setRadius(5.0);
 
-		this.mainContent.getChildren().add(searchToggle);
+		this.footer.getChildren().add(searchToggle);
 	}
 
+	/**
+	 * Oppretter og returnerer hovedsøkeformularet som inkluderer søkefelt og knapper for å håndtere søk.
+	 *
+	 * @return En HBox som inneholder søkeformularet.
+	 */
 	private HBox searchFormToggle(){
 		HBox toggleContainer = new HBox();
 
 		searchToggleButton = new Button();
-		searchToggleButton.setPadding(new Insets(20, 0, 20, 0)); // Setter 20 piksler på toppen og bunnen
 		searchToggleButton.getStyleClass().add("search-box-toggle");
 
 		Image image = new Image("search-icon.png");
@@ -77,16 +114,18 @@ public class SearchBarView  {
 		searchToggleButton.setEffect(dropShadow);
 		searchToggleButton.setAlignment(Pos.CENTER);
 
-		Label searchLabel = new Label("Søk i inventar");
-		searchLabel.setAlignment(Pos.CENTER);
 
-		toggleContainer.getChildren().addAll(searchToggleButton, searchLabel);
+		toggleContainer.getChildren().addAll(searchToggleButton);
 		toggleContainer.setAlignment(Pos.BOTTOM_RIGHT);
 		toggleContainer.setPadding(new Insets(0, 20, 20, 0)); // Setter 20 piksler på høyre side og bunnen
 		return toggleContainer;
 	}
 
-
+	/**
+	 * Oppretter og returnerer en toggle-knapp for å vise eller skjule det avanserte søkeformularet.
+	 *
+	 * @return En HBox som inneholder toggle-knappen og dens tilhørende etikett.
+	 */
 	private HBox buildSearchForm() {
 		HBox form = new HBox();
 		form.setAlignment(Pos.BOTTOM_CENTER);
@@ -94,11 +133,14 @@ public class SearchBarView  {
 
 		searchField = new TextField();
 		searchField.getStyleClass().add("text-field-main-search");
-		searchField.setPrefWidth(400);
+		searchField.setPrefWidth(500);
+		searchField.setMinWidth(400);
 		searchField.setPrefHeight(46);
 		searchField.setPromptText("Søk etter inventar...");
 
-		searchButton = new Button("Søk");
+
+
+		searchButton = new Button();
 		searchOptions = new Button("Avansert søk");
 
 		searchOptions.getStyleClass().add("search-options");
@@ -109,9 +151,6 @@ public class SearchBarView  {
 		imageView.setFitWidth(20);  // bredden på bildet
 		imageView.setFitHeight(20); // høyden på bildet
 
-
-
-
 		searchButton.setGraphic(imageView);
 		searchButton.getStyleClass().add("search-button");
 
@@ -119,13 +158,19 @@ public class SearchBarView  {
 		ImageView helpView = new ImageView(help);
 		helpView.setFitWidth(30);
 		helpView.setFitHeight(30);
-
 		helpView.getStyleClass().add("help-icon");
+		searchBarHelpButton = new Button();
+		searchBarHelpButton.setGraphic(helpView);
+
+		boolean show = true;
+		searchBarHelpButton.getStyleClass().add("transparent-button");
+		searchBarHelpButton.setAlignment(Pos.CENTER_LEFT);
+		searchBarHelpButton.setPadding(new Insets(0));
 
 		StackPane searchFieldContainer = new StackPane();
-		searchFieldContainer.getChildren().addAll(searchField, helpView);
-		StackPane.setAlignment(helpView, Pos.CENTER_LEFT);
-		helpView.setTranslateX(-10); // Juster denne verdien for å plassere ikonet riktig
+		searchFieldContainer.getChildren().addAll(searchField, searchBarHelpButton);
+		StackPane.setAlignment(searchBarHelpButton, Pos.CENTER_LEFT);
+		searchBarHelpButton.setTranslateX(10); // Juster denne verdien for å plassere ikonet riktig
 
 
 
@@ -140,7 +185,12 @@ public class SearchBarView  {
 		form.setPadding(new Insets(20));
 		return form;
 	}
-
+	/**
+	 * Konstruerer og returnerer det avanserte søkeskjemaet, med dynamisk tilpassede søkefelt basert på
+	 * tilgjengelige søkekriterier.
+	 *
+	 * @return En HBox som inneholder det avanserte søkeskjemaet.
+	 */
 	public HBox buildAdvancedSearchForm() {
 		HBox advancedForm = new HBox();
 		advancedForm.getStyleClass().add("advanced-search-drawer");
@@ -304,7 +354,32 @@ public class SearchBarView  {
 		container.getChildren().addAll(label, hSlider);
 		return container;
 	}
+	/**
+	 * Hjelpefunksjon for å animere åpning eller lukking av et søkeskjema.
+	 * TODO burde refaktoreres til en metode med den under.
+	 * @param drawer HBox som representerer søkeskjemaet som skal animeres.
+	 * @param show Boolean som angir om skjemaet skal vises eller skjules.
+	 */
+	public void animateDrawerRight(VBox drawer, boolean show){
+		TranslateTransition transition = new TranslateTransition(Duration.millis(500), drawer);
+		transition.setInterpolator(Interpolator.EASE_BOTH);
+		if (show) {
+			transition.setFromX(drawer.getWidth() + drawer.getLayoutX());
+			transition.setToX(drawer.getLayoutX());
+		} else {
+			transition.setFromX(drawer.getLayoutX());
+			transition.setToX(drawer.getLayoutX() + drawer.getWidth());
+			transition.setOnFinished(event -> mc.getClientView().getRoot().setRight(null));
+		}
+		transition.play();
+	}
 
+	/**
+	 * Hjelpefunksjon for å animere åpning eller lukking av et søkeskjema.
+	 *
+	 * @param drawer HBox som representerer søkeskjemaet som skal animeres.
+	 * @param show Boolean som angir om skjemaet skal vises eller skjules.
+	 */
 	public void animateDrawer(HBox drawer, boolean show) {
 		TranslateTransition transition = new TranslateTransition(Duration.millis(500), drawer);
 		transition.setInterpolator(Interpolator.EASE_BOTH);
@@ -314,7 +389,7 @@ public class SearchBarView  {
 		} else {
 			transition.setFromX(0);
 			transition.setToX(-drawer.getWidth());
-			transition.setOnFinished(event -> mainContent.getChildren().remove(drawer));
+			transition.setOnFinished(event -> mc.getClientView().getRoot().setLeft(null));
 		}
 		transition.play();
 	}
@@ -331,50 +406,130 @@ public class SearchBarView  {
 		} else {
 			transition.setFromY(0);
 			transition.setToY(searchForm.getLayoutY());
-			transition.setOnFinished(event -> mainContent.getChildren().remove(searchForm));
+			transition.setOnFinished(event -> footer.getChildren().remove(searchForm));
 		}
 		transition.play();
 	}
-
+	/**
+	 * Henter knappen som aktiverer eller deaktiverer visningen av søkeskjemaet.
+	 * Denne knappen brukes til å vise eller skjule det avanserte søkeskjemaet.
+	 *
+	 * @return En referanse til toggle-knappen for søkeskjemaet.
+	 */
 	public Button getSearchToggleButton() {
 		return searchToggleButton;
 	}
-
+	/**
+	 * Henter beholderen som inneholder toggle-knappen for søkeskjemaet.
+	 * Denne beholderen kan inneholde flere elementer som er relatert til aktivering av søket.
+	 *
+	 * @return En HBox som inneholder toggle-knappen.
+	 */
 	public HBox getSearchToggle() {
 		return searchToggle;
 	}
+	/**
+	 * Henter hovedsøkeformularet.
+	 * Dette formularet inneholder søkefeltet og knapper for å utføre søk og aktivere avanserte søkealternativer.
+	 *
+	 * @return En HBox som inneholder søkeformularet.
+	 */
 	public HBox getSearchForm() {
 		return searchForm;
 	}
-
+	/**
+	 * Henter søkeknappen.
+	 * Denne knappen brukes for å initiere søket basert på inndataene i søkefeltet.
+	 *
+	 * @return En referanse til søkeknappen.
+	 */
 	public Button getSearchButton() {
 		return searchButton;
 	}
-
+	/**
+	 * Henter knappen for å åpne avanserte søkealternativer.
+	 * Denne knappen brukes for å utvide søkefeltet til å inkludere flere detaljerte søkekriterier.
+	 *
+	 * @return En referanse til knappen for avanserte søkealternativer.
+	 */
 	public Button getSearchOptions() {
 		return searchOptions;
 	}
-
+	/**
+	 * Henter hjelpeknappen for søkefeltet.
+	 * Denne knappen kan brukes til å gi brukeren tilleggsinformasjon om hvordan søkefunksjonen skal brukes.
+	 *
+	 * @return En referanse til hjelpeknappen for søkefeltet.
+	 */
+	public Button getSearchBarHelpButton(){
+		return searchBarHelpButton;
+	}
+	/**
+	 * Henter tekstfeltet for søk.
+	 * Brukeren kan skrive inn søkekriterier i dette feltet for å finne relevante inventarobjekter.
+	 *
+	 * @return Søkefeltets TextField-komponent.
+	 */
 	public TextField getSearchField() {
 		return searchField;
 	}
 
+	/**
+	 * Henter en liste over de avanserte tekstfeltene for søk.
+	 * Disse feltene tillater spesifikasjon av mer spesifikke søkekriterier, som beskrivelse eller plassering.
+	 *
+	 * @return En liste med avanserte søkefelt for tekst.
+	 */
 	public ArrayList<SearchField<TextField>> getAdvancedFieldsText() {
 		return advancedFieldsText;
 	}
-
+	/**
+	 * Henter en liste over avanserte RangeSliders for søk.
+	 * Disse sliderne lar brukeren spesifisere områder for numeriske verdier som pris eller levetid.
+	 *
+	 * @return En liste med avanserte søkefelt for RangeSliders.
+	 */
 	public ArrayList<SearchField<RangeSlider>> getAdvancedFieldsRange() {
 		return advancedFieldsRange;
 	}
-
+	/**
+	 * Henter en liste over ComboBox-felter for heltallsverdier, brukt i det avanserte søkeskjemaet.
+	 * Disse feltene kan for eksempel brukes til å velge år for innkjøpsdato eller andre numeriske kriterier.
+	 *
+	 * @return En liste med ComboBox-felter for heltall.
+	 */
 	public ArrayList<SearchField<ComboBox<Integer>>> getAdvancedFieldsComboBoxInt() {
 		return advancedFieldsComboBoxInt;
 	}
-
+	/**
+	 * Henter en liste over ComboBox-felter for tekstverdier, brukt i det avanserte søkeskjemaet.
+	 * Disse feltene kan for eksempel brukes til å velge kategorier eller typer inventar.
+	 *
+	 * @return En liste med ComboBox-felter for tekst.
+	 */
 	public ArrayList<SearchField<ComboBox<String>>> getAdvancedFieldsComboBoxString() {
 		return advancedFieldsComboBoxString;
 	}
+	/**
+	 * Henter klientkontrolleren assosiert med denne visningen.
+	 * Kontrolleren håndterer all logikk for interaksjon mellom brukergrensesnittet og datamodellene.
+	 *
+	 * @return Kontrolleren som håndterer søkevisningen.
+	 */
+	public ClientController getMc() {
+		return mc;
+	}
 
+	/**
+	 * Representerer data for en RangeSlider i det avanserte søkeskjemaet.
+	 * Denne klassen lagrer informasjon om etiketten, minimums- og maksimumsverdier, samt stegintervallet for en slider.
+	 *
+	 * @param labelText Etiketten som vises ved siden av slideren.
+	 * @param minValue Minimumsverdien slideren kan ha.
+	 * @param maxValue Maksimumsverdien slideren kan ha.
+	 * @param step Stegintervallet mellom verdiene.
+	 * @param searchoption Den søkeopsjonen som slideren representerer.
+	 */
 	static class SliderData {
 		String labelText;
 		int minValue;
@@ -390,4 +545,6 @@ public class SearchBarView  {
 			this.searchoption = searchoption;
 		}
 	}
+
+
 }

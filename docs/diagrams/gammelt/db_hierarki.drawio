@@ -1,0 +1,49 @@
+<mxfile host="app.diagrams.net" modified="2024-05-16T08:11:36.422Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0" etag="6nIicgC6Ms1uuKKJAQLq" version="24.4.2" type="device">
+  <diagram name="Page-1" id="Y4igJax1NDTiie6x72uu">
+    <mxGraphModel dx="1627" dy="996" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p8W0G1VEc0plKu3XL5k--11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="p8W0G1VEc0plKu3XL5k--2" target="p8W0G1VEc0plKu3XL5k--3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p8W0G1VEc0plKu3XL5k--2" value="Applikasjon" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="160" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p8W0G1VEc0plKu3XL5k--12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="p8W0G1VEc0plKu3XL5k--3" target="p8W0G1VEc0plKu3XL5k--4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p8W0G1VEc0plKu3XL5k--3" value="&lt;div&gt;Database&lt;/div&gt;&lt;div&gt;Connection&lt;/div&gt;&lt;div&gt;Manager&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p8W0G1VEc0plKu3XL5k--4" value="&lt;div&gt;Data&lt;/div&gt;&lt;div&gt;Access&lt;/div&gt;&lt;div&gt;Object&lt;/div&gt;&lt;div&gt;(DAOs)&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="340" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p8W0G1VEc0plKu3XL5k--14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="p8W0G1VEc0plKu3XL5k--5" target="p8W0G1VEc0plKu3XL5k--6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p8W0G1VEc0plKu3XL5k--5" value="Services" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="430" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p8W0G1VEc0plKu3XL5k--6" value="Models" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p8W0G1VEc0plKu3XL5k--7" value="&lt;div&gt;&lt;b&gt;Models&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Representerer databasestrukturen.&lt;br&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="290" y="515" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p8W0G1VEc0plKu3XL5k--8" value="&lt;div&gt;&lt;b&gt;Services&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Inneholder &quot;business logic&quot; for applikasjonen, og orkestrerer interaksjon mellom DAOs og Models.&lt;br&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="290" y="420" width="210" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="p8W0G1VEc0plKu3XL5k--9" value="&lt;div&gt;&lt;b&gt;DAOs&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Arbeider direkte med databasen (CRUD funksjoner).&lt;br&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="290" y="335" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p8W0G1VEc0plKu3XL5k--10" value="&lt;div&gt;&lt;b&gt;DCM&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Behandler tilkobling til SQLite databasen.&lt;br&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="290" y="245" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="p8W0G1VEc0plKu3XL5k--13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.498;entryY=-0.051;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="p8W0G1VEc0plKu3XL5k--4" target="p8W0G1VEc0plKu3XL5k--5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

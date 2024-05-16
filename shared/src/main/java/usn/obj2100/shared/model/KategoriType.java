@@ -1,5 +1,7 @@
 package usn.obj2100.shared.model;
 
+import usn.obj2100.shared.Type;
+
 import java.io.Serializable;
 
 public class KategoriType
@@ -38,6 +40,11 @@ public class KategoriType
 			"id=" + id +
 			", type='" + type + '\'' +
 			'}';
+	}
+	
+	public Type typeOf()
+	{
+		return Type.KATEGORI_TYPE;
 	}
 	
 	/* Setters. */

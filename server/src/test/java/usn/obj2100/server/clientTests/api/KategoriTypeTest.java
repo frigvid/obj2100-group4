@@ -8,6 +8,13 @@ import usn.obj2100.shared.model.KategoriType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A test class for the KategoriType model.
+ * <p/>
+ * Ensures that a simulated client can create, read, update, and delete a KategoriType object.
+ *
+ * @created 2024-05-14
+ */
 @DisplayName("En kategori type er")
 @TestMethodOrder(OrderAnnotation.class)
 public class KategoriTypeTest

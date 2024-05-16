@@ -168,12 +168,16 @@ public class Inventar
 	 */
 	public Type typeOf()
 	{
-		return Type.Inventar;
+		return Type.INVENTAR;
 	}
 	
-	// TODO: Implement this method, den er ikke ferdig, må finne likheter mellom to objekter
-	@Override
-	public boolean equals(Object object)
+	/**
+	 * Compare two Inventar objects.
+	 *
+	 * @param object The object to compare to.
+	 * @return Whether the objects are equal.
+	 */
+	public boolean equals(Inventar object)
 	{
 		if (this == object)
 		{
@@ -185,11 +189,16 @@ public class Inventar
 			return false;
 		}
 		
-		Inventar inventar = (Inventar) object;
-		return Double.compare(inventar.innkjopspris, innkjopspris) == 0
-			&& beskrivelse.equals(inventar.beskrivelse)
-			&& innkjopsdato.equals(inventar.innkjopsdato)
-			&& Objects.equals(plassering, inventar.plassering);
+		Inventar inventar = object;
+		return sku == inventar.sku &&
+			Double.compare(inventar.innkjopspris, innkjopspris) == 0 &&
+			antall == inventar.antall &&
+			forventetLevetid == inventar.forventetLevetid &&
+			Objects.equals(beskrivelse, inventar.beskrivelse) &&
+			Objects.equals(innkjopsdato, inventar.innkjopsdato) &&
+			Objects.equals(kategori, inventar.kategori) &&
+			Objects.equals(plassering, inventar.plassering) &&
+			Objects.equals(kassert, inventar.kassert);
 	}
 	
 	@Override
