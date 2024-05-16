@@ -26,6 +26,7 @@ public class ClientController {
 	private Client serverConnection;
 	private ArrayList<Inventar>  allInvenatar;
 	private InventarExtended selectedInventar;
+	private Inventar selectedInventarAll;
 	private InventarController inventarController;
 	private ScreenController screen;
 	private SearchBarView searchBar;
@@ -84,6 +85,14 @@ public class ClientController {
 	public void setSelectedInvetar(InventarExtended inventar){
 		selectedInventar = inventar;
 	}
+
+	/**
+	 * TODO Dette er en nødløsning som må refaktoreres...
+	 */
+	public void setSelectedInvetarAll(Inventar inventar){
+		selectedInventarAll = inventar;
+	}
+
 	/**
 	 * Henter det valgte inventarobjektet.
 	 *

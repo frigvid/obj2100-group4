@@ -27,6 +27,7 @@ public class SearchController {
 	private ClientView clientView;
 	SearchHandlers searchHandlers;
 	private List<InventarExtended> searchResults;
+	private List<Inventar> searchAll;
 	private ClientController clientController;
 	private Client con;
 	private HelpView helper;
@@ -104,8 +105,9 @@ public class SearchController {
 		try
 		{
 			@SuppressWarnings("unchecked")  // This annotation suppresses unchecked casting warnings
-			List<InventarExtended> inventarList = (List<InventarExtended>) newSearchResults;
-			searchResults = inventarList;
+			List<Inventar> inventarList = (List<Inventar>) newSearchResults;
+
+			searchAll = inventarList;
 		} catch (Exception e){
 			System.out.println("Search does not return init data!");
 		}
@@ -117,6 +119,10 @@ public class SearchController {
 	 */
 	public List<InventarExtended> getSearchResults() {
 		return searchResults;
+	}
+
+	public List<Inventar> getSearchResultsAll() {
+		return searchAll;
 	}
 
 	/**

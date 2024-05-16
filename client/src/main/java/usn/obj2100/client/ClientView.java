@@ -162,6 +162,46 @@ public class ClientView {
 		tabs.getTabs().add(tempTab);
 		setTab(tabs.getTabs().size()-1);
 	}
+
+	/**
+	 * her kommer en nødløsning for å fikse all search i siste minut...
+	 * TODO refaktorere server for å fikse...
+	 * @param content
+	 */
+
+	public void setEditInventarTabContentAll(Inventar inventar){
+		HBox content = new HBox();
+		content.setAlignment(Pos.CENTER);
+		clientController.setSelectedInvetarAll(inventar);
+		content.getChildren().add(new EditInventarView(clientController));
+		String tittel = inventar.getBeskrivelse().length() > 15 ? inventar.getBeskrivelse().substring(0, 15) : inventar.getBeskrivelse();
+		Tab tempTab = new Tab("Rediger " + tittel, content);
+		tabs.getTabs().add(tempTab);
+		setTab(tabs.getTabs().size()-1);
+	}
+
+	public void setViewInventarTabContentAll(Inventar inventar){
+		HBox content = new HBox();
+		content.setAlignment(Pos.CENTER);
+		clientController.setSelectedInvetarAll(inventar);
+		content.getChildren().add(new SelectedInventarView(clientController));
+		String tittel = inventar.getBeskrivelse().length() > 15 ? inventar.getBeskrivelse().substring(0, 15) : inventar.getBeskrivelse();
+		Tab tempTab = new Tab("Se på " + tittel, content);
+		tabs.getTabs().add(tempTab);
+		setTab(tabs.getTabs().size()-1);
+	}
+
+	public void setDeleteInventarTabContentAll(Inventar inventar){
+
+		HBox content = new HBox();
+		content.setAlignment(Pos.CENTER);
+		clientController.setSelectedInvetarAll(inventar);
+		content.getChildren().add(new DeleteInventarView(clientController));
+		String tittel = inventar.getBeskrivelse().length() > 15 ? inventar.getBeskrivelse().substring(0, 15) : inventar.getBeskrivelse();
+		Tab tempTab = new Tab("Slett " + tittel, content);
+		tabs.getTabs().add(tempTab);
+		setTab(tabs.getTabs().size()-1);
+	}
 	/* Setter en ny fane med nyInvetar og velger den i fanepanelet.
 	 *
 	 * @param content Innholdet som skal vises i den nye fanen.

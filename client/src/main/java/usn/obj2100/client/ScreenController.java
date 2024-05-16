@@ -6,6 +6,8 @@ import usn.obj2100.client.Inventar.Views.DeleteInventarView;
 import usn.obj2100.client.Inventar.Views.EditInventarView;
 import usn.obj2100.client.Search.SearchBarView;
 import usn.obj2100.client.Search.SearchResultView;
+import usn.obj2100.client.Search.SearchResultViewAll;
+
 /**
  * ScreenController klassen håndterer visningen av forskjellige skjermer eller visninger i applikasjonen.
  * Denne klassen er ansvarlig for å opprette og vise korrekte visninger basert på brukerhandlinger eller andre systemhendelser.
@@ -16,6 +18,7 @@ public class ScreenController {
 	private final ClientController mc; // Sentral kontroller som styrer logikken.
 	private SearchBarView searchBar; // Søkefelt og relaterte visninger.
 	private SearchResultView searchResultScreen; // Visning for søkeresultater.
+	private SearchResultViewAll searchResultScreenAll;
 	private EditInventarView editInventarScreen; // Redigeringsvisning for inventar.
 	private DeleteInventarView deleteInvetarScreen; // Slettevisning for inventar.
 
@@ -81,12 +84,11 @@ public class ScreenController {
 	}
 	/**
 	 * Setter søkeresultat visning med alle inventar
-	 *
 	 */
-	public SearchResultView getViewAllScreen(){
+	public SearchResultViewAll getViewAllScreen(){
 		mc.getSearchController().setViewAllInventar();
-		searchResultScreen = new SearchResultView(mc.getSearchController());
-		return searchResultScreen;
+		searchResultScreenAll = new SearchResultViewAll(mc.getSearchController());
+		return searchResultScreenAll;
 	}
 	/**
 	 * Setter startvisningen.
