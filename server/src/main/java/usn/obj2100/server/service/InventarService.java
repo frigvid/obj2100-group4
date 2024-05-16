@@ -137,7 +137,13 @@ public class InventarService
 	}
 	
 	/**
-	 * Create a new inventar object.
+	 * Create a new Inventar object.
+	 * <p/>
+	 * Note that if you create an object with an ID, and it is not
+	 * available, the database sets an available one for it. So if you
+	 * need to get the newly created object's ID, you just save the
+	 * response to an Object of Inventar or a generic Object, and get
+	 * the ID from there.
 	 *
 	 * @param inventar The inventar object to create.
 	 * @return Inventar object if the inventar object was created, null otherwise.

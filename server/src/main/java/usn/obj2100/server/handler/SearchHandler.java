@@ -1,7 +1,6 @@
 package usn.obj2100.server.handler;
 
 import usn.obj2100.server.DatabaseConnectionManager;
-import usn.obj2100.server.controller.*;
 import usn.obj2100.shared.model.InventarExtended;
 import usn.obj2100.shared.model.Search;
 
@@ -10,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class is responsible for handling the search queries.
+ *
+ * @created 2024-05-13
+ */
 public class SearchHandler
 {
 	public SearchHandler() {}
@@ -28,6 +32,7 @@ public class SearchHandler
 	 */
 	public List<InventarExtended> handleSearch(Search search)
 	{
+		/* Base query segment. */
 		StringBuilder query = new StringBuilder(
 			"SELECT i.sku, i.beskrivelse, i.innkjopsdato, i.innkjopspris, i.antall, i.forventetLevetid, k.kategori, kt.type as kategoriType, CONCAT_WS('/', p.bygg, p.floy, IFNULL(p.etasje, ''), IFNULL(p.rom, '')) as plassering, kst.begrunnelse FROM inventar i "
 			+ "LEFT JOIN plassering p ON i.plassering = p.id "
@@ -35,9 +40,10 @@ public class SearchHandler
 			+ "LEFT JOIN kategoriType kt ON k.type = kt.id "
 			+ "LEFT JOIN kassert ks ON i.kassert = ks.id "
 			+ "LEFT JOIN kassertType kst ON ks.begrunnelse = kst.id ");
-
+		
 		boolean isFiltered = false;
-
+		
+		/* Base search segment. */
 		if (search.getSearch() != null && !search.getSearch().isEmpty())
 		{
 			query
@@ -49,7 +55,8 @@ public class SearchHandler
 				.append("%')");
 			isFiltered = true;
 		}
-
+		
+		/* Filter segment: Beskrivelse. */
 		if (search.getSearchByBeskrivelse() != null)
 		{
 			query
@@ -59,7 +66,8 @@ public class SearchHandler
 				.append("%'");
 			isFiltered = true;
 		}
-
+		
+		/* Filter segment: Type. */
 		if (search.getSearchByType() != null)
 		{
 			query
@@ -69,7 +77,8 @@ public class SearchHandler
 				.append("%'");
 			isFiltered = true;
 		}
-
+		
+		/* Filter segment: Kategori. */
 		if (search.getSearchByKategori() != null)
 		{
 			query
@@ -82,6 +91,7 @@ public class SearchHandler
 
 		// FIXME: For some reason it cannot compare a YYYY-MM-DD SQL DATE with a
 		// 		 java.sql.Date.valueOf(YYYY-MM-DD) which are equivalently the same.
+		/* Filter segment: Innkjøpsdato. */
 		if (search.getSearchByInnkjopsdato() != null)
 		{
 			query
@@ -92,7 +102,9 @@ public class SearchHandler
 			isFiltered = true;
 		}
 
-		/* TODO: Invenstigate why hard-coding values instead of getting them
+		/* Filter segment: Innkjøpspris.
+		 *
+		 * TODO: Invenstigate why hard-coding values instead of getting them
 		 *			works differently when it's the same datatype.
 		 *
 		 * This works fine:
@@ -116,7 +128,8 @@ public class SearchHandler
 				.append(search.getSearchByPris()[1]);
 			isFiltered = true;
 		}
-
+		
+		/* Filter segment: Plassering. */
 		if (search.getSearchByPlassering() != null)
 		{
 			query
@@ -126,7 +139,8 @@ public class SearchHandler
 				.append("'");
 			isFiltered = true;
 		}
-
+		
+		/* Filter segment: Antall. */
 		if (search.getSearchByAntall() != null)
 		{
 			query
@@ -137,7 +151,8 @@ public class SearchHandler
 				.append(search.getSearchByAntall()[1]);
 			isFiltered = true;
 		}
-
+		
+		/* Filter segment: Levetid. */
 		if (search.getSearchByLevetid() != null)
 		{
 			query
@@ -148,7 +163,8 @@ public class SearchHandler
 				.append(search.getSearchByLevetid()[1]);
 			isFiltered = true;
 		}
-
+		
+		/* Filter segment: Forventet Kassering. */
 		if (search.getSearchByForventetKassering() != null)
 		{
 			query
@@ -160,7 +176,8 @@ public class SearchHandler
 				.append("'");
 			isFiltered = true;
 		}
-
+		
+		/* Filter segment: I Bruk. */
 		if (search.isSearchByIBruk())
 		{
 			query
@@ -168,7 +185,8 @@ public class SearchHandler
 				.append(" i.kassert = 0 OR i.kassert = null");
 			isFiltered = true;
 		}
-
+		
+		/* Filter segment: Ikke I Bruk. */
 		if (search.isSearchByIkkeIBruk())
 		{
 			query
@@ -176,7 +194,8 @@ public class SearchHandler
 				.append(" i.kassert = 1");
 			isFiltered = true;
 		}
-
+		
+		/* Filter segment: Kassert/Tatt Ut Av Bruk Årsak. */
 		if (search.getSearchByTattUtAvBrukÅrsak() != null)
 		{
 			query
@@ -186,7 +205,8 @@ public class SearchHandler
 				.append("'");
 			isFiltered = true;
 		}
-
+		
+		/* Filter segment: Tatt Ut Av Bruk År. */
 		if (search.getSearchByTattUtAvBrukÅr() != 0)
 		{
 			query
@@ -195,20 +215,18 @@ public class SearchHandler
 				.append(search.getSearchByTattUtAvBrukÅr());
 			isFiltered = true;
 		}
-
+		
+		/* Legg til semikolon for å signifisere slutt av SQL query. */
 		query.append(";");
 
-		///* Om søket slutter med en "AND", fjern den.
-		// * Ellers, fortsett.
-		// */
-		//if (isFiltered && query.toString().trim().endsWith("AND "))
-		//{
-		//	query.setLength(query.length() - 4);
-		//}
-
-		/* TEST: Output query string. */
-		System.out.println(query.toString());
-
+		/* Om søket slutter med en "AND", fjern den. Ellers, fortsett.
+		 */
+		if (isFiltered && query.toString().trim().endsWith("AND "))
+		{
+			query.setLength(query.length() - 4);
+		}
+		
+		/* SQL forespørsel er ferdig konstruert, returner InventarExtended objekt. */
 		try
 			(
 				Connection connection = DatabaseConnectionManager.getInstance().getConnection();
@@ -217,11 +235,11 @@ public class SearchHandler
 			)
 		{
 			List<InventarExtended> result = new ArrayList<>();
-
+			
 			while (resultSet.next())
 			{
 				InventarExtended inventarS = new InventarExtended();
-
+				
 				inventarS.setSKU(resultSet.getInt("sku"));
 				inventarS.setBeskrivelse(resultSet.getString("beskrivelse"));
 				inventarS.setInnkjopsdato(resultSet.getTimestamp("innkjopsdato").toLocalDateTime());
@@ -232,10 +250,10 @@ public class SearchHandler
 				inventarS.setKategoriType(resultSet.getString("kategoriType"));
 				inventarS.setPlassering(resultSet.getString("plassering"));
 				inventarS.setKassert(resultSet.getString("begrunnelse"));
-
+				
 				result.add(inventarS);
 			}
-
+			
 			return result;
 		}
 		catch (SQLException error)
