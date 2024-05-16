@@ -32,20 +32,20 @@ public class NewInventarView extends HBox
 		typeComboBox.getItems().addAll("Mobler", "Utsmykning", "Teknisk Utstyr");
 		
 		ComboBox<String> categoryComboBox = new ComboBox<>();
-		categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
+		categoryComboBox.setPrefWidth(200);
 		DatePicker purchaseDatePicker = new DatePicker();
-		purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
+		purchaseDatePicker.setPrefWidth(200);
 		TextField priceField = new TextField();
 		TextField locationField = new TextField();
 		TextField quantityField = new TextField();
 		TextField lifespanField = new TextField();
-		lifespanField.setDisable(true); // Deaktiveres inntil den er nødvendig
+		lifespanField.setDisable(true);
 		
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
 		TextArea descriptionField = new TextArea();
-		descriptionField.setPrefRowCount(3); // Set preferred row count for description field
+		descriptionField.setPrefRowCount(3);
 		
 		
 		grid.addRow(0, new Label("Type:"), typeComboBox);
@@ -84,9 +84,9 @@ public class NewInventarView extends HBox
 				String category = categoryComboBox.getValue();
 				int location = Integer.parseInt(locationField.getText());
 				int kassert = 0;
-				categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
+				categoryComboBox.setPrefWidth(200);
 				
-				purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
+				purchaseDatePicker.setPrefWidth(200);
 				
 				// FIXME: Use Shared model Inventar.
 				//InventarElement newElement = new InventarElement(

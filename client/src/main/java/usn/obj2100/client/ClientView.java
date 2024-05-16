@@ -20,7 +20,7 @@ import usn.obj2100.shared.model.Inventar;
 
 public class ClientView {
 
-	private BorderPane root; //Bunnnivå root
+	private BorderPane root;
 	private TabPane tabs;
 	private StackPane footer;
 	private ClientController clientController;
