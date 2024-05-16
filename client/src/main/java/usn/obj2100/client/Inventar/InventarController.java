@@ -3,11 +3,12 @@ package usn.obj2100.client.Inventar;
 import usn.obj2100.client.ClientController;
 import usn.obj2100.shared.Command;
 import usn.obj2100.shared.model.Inventar;
+import usn.obj2100.shared.model.InventarExtended;
 
 public class InventarController {
 	
 	private ClientController mc;
-	private Inventar inventar;
+	private InventarExtended inventar;
 
 
 	/**
@@ -29,27 +30,27 @@ public class InventarController {
 
 
 	//kall til server for å legge til nytt inventar
-	public void addInventar(Inventar inventar) {
+	public void addInventar(InventarExtended inventar) {
 		setInventar(inventar);
 		mc.getServerConnection().request(Command.CREATE, inventar);
 	}
 	//kall til server for å slette inventar
-	public void deleteInventar(Inventar inventar) {
+	public void deleteInventar(InventarExtended inventar) {
 		setInventar(inventar);
 		mc.getServerConnection().request(Command.DELETE, inventar);
 	}
 	//kall til server for å redigere inventar
-	public void editInventar(Inventar inventar) {
+	public void editInventar(InventarExtended inventar) {
 		setInventar(inventar);
 		mc.getServerConnection().request(Command.UPDATE, inventar);
 	}
 	//kall til MainController for å velge en spesifikk inventar fra søkeresultat.
-	public void selectInventar(Inventar inventar) {
+	public void selectInventar(InventarExtended inventar) {
 		setInventar(inventar);
 		mc.setSelectedInvetar(inventar);
 	}
 	// setter en inventar til nåværende inventar i InventarController.
-	public void setInventar(Inventar newInventar){
+	public void setInventar(InventarExtended newInventar){
 		inventar = newInventar;
 	}
 	

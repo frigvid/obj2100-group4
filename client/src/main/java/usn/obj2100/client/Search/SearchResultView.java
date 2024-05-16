@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import usn.obj2100.shared.model.Inventar;
+import usn.obj2100.shared.model.InventarExtended;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -18,7 +19,7 @@ import java.util.Comparator;
  */
 public class SearchResultView extends VBox {
 	private SearchController searchController;
-	private javafx.collections.ObservableList<Inventar> searchResults;
+	private javafx.collections.ObservableList<InventarExtended> searchResults;
 	private boolean sortAscendingType = true;
 	private boolean sortAscendingKategori = true;
 	private boolean sortAscendingBeskrivelse = true;
@@ -122,7 +123,7 @@ public class SearchResultView extends VBox {
 		gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) > 0);
 
 		int rowIndex = 1;
-		for (Inventar inventar : searchResults) {
+		for (InventarExtended inventar : searchResults) {
 			//Label typeLabel = createStyledLabel(inventar.getType());
 			// FIXME: Temporary removal after merging.
 			//Label kategoriLabel = createStyledLabel(inventar.getKategori().getKategoriNavn());
@@ -157,7 +158,7 @@ public class SearchResultView extends VBox {
 	 * @param column Kolonnen som søkeresultatene skal sorteres etter.
 	 */
 	private void sortResults(String column) {
-		Comparator<Inventar> comparator = null;
+		Comparator<InventarExtended> comparator = null;
 		boolean sortAscending = true;
 
 		switch (column) {
@@ -174,17 +175,17 @@ public class SearchResultView extends VBox {
 				sortAscendingKategori = !sortAscendingKategori;
 				break;
 			case "beskrivelse":
-				comparator = Comparator.comparing(Inventar::getBeskrivelse);
+				comparator = Comparator.comparing(InventarExtended::getBeskrivelse);
 				sortAscending = sortAscendingBeskrivelse;
 				sortAscendingBeskrivelse = !sortAscendingBeskrivelse;
 				break;
 			case "innkjøpsPris":
-				comparator = Comparator.comparing(Inventar::getInnkjopspris);
+				comparator = Comparator.comparing(InventarExtended::getInnkjopspris);
 				sortAscending = sortAscendingInnkjøpsPris;
 				sortAscendingInnkjøpsPris = !sortAscendingInnkjøpsPris;
 				break;
 			case "innkjøpsDato":
-				comparator = Comparator.comparing(Inventar::getInnkjopsdato);
+				comparator = Comparator.comparing(InventarExtended::getInnkjopsdato);
 				sortAscending = sortAscendingInnkjøpsDato;
 				sortAscendingInnkjøpsDato = !sortAscendingInnkjøpsDato;
 				break;
@@ -232,7 +233,7 @@ public class SearchResultView extends VBox {
 	 * @param inventar Inventarobjektet som handlingsknappene gjelder for.
 	 * @return En HBox som inneholder handlingsknapper.
 	 */
-	private HBox createActionButtons(Inventar inventar) {
+	private HBox createActionButtons(InventarExtended inventar) {
 		Button viewButton = new Button("View");
 		Button editButton = new Button("Edit");
 		Button deleteButton = new Button("Delete");
@@ -254,18 +255,18 @@ public class SearchResultView extends VBox {
 	}
 
 	// Event handler methods for buttons
-	private void handleViewAction(Inventar inventar) {
+	private void handleViewAction(InventarExtended inventar) {
 		// Implement the view action
 		searchController.getClientView().setViewInventarTabContent(inventar);
 		System.out.println("Viewing: " + inventar.getBeskrivelse());
 	}
 
-	private void handleEditAction(Inventar inventar) {
+	private void handleEditAction(InventarExtended inventar) {
 		searchController.getClientView().setEditInventarTabContent(inventar);
 		System.out.println("Editing: " + inventar.getBeskrivelse());
 	}
 
-	private void handleDeleteAction(Inventar inventar) {
+	private void handleDeleteAction(InventarExtended inventar) {
 		// Implement the delete action
 		searchController.getClientView().setDeleteInventarTabContent(inventar);
 		System.out.println("Deleting: " + inventar.getBeskrivelse());

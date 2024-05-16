@@ -17,6 +17,8 @@ import usn.obj2100.client.Inventar.Views.SelectedInventarView;
 import usn.obj2100.client.Search.SearchBarView;
 import usn.obj2100.client.Search.SearchHandlers;
 import usn.obj2100.shared.model.Inventar;
+import usn.obj2100.shared.model.InventarExtended;
+
 /**
  * ClientView er hovedvisningskomponenten for brukergrensesnittet i applikasjonen.
  * Denne klassen håndterer opprettelsen og visningen av ulike brukergrensesnittkomponenter,
@@ -127,7 +129,7 @@ public class ClientView {
 	 * TODO refaktorer setTabs til en metode, Dette var mye kode for det samme!
 	 * @param content Innholdet som skal vises i den nye fanen.
 	 */
-	public void setEditInventarTabContent(Inventar inventar){
+	public void setEditInventarTabContent(InventarExtended inventar){
 		HBox content = new HBox();
 		content.setAlignment(Pos.CENTER);
 		clientController.setSelectedInvetar(inventar);
@@ -138,7 +140,7 @@ public class ClientView {
 		setTab(tabs.getTabs().size()-1);
 	}
 	
-	public void setViewInventarTabContent(Inventar inventar){
+	public void setViewInventarTabContent(InventarExtended inventar){
 		HBox content = new HBox();
 		content.setAlignment(Pos.CENTER);
 		clientController.setSelectedInvetar(inventar);
@@ -149,7 +151,7 @@ public class ClientView {
 		setTab(tabs.getTabs().size()-1);
 	}
 	
-	public void setDeleteInventarTabContent(Inventar inventar){
+	public void setDeleteInventarTabContent(InventarExtended inventar){
 		
 		HBox content = new HBox();
 		content.setAlignment(Pos.CENTER);

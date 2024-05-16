@@ -8,9 +8,11 @@ import usn.obj2100.client.Help.HelpView;
 import usn.obj2100.shared.Command;
 import usn.obj2100.shared.Type;
 import usn.obj2100.shared.model.Inventar;
+import usn.obj2100.shared.model.InventarExtended;
 import usn.obj2100.shared.model.Kategori;
 import usn.obj2100.shared.model.Search;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * Controls the search functionalities within the client application.
@@ -24,7 +26,7 @@ public class SearchController {
 	private SearchBarView searchView;
 	private ClientView clientView;
 	SearchHandlers searchHandlers;
-	private List<Inventar> searchResults;
+	private List<InventarExtended> searchResults;
 	private ClientController clientController;
 	private Client con;
 	private HelpView helper;
@@ -58,17 +60,40 @@ public class SearchController {
 	public void setSearchMode(String seachString){
 		Search.Builder search1 = new Search.Builder();
 		search1.searchByBeskrivelse(seachString);
-		search1.searchByBeskrivelse(seachString);
-			try
+
+		Search query = new Search.Builder()
+			.searchByBeskrivelse(seachString)
+			.build();
+
+		try
+		{
+			List<InventarExtended> test = (List<InventarExtended>) clientController.getServerConnection().request(query);
+			searchResults = test;
+		}
+		catch (Exception error)
+		{
+			System.out.println(System.err);
+		}
+
+			/*try
 		{
 			@SuppressWarnings("unchecked")  // This annotation suppresses unchecked casting warnings
-			List<Inventar> inventarList = (List<Inventar>) clientController.getServerConnection().request(search1.build());
-
+			List<Object> obj =  (List<Object>)  clientController.getServerConnection().request(search1.build());
+			System.out.println(obj);
+			//List<Object> invs = (List<Object>) obj;
+			List<Inventar> inventarList = new ArrayList<>();
+			for(Object inv: obj){
+				Inventar inventar = (Inventar) inv;
+				inventarList.add(inventar);
+				System.out.println("Search: " + seachString + " " + inv);
+			}
 			searchResults = inventarList;
 
 		} catch (Exception e){
 			System.out.println("Search does not return init data!");
-		}
+				e.fillInStackTrace();
+			System.out.println(e.toString());
+		}*/
 	}
 	/**
 	 * Loads all inventory items to be displayed initially or when a specific filter is not applied.
@@ -79,7 +104,7 @@ public class SearchController {
 		try
 		{
 			@SuppressWarnings("unchecked")  // This annotation suppresses unchecked casting warnings
-			List<Inventar> inventarList = (List<Inventar>) newSearchResults;
+			List<InventarExtended> inventarList = (List<InventarExtended>) newSearchResults;
 			searchResults = inventarList;
 		} catch (Exception e){
 			System.out.println("Search does not return init data!");
@@ -90,7 +115,7 @@ public class SearchController {
 	 *
 	 * @return A list of {@link Inventar} objects that match the search results.
 	 */
-	public List<Inventar> getSearchResults() {
+	public List<InventarExtended> getSearchResults() {
 		return searchResults;
 	}
 

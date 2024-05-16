@@ -54,10 +54,6 @@ public class SearchHandlers {
 				searchBarView.animateSearchForm(advancedSearchForm, true);
 				clientView.getFooter().getChildren().remove(searchBarView.getSearchToggle());
 
-
-
-
-
 				clientView.getFooter().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
 
 					if (advancedSearchForm != null && !advancedSearchForm.contains(e.getX(), e.getY())) {

@@ -14,6 +14,7 @@ import usn.obj2100.client.GUI.TypeCombo;
 import usn.obj2100.shared.model.Inventar;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import usn.obj2100.shared.model.InventarExtended;
 
 import java.time.LocalDate;
 /**
@@ -36,7 +37,7 @@ import java.time.LocalDate;
  */
 public class EditInventarView extends HBox
 {
-		private Inventar selectedInventar;
+		private InventarExtended selectedInventar;
 		final private ClientController mc;
 	/**
 	 * Oppretter en ny visning for redigering av inventar.

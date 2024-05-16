@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.converter.LocalTimeStringConverter;
 import usn.obj2100.client.ClientController;
 import usn.obj2100.shared.model.Inventar;
+import usn.obj2100.shared.model.InventarExtended;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -148,9 +149,9 @@ public class NewInventarView extends HBox
 				}
 
 
-					Inventar inventar = new Inventar( 123321456, description, purchaseDateTime, price, quantity, lifespan, katTeller, location, kassert);
+				//InventarExtended inventar = new InventarExtended( 123321456, description, purchaseDateTime, price, quantity, lifespan, katTeller, location, kassert);
 					//TODO insert into db here !
-				mc.getInventarController().addInventar(inventar);
+				//mc.getInventarController().addInventar(inventar);
 			} catch (NumberFormatException e) {
 				new Alert(Alert.AlertType.ERROR, "Sjekk at alle tallfelt er korrekt fylt ut.").show();
 			}

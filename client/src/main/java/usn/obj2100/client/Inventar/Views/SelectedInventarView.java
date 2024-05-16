@@ -10,6 +10,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import usn.obj2100.client.ClientController;
 import usn.obj2100.shared.model.Inventar;
+import usn.obj2100.shared.model.InventarExtended;
 
 /**
  * Denne klassen representerer visningen for å vise detaljert informasjon om et valgt inventarobjekt.
@@ -29,7 +30,7 @@ import usn.obj2100.shared.model.Inventar;
  */
 public class SelectedInventarView extends HBox
 {
-	private Inventar selectedInventar;
+	private InventarExtended selectedInventar;
 	final private ClientController mc;
 	/**
 	 * Konstruerer en ny visning basert på det valgte inventaret fra klientkontrolleren.

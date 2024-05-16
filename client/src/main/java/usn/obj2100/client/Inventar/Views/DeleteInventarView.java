@@ -11,6 +11,8 @@ import javafx.scene.text.FontWeight;
 import usn.obj2100.client.ClientController;
 import usn.obj2100.client.GUI.KasseringCombo;
 import usn.obj2100.shared.model.Inventar;
+import usn.obj2100.shared.model.InventarExtended;
+
 /**
  * Denne klassen representerer en visning for sletting av inventarobjekter.
  * Den tilbyr et brukergrensesnitt der brukere kan slette et spesifikt inventar fra systemet.
@@ -31,7 +33,7 @@ import usn.obj2100.shared.model.Inventar;
 public class DeleteInventarView extends HBox
 {
 	private ClientController mc;
-	private Inventar selectedInventar;
+	private InventarExtended selectedInventar;
 	/**
 	 * Konstruerer visningen for sletting av inventar.
 	 * Initialiserer visningen med det valgte inventaret hentet fra klientkontrolleren.

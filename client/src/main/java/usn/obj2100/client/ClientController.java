@@ -9,6 +9,7 @@ import usn.obj2100.client.Search.SearchHandlers;
 import usn.obj2100.shared.Command;
 import usn.obj2100.shared.Type;
 import usn.obj2100.shared.model.Inventar;
+import usn.obj2100.shared.model.InventarExtended;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ClientController {
 	private SearchController searchController;
 	private Client serverConnection;
 	private ArrayList<Inventar>  allInvenatar;
-	private Inventar selectedInventar;
+	private InventarExtended selectedInventar;
 	private InventarController inventarController;
 	private ScreenController screen;
 	private SearchBarView searchBar;
@@ -80,7 +81,7 @@ public class ClientController {
 	 *
 	 * @param inventar Det inventarobjektet som skal settes som valgt.
 	 */
-	public void setSelectedInvetar(Inventar inventar){
+	public void setSelectedInvetar(InventarExtended inventar){
 		selectedInventar = inventar;
 	}
 	/**
@@ -88,7 +89,7 @@ public class ClientController {
 	 *
 	 * @return Det inventarobjektet som er valgt.
 	 */
-	public Inventar getSelectedInvetar(){
+	public InventarExtended getSelectedInvetar(){
 		return selectedInventar;
 	}
 	/**
