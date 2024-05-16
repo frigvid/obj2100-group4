@@ -6,9 +6,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.LocalTimeStringConverter;
 import usn.obj2100.client.ClientController;
+import usn.obj2100.shared.model.Inventar;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class NewInventarView extends HBox
 {
@@ -28,20 +32,20 @@ public class NewInventarView extends HBox
 		typeComboBox.getItems().addAll("Mobler", "Utsmykning", "Teknisk Utstyr");
 		
 		ComboBox<String> categoryComboBox = new ComboBox<>();
-		categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
+		categoryComboBox.setPrefWidth(200);
 		DatePicker purchaseDatePicker = new DatePicker();
-		purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
+		purchaseDatePicker.setPrefWidth(200);
 		TextField priceField = new TextField();
 		TextField locationField = new TextField();
 		TextField quantityField = new TextField();
 		TextField lifespanField = new TextField();
-		lifespanField.setDisable(true); // Deaktiveres inntil den er nødvendig
+		lifespanField.setDisable(true);
 		
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
 		TextArea descriptionField = new TextArea();
-		descriptionField.setPrefRowCount(3); // Set preferred row count for description field
+		descriptionField.setPrefRowCount(3);
 		
 		
 		grid.addRow(0, new Label("Type:"), typeComboBox);
@@ -77,25 +81,41 @@ public class NewInventarView extends HBox
 				int quantity = Integer.parseInt(quantityField.getText());
 				Integer lifespan = "Mobler".equals(typeComboBox.getValue()) ? Integer.parseInt(lifespanField.getText()) : null;
 				String description = descriptionField.getText();
-				categoryComboBox.setPrefWidth(200); // Set preferred width for categoryComboBox
+				String category = categoryComboBox.getValue();
+				int location = Integer.parseInt(locationField.getText());
+				int kassert = 0;
+				categoryComboBox.setPrefWidth(200);
 				
-				purchaseDatePicker.setPrefWidth(200); // Ensure consistent width for purchaseDatePicker
+				purchaseDatePicker.setPrefWidth(200);
 				
 				// FIXME: Use Shared model Inventar.
 				//InventarElement newElement = new InventarElement(
 				//	typeComboBox.getValue(),
 				//	categoryComboBox.getValue(),
 				//	description,
-				//
+				//tt
 				//	purchaseDate.toString(),
 				//	price,
 				//	locationField.getText(),
 				//	quantity,
 				//	lifespan
 				//);
-					
+				LocalTime timeStamp = LocalTime.now();
+				LocalDateTime purchaseDateTime = purchaseDate.atTime(timeStamp);
+
+				int katTeller = 0;
+
+				for(String cat: categoryComboBox.getItems()){
+					if(cat.equals(category)){
+						return;
+					}
+					katTeller++;
+				}
+
+
+					Inventar inventar = new Inventar( 123321456, description, purchaseDateTime, price, quantity, lifespan, katTeller, location, kassert);
 					//TODO insert into db here !
-				//mc.getInventarController().addInventar(inventar);
+				mc.getInventarController().addInventar(inventar);
 			} catch (NumberFormatException e) {
 				new Alert(Alert.AlertType.ERROR, "Sjekk at alle tallfelt er korrekt fylt ut.").show();
 			}
