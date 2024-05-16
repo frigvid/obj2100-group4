@@ -1,9 +1,11 @@
 package usn.obj2100.client;
 
 import javafx.scene.layout.BorderPane;
+import usn.obj2100.client.GUI.StartView;
 import usn.obj2100.client.Inventar.InventarController;
 import usn.obj2100.client.Search.SearchBarView;
 import usn.obj2100.client.Search.SearchController;
+import usn.obj2100.client.Search.SearchHandlers;
 import usn.obj2100.shared.Command;
 import usn.obj2100.shared.Type;
 import usn.obj2100.shared.model.Inventar;
@@ -26,35 +28,25 @@ public class ClientController {
 	private Inventar selectedInventar;
 	private InventarController inventarController;
 	private ScreenController screen;
+	private SearchBarView searchBar;
+	private SearchHandlers searchHandlers;
+	final private BorderPane root;
 	/**
 	 * Konstruktør for ClientController
 
 	 * @return void
 	 */
 	ClientController(BorderPane root, Client serverConnection) {
+		this.root = root;
 		this.serverConnection = serverConnection;
-		this.screen = new ScreenController(this);
-		this.clientView = new ClientView(root, this);
 		this.searchController = new SearchController(this);
-		initStartData();
+		this.screen = new ScreenController(this);
+		this.clientView = new ClientView(this);
 		this.inventarController = new InventarController(this);
 	}
-	
-	private void initStartData()
-	{
-		List<Inventar> inventarList = (List<Inventar>) serverConnection.request(Type.INVENTAR);;
-		
-		if (inventarList != null)
-		{
-			for (Inventar inventar: inventarList)
-			{
-				System.out.println(inventar);
-			}
-		}
-		else
-		{
-			System.out.println("The list is empty or null.");
-		}
+
+	public void initHandlers(){
+		this.searchHandlers = new SearchHandlers(this, clientView);
 	}
 
 
@@ -84,5 +76,9 @@ public class ClientController {
 
 	public ScreenController getScreen() {
 		return screen;
+	}
+
+	public BorderPane getRoot(){
+		return root;
 	}
 }

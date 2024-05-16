@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import org.controlsfx.control.RangeSlider;
 import usn.obj2100.client.ClientController;
+import usn.obj2100.client.ClientView;
 
 
 import java.util.ArrayList;
@@ -39,17 +40,18 @@ public class SearchBarView  {
 	private ArrayList<SearchField<ComboBox<Integer>>> advancedFieldsComboBoxInt;
 
 	private ClientController mc;
-	private SearchHandlers searchHandlers;
 
-	public SearchBarView(ClientController mc) {
+
+	public SearchBarView(ClientController mc, ClientView cw) {
 		this.mc = mc;
-		this.footer = mc.getClientView().getFooter();
+		this.footer = cw.getFooter();
 		this.dropShadow = new DropShadow();
 		this.advancedFieldsText = new ArrayList<>();
 		this.advancedFieldsRange = new ArrayList<>();
 		this.advancedFieldsComboBoxString = new ArrayList<>();
 		this.advancedFieldsComboBoxInt = new ArrayList<>();
 		init();
+
 	}
 
 	private void init() {
@@ -99,6 +101,8 @@ public class SearchBarView  {
 		searchField.setMinWidth(400);
 		searchField.setPrefHeight(46);
 		searchField.setPromptText("Søk etter inventar...");
+
+
 
 		searchButton = new Button();
 		searchOptions = new Button("Avansert søk");
@@ -401,6 +405,7 @@ public class SearchBarView  {
 	public ClientController getMc() {
 		return mc;
 	}
+
 
 	static class SliderData {
 		String labelText;

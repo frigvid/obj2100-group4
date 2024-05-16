@@ -48,7 +48,7 @@ public class StartView extends HBox
 		addNewInv.setAlignment(Pos.CENTER);
 		
 		addNewInv.setOnMouseReleased(event -> {
-			mc.getClientView().setNewTabContentNewInventar(mc.getClientView().getNewInventarView());
+			mc.getClientView().setNewTabContentNewInventar(mc.getScreen().getNewInventarScreen());
 		});
 
 		Button seeAllInv = new Button("Se alle inventar");

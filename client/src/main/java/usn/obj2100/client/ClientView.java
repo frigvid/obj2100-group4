@@ -15,6 +15,7 @@ import usn.obj2100.client.Inventar.Views.DeleteInventarView;
 import usn.obj2100.client.Inventar.Views.EditInventarView;
 import usn.obj2100.client.Inventar.Views.SelectedInventarView;
 import usn.obj2100.client.Search.SearchBarView;
+import usn.obj2100.client.Search.SearchHandlers;
 import usn.obj2100.shared.model.Inventar;
 
 public class ClientView {
@@ -22,19 +23,23 @@ public class ClientView {
 	private BorderPane root; //Bunnnivå root
 	private TabPane tabs;
 	private StackPane footer;
-	private SearchBarView searchBarView;
 	private ClientController clientController;
-	private NewInventarView newInventarView;
-	private StartView startView;
+	private ScreenController screen;
+	private StartView startScreen;
+	private SearchBarView searchBar;
 
-	public ClientView(BorderPane root, ClientController clientController) {
-		this.root = root;
+	public ClientView( ClientController clientController) {
+		this.root = clientController.getRoot();
 		this.tabs = new TabPane();
 		this.footer = new StackPane();
 		this.footer.setPickOnBounds(false);
 		this.clientController = clientController;
-		this.newInventarView = clientController.getScreen().getNewInventarScreen();
-		this.startView = clientController.getScreen().getStartScreen();
+		this.screen = clientController.getScreen();
+		this.startScreen = new StartView(clientController);
+		this.searchBar = new SearchBarView(clientController, this);
+		screen.setSearchBar(searchBar);
+		screen.setStartScreen(startScreen);
+
 		footer.setAlignment(Pos.TOP_LEFT);
 		initializeTabs();
 
@@ -44,11 +49,12 @@ public class ClientView {
 		root.setCenter(tabs);
 		root.getStylesheets().add("style.css");
 		root.setBottom(footer); //TODO mainContent skal døpes til footer
+
 	}
 
 	private void initializeTabs() {
 		HBox startViewContainer = new HBox();
-		startViewContainer.getChildren().add(startView);
+		startViewContainer.getChildren().add(screen.getStartScreen());
 		startViewContainer.setAlignment(Pos.CENTER);
 
 		tabs.getTabs().addAll(
@@ -143,20 +149,23 @@ public class ClientView {
 
 	public void setNewTabContentAllInventar(Node content){
 		Tab tempTab = new Tab("Alle inventar", content);
-		tabs.getTabs().add(tempTab);
+		tabs.getTabs().add(1, tempTab);
 		setTab(tabs.getTabs().size()-1);
 	}
 
 	public void setNewTabContent ( String content) {
-		VBox searchResults = clientController.getScreen().getSearchResultScreen();
-
+		VBox searchResults = clientController.getScreen().getSearchResultScreen(content);
 		Tab tempTab = new Tab(content, searchResults);
 		tabs.getTabs().add(tempTab);
 		setTab(tabs.getTabs().size()-1);
 	}
 
 	public void updateTabContent ( String content) {
-		//tabs.getSelectionModel().getSelectedItem().setContent(content);
+		/*VBox searchResults = clientController.getScreen().getSearchResultScreen();
+		Tab tempTab = new Tab(content, searchResults);
+		tabs.getTabs().remove(2);
+		tabs.getTabs().add(2,tempTab);
+		tabs.getSelectionModel().select(2);*/
 	}
 
 
@@ -164,15 +173,12 @@ public class ClientView {
 		return footer;
 	}
 
-	public SearchBarView getSearchBarView() {
-		return searchBarView;
+	public SearchBarView getSearchBar(){
+		return searchBar;
 	}
-	
-	public NewInventarView getNewInventarView() { return newInventarView; }
 
-	public void setSearchBarView(SearchBarView searchBarView) {
-		this.searchBarView = searchBarView;
-	}
+
+
 
 
 	public BorderPane getRoot(){

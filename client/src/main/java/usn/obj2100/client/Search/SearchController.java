@@ -14,29 +14,40 @@ import usn.obj2100.shared.model.Search;
 import java.util.List;
 
 public class SearchController {
-
 	private Search search;
 	private SearchBarView searchView;
 	private ClientView clientView;
 	SearchHandlers searchHandlers;
 	private List<Inventar> searchResults;
 	private ClientController clientController;
-	private Client con;
+
 	private HelpView helper;
 	public SearchController( ClientController clientController ) {
 		this.clientController = clientController;
-		this.con = clientController.getServerConnection();
-		this.search = new Search();
 		this.clientView = clientController.getClientView();
-		this.searchView = new SearchBarView( clientController);
-		this.searchHandlers = new SearchHandlers(this);
+		this.search = new Search();
 		this.helper = new HelpView();
+
 		initData();
 		
 	}
 
 	private void initData() {
 		setViewAllInventar();
+	}
+
+	public void setSearchMode(String seachString){
+		Search search1 = new Search();
+		search1.setSearch(seachString);
+		Object newSearchResults =  clientController.getServerConnection().request(search1);
+		try
+		{
+			@SuppressWarnings("unchecked")  // This annotation suppresses unchecked casting warnings
+			List<Inventar> inventarList = (List<Inventar>) newSearchResults;
+			searchResults = inventarList;
+		} catch (Exception e){
+			System.out.println("Search does not return init data!");
+		}
 	}
 
 	public void setViewAllInventar(){
@@ -54,9 +65,6 @@ public class SearchController {
 		return searchResults;
 	}
 
-	public VBox getSearchResultsView() {
-		return new SearchResultView(this);
-	}
 
 	public void search() {
 		// Søk i databasen via kall til server!
@@ -73,10 +81,6 @@ public class SearchController {
 
 	public void setSearch(Search search) {
 		this.search = search;
-	}
-
-	public void setSearchView(SearchBarView searchView) {
-		this.searchView = searchView;
 	}
 
 	public VBox getHelper(){

@@ -11,7 +11,8 @@ public class Main extends Application {
 		  Client serverConnection = new Client();
         BorderPane root = new BorderPane();
 		  ClientController clientController = new ClientController(root, serverConnection);
-		  Scene scene = new Scene(root, 800, 600);
+		  clientController.initHandlers();
+		  Scene scene = new Scene(clientController.getRoot(), 800, 600);
 		  primaryStage.setScene(scene);
 		  primaryStage.setTitle("Inventarstyringssystem");
         primaryStage.show();

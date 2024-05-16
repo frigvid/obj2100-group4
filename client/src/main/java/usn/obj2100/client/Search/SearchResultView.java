@@ -30,14 +30,16 @@ public class SearchResultView extends VBox {
 		// Load the CSS file
 		getStylesheets().add("/style.css");
 
-		// Initialize search results
-		searchResults = FXCollections.observableArrayList(searchController.getSearchResults());
-
-		if(searchResults.isEmpty()){
+		if(searchController.getSearchResults() == null || searchController.getSearchResults().isEmpty()){
 			Label empty = new Label("Ingen resultat for ditt søk!");
 			getChildren().add(empty);
 			return;
 		}
+
+		// Initialize search results
+		searchResults = FXCollections.observableArrayList(searchController.getSearchResults());
+
+
 
 		// Create the GridPane for search results
 		GridPane gridPane = new GridPane();
@@ -57,11 +59,12 @@ public class SearchResultView extends VBox {
 		//typeHeader.setStyle("-fx-text-alignment: center;");
 		//typeHeader.setOnMouseClicked(event -> sortResults("type"));
 
-		kategoriHeader.setStyle("-fx-text-alignment: center;");
+		kategoriHeader.setStyle("-fx-text-alignment: center; -");
 		kategoriHeader.setOnMouseClicked(event -> sortResults("header"));
 
 		beskrivelseHeader.setStyle("-fx-text-alignment: center;");
 		beskrivelseHeader.setOnMouseClicked(event -> sortResults("beskrivelse"));
+		beskrivelseHeader.setMaxWidth(40);
 
 		innkjøpsPrisHeader.setStyle("-fx-text-alignment: center;");
 		innkjøpsPrisHeader.setOnMouseClicked(event -> sortResults("innkjøpsPris"));
@@ -71,11 +74,11 @@ public class SearchResultView extends VBox {
 
 		// Add header labels to the grid pane
 		//gridPane.add(typeHeader, 0, 0);
-		gridPane.add(kategoriHeader, 1, 0);
-		gridPane.add(beskrivelseHeader, 2, 0);
-		gridPane.add(innkjøpsPrisHeader, 3, 0);
-		gridPane.add(innkjøpsDatoHeader, 4, 0);
-		gridPane.add(actionsHeader, 5, 0);
+		//gridPane.add(kategoriHeader, 1, 0);
+		gridPane.add(beskrivelseHeader, 0, 0);
+		gridPane.add(innkjøpsPrisHeader, 1, 0);
+		gridPane.add(innkjøpsDatoHeader, 2, 0);
+		gridPane.add(actionsHeader, 3, 0);
 
 		// Style the header row
 		//typeHeader.getStyleClass().add("header-label");
@@ -115,10 +118,10 @@ public class SearchResultView extends VBox {
 			//gridPane.add(typeLabel, 0, rowIndex);
 			// FIXME: Temporary removal after merging.
 			//gridPane.add(kategoriLabel, 1, rowIndex);
-			gridPane.add(beskrivelseLabel, 2, rowIndex);
-			gridPane.add(innkjøpsPrisLabel, 3, rowIndex);
-			gridPane.add(innkjøpsDatoLabel, 4, rowIndex);
-			gridPane.add(actionsBox, 5, rowIndex);
+			gridPane.add(beskrivelseLabel, 0, rowIndex);
+			gridPane.add(innkjøpsPrisLabel, 1, rowIndex);
+			gridPane.add(innkjøpsDatoLabel, 2, rowIndex);
+			gridPane.add(actionsBox, 3, rowIndex);
 
 			// Style the data row
 			//typeLabel.getStyleClass().add("data-label");
@@ -191,7 +194,7 @@ public class SearchResultView extends VBox {
 
 	private Label createStyledLabelText(String text) {
 		Label label = new Label(text);
-		label.getStyleClass().add("data-label-text");
+		label.setStyle("-fx-text-alignment: center; -fx-font-size: 20px; -fx-font-style: bold");
 		return label;
 	}
 

@@ -8,17 +8,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.RangeSlider;
+import usn.obj2100.client.ClientController;
 import usn.obj2100.client.ClientView;
 
 public class SearchHandlers {
 	private SearchBarView searchBarView;
 	private SearchController searchController;
 	private ClientView clientView;
-
-	public SearchHandlers( SearchController searchController) {
-		this.clientView = searchController.getClientView();
-		this.searchController = searchController;
-		this.searchBarView = searchController.getSearchView();
+	private ClientController mc;
+	private ClientView cw;
+	public SearchHandlers( ClientController mc, ClientView cw) {
+		this.mc = mc;
+		this.cw = cw;
+		this.clientView = mc.getClientView();
+		this.searchController = mc.getSearchController();
+		this.searchBarView = cw.getSearchBar();
 		initSearchHandlers();
 		initAdvancedSearchHandlers();
 	}
@@ -100,6 +104,11 @@ public class SearchHandlers {
 				});
 			});
 
+
+		//TODO Performance: If the action triggered by the text change is heavy (like querying a database), consider debouncing the input or waiting until the user stops typing for a certain duration before executing the action, to avoid performing the action too frequently.
+		searchBarView.getSearchField().textProperty().addListener(e -> {
+			searchController.setSearchMode(searchBarView.getSearchField().getText());
+		});
 
 		searchBarView.getSearchButton().setOnAction(event -> {
 

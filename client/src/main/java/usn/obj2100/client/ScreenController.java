@@ -4,12 +4,14 @@ import usn.obj2100.client.GUI.StartView;
 import usn.obj2100.client.Inventar.NewInventarView;
 import usn.obj2100.client.Inventar.Views.DeleteInventarView;
 import usn.obj2100.client.Inventar.Views.EditInventarView;
+import usn.obj2100.client.Search.SearchBarView;
 import usn.obj2100.client.Search.SearchResultView;
 
 public class ScreenController {
-	final private StartView startScreen;
+	private StartView startScreen;
 	final private NewInventarView newInventarScreen;
 	final private ClientController mc;
+	private SearchBarView searchBar;
 	private SearchResultView searchResultScreen;
 	private EditInventarView editInventarScreen;
 	private DeleteInventarView deleteInvetarScreen;
@@ -17,7 +19,6 @@ public class ScreenController {
 
 	public ScreenController(ClientController mc){
 		this.mc = mc;
-		this.startScreen = new StartView(mc);
 		this.newInventarScreen = new NewInventarView(mc);
 	}
 
@@ -37,12 +38,11 @@ public class ScreenController {
 		return null;
 	}
 
-	public SearchResultView getSearchResultScreen(){
-		if(mc.getSearchController().getSearchResults() != null){
+	public SearchResultView getSearchResultScreen(String search){
+			mc.getSearchController().setSearchMode(search);
 			searchResultScreen = new SearchResultView(mc.getSearchController());
 			return searchResultScreen;
-		}
-		return null;
+
 	}
 
 	public NewInventarView getNewInventarScreen(){
@@ -55,6 +55,13 @@ public class ScreenController {
 
 	public SearchResultView getViewAllScreen(){
 		mc.getSearchController().setViewAllInventar();
+		searchResultScreen = new SearchResultView(mc.getSearchController());
 		return searchResultScreen;
+	}
+	public void setStartScreen(StartView startScreen){
+		this.startScreen = startScreen;
+	}
+	public void setSearchBar(SearchBarView searchBar){
+		this.searchBar = searchBar;
 	}
 }
