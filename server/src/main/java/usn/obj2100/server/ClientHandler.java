@@ -8,6 +8,7 @@ import usn.obj2100.shared.model.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 
 /**
  * This class is a handler for the clients.
@@ -85,8 +86,10 @@ public class ClientHandler
 				 */
 				if (command == Command.READALL)
 				{
+					System.out.println(inventarController.getAll());
 					switch ((Type) object)
 					{
+
 						case INVENTAR -> objectOutputStream.writeObject(inventarController.getAll());
 						case PLASSERING -> objectOutputStream.writeObject(plasseringController.getAll());
 						case KATEGORI -> objectOutputStream.writeObject(kategoriController.getAll());

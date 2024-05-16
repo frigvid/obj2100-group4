@@ -17,17 +17,28 @@ import usn.obj2100.client.Inventar.Views.SelectedInventarView;
 import usn.obj2100.client.Search.SearchBarView;
 import usn.obj2100.client.Search.SearchHandlers;
 import usn.obj2100.shared.model.Inventar;
-
+/**
+ * ClientView er hovedvisningskomponenten for brukergrensesnittet i applikasjonen.
+ * Denne klassen håndterer opprettelsen og visningen av ulike brukergrensesnittkomponenter,
+ * som faner og menyelementer, og koordinerer visninger basert på brukerinteraksjoner.
+ */
 public class ClientView {
 
-	private BorderPane root;
-	private TabPane tabs;
-	private StackPane footer;
-	private ClientController clientController;
-	private ScreenController screen;
-	private StartView startScreen;
-	private SearchBarView searchBar;
+	private BorderPane root; // Hovedpanelet som inneholder alle underkomponentene.
+	private TabPane tabs; // Fanepanelet for navigasjon mellom ulike visninger.
+	private StackPane footer; // Bunntekstpanelet som kan inneholde tilleggsinformasjon eller kontroller.
+	private ClientController clientController; // Kontrolleren som styrer logikken bak brukergrensesnittet.
+	private ScreenController screen; // Kontrolleren som håndterer skjermbytte og visningslogikk.
+	private StartView startScreen; // Startskjermen som vises ved applikasjonens oppstart.
+	private SearchBarView searchBar; // Søkefeltet og tilhørende visningskomponenter.
+	private int searchTabIndex = 0; // Indeks for søketabben i fanepanelet.
 
+
+	/**
+	 * Konstruktør som initialiserer ClientView med en tilhørende kontroller.
+	 *
+	 * @param clientController Kontrolleren som denne visningen kommuniserer med.
+	 */
 	public ClientView( ClientController clientController) {
 		this.root = clientController.getRoot();
 		this.tabs = new TabPane();
@@ -51,7 +62,9 @@ public class ClientView {
 		root.setBottom(footer); //TODO mainContent skal døpes til footer
 
 	}
-
+	/**
+	 * Initialiserer fanene i brukergrensesnittet.
+	 */
 	private void initializeTabs() {
 		HBox startViewContainer = new HBox();
 		startViewContainer.getChildren().add(screen.getStartScreen());
@@ -62,7 +75,11 @@ public class ClientView {
 		);
 		
 	}
-	
+	/**
+	 * Genererer hovedmenyen for applikasjonen.
+	 *
+	 * @return En ferdig konfigurert menylinje for applikasjonens hovedmeny.
+	 */
 	public MenuBar generateMainMenu(){
 		// Lager en meny
 		MenuBar menuBar = new MenuBar();
@@ -96,7 +113,7 @@ public class ClientView {
 		menuBar.getMenus().add(helpMenu);
 		return menuBar;
 	}
-	
+
 
 	public TabPane getTabs() {
 		return tabs;
@@ -105,7 +122,11 @@ public class ClientView {
 	public void setTab (int index) {
 		tabs.getSelectionModel().select(index);
 	}
-	
+	/* Setter en ny fane med gitt innhold og velger den i fanepanelet.
+	 * lignene metoder under...
+	 * TODO refaktorer setTabs til en metode, Dette var mye kode for det samme!
+	 * @param content Innholdet som skal vises i den nye fanen.
+	 */
 	public void setEditInventarTabContent(Inventar inventar){
 		HBox content = new HBox();
 		content.setAlignment(Pos.CENTER);
@@ -139,40 +160,66 @@ public class ClientView {
 		tabs.getTabs().add(tempTab);
 		setTab(tabs.getTabs().size()-1);
 	}
-	
+	/* Setter en ny fane med nyInvetar og velger den i fanepanelet.
+	 *
+	 * @param content Innholdet som skal vises i den nye fanen.
+	 */
 	public void setNewTabContentNewInventar ( HBox content) {
 		content.setAlignment(Pos.CENTER);
 		Tab tempTab = new Tab("Nytt inventar", content);
 		tabs.getTabs().add(tempTab);
 		setTab(tabs.getTabs().size()-1);
 	}
-
+	/* Setter en ny fane med alleFaner og velger den i fanepanelet.
+	 *
+	 * @param content Innholdet som skal vises i den nye fanen.
+	 */
 	public void setNewTabContentAllInventar(Node content){
 		Tab tempTab = new Tab("Alle inventar", content);
 		tabs.getTabs().add(1, tempTab);
 		setTab(tabs.getTabs().size()-1);
 	}
-
+	/* Setter en ny fane med gitt innhold og velger den i fanepanelet.
+	 *
+	 * @param content Innholdet som skal vises i den nye fanen.
+	 */
 	public void setNewTabContent ( String content) {
 		VBox searchResults = clientController.getScreen().getSearchResultScreen(content);
 		Tab tempTab = new Tab(content, searchResults);
+		if (searchTabIndex > 0){
+			updateTabContent(tempTab, searchTabIndex);
+			return;
+		}
+
 		tabs.getTabs().add(tempTab);
-		setTab(tabs.getTabs().size()-1);
+		searchTabIndex = tabs.getTabs().size()-1;
+		setTab(searchTabIndex);
+	}
+	/**
+	 * Oppdaterer innholdet i en eksisterende fane.
+	 *
+	 * @param content Det nye innholdet som skal settes i fanen.
+	 * @param index Indeksen til fanen som skal oppdateres.
+	 */
+	public void updateTabContent ( Tab content, int index) {
+		tabs.getTabs().remove(index);
+		tabs.getTabs().add(index,content);
+		tabs.getSelectionModel().select(index);
 	}
 
-	public void updateTabContent ( String content) {
-		/*VBox searchResults = clientController.getScreen().getSearchResultScreen();
-		Tab tempTab = new Tab(content, searchResults);
-		tabs.getTabs().remove(2);
-		tabs.getTabs().add(2,tempTab);
-		tabs.getSelectionModel().select(2);*/
-	}
-
-
+	/**
+	 * Henter bunntekstpanelet.
+	 *
+	 * @return Bunntekstpanelet brukt i brukergrensesnittet.
+	 */
 	public StackPane getFooter() {
 		return footer;
 	}
-
+	/**
+	 * Henter søkebaren som er knyttet til denne visningen.
+	 *
+	 * @return Søkebaren.
+	 */
 	public SearchBarView getSearchBar(){
 		return searchBar;
 	}
@@ -180,7 +227,11 @@ public class ClientView {
 
 
 
-
+	/**
+	 * Henter rotpanelet for brukergrensesnittet.
+	 *
+	 * @return Hovedpanelet som holder alle brukergrensesnittkomponentene.
+	 */
 	public BorderPane getRoot(){
 		return root;
 	}

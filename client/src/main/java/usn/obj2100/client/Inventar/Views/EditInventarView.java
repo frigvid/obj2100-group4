@@ -16,12 +16,35 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import java.time.LocalDate;
-
+/**
+ * Denne klassen representerer en visning for redigering av inventarobjekter i systemet.
+ * Brukergrensesnittet lar brukeren endre informasjon om et eksisterende inventar, inkludert type, kategori,
+ * innkjøpsdato, pris, og mer.
+ * <p>
+ * Visningen inkluderer dynamisk innhold basert på inventartypen, spesielt med hensyn til håndtering av levetid
+ * for møbler sammenlignet med andre typer inventar.
+ * <p>
+ * Eksempel på bruk:
+ * <pre>
+ * {@code
+ * ClientController clientController = new ClientController();
+ * EditInventarView editInventarView = new EditInventarView(clientController);
+ * }
+ * </pre>
+ *
+ * @param clientController Klientkontrolleren som håndterer interaksjoner og tilgang til det valgte inventaret.
+ */
 public class EditInventarView extends HBox
 {
 		private Inventar selectedInventar;
 		final private ClientController mc;
-		
+	/**
+	 * Oppretter en ny visning for redigering av inventar.
+	 * Initialiserer komponentene basert på det valgte inventaret hentet fra klientkontrolleren.
+	 * Dersom det ikke er valgt et inventar, vil en feilmelding vises.
+	 *
+	 * @param clientController Klientkontrolleren som benyttes for å håndtere og hente det valgte inventaret.
+	 */
 		public EditInventarView(ClientController clientController){
 			this.mc = clientController;
 			this.selectedInventar = mc.getSelectedInvetar();
@@ -34,7 +57,12 @@ public class EditInventarView extends HBox
 			}
 			
 		}
-		
+	/**
+	 * Oppretter en visning som informerer brukeren om at ingen inventar er valgt.
+	 * Dette skjermet inkluderer en feilmelding og en knapp for å returnere til startskjermen.
+	 *
+	 * @return En VBox med feilmelding og returknapp.
+	 */
 		private VBox renderNoSelection(){
 			VBox form = new VBox(10);
 			form.setPadding(new Insets(20));
@@ -54,8 +82,14 @@ public class EditInventarView extends HBox
 			
 			return form;
 		}
-		
-		
+
+	/**
+	 * Oppretter og returnerer hovedgrensesnittet for redigering av inventar.
+	 * Inkluderer inndatafelt for type, kategori, dato, pris og andre relevante detaljer.
+	 * Avhenger av valgt type for å tilpasse hvilke felt som er aktive eller relevante.
+	 *
+	 * @return En VBox med alle redigeringsfeltene.
+	 */
 		private VBox renderEditScreen() {
 			VBox form = new VBox(10);
 			form.setPadding(new Insets(20));

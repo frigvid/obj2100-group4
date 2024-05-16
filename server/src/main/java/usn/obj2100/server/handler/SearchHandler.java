@@ -35,9 +35,9 @@ public class SearchHandler
 			+ "LEFT JOIN kategoriType kt ON k.type = kt.id "
 			+ "LEFT JOIN kassert ks ON i.kassert = ks.id "
 			+ "LEFT JOIN kassertType kst ON ks.begrunnelse = kst.id ");
-		
+
 		boolean isFiltered = false;
-		
+
 		if (search.getSearch() != null && !search.getSearch().isEmpty())
 		{
 			query
@@ -49,7 +49,7 @@ public class SearchHandler
 				.append("%')");
 			isFiltered = true;
 		}
-		
+
 		if (search.getSearchByBeskrivelse() != null)
 		{
 			query
@@ -59,7 +59,7 @@ public class SearchHandler
 				.append("%'");
 			isFiltered = true;
 		}
-		
+
 		if (search.getSearchByType() != null)
 		{
 			query
@@ -69,7 +69,7 @@ public class SearchHandler
 				.append("%'");
 			isFiltered = true;
 		}
-		
+
 		if (search.getSearchByKategori() != null)
 		{
 			query
@@ -79,7 +79,7 @@ public class SearchHandler
 				.append("'");
 			isFiltered = true;
 		}
-		
+
 		// FIXME: For some reason it cannot compare a YYYY-MM-DD SQL DATE with a
 		// 		 java.sql.Date.valueOf(YYYY-MM-DD) which are equivalently the same.
 		if (search.getSearchByInnkjopsdato() != null)
@@ -91,7 +91,7 @@ public class SearchHandler
 				.append("'");
 			isFiltered = true;
 		}
-		
+
 		/* TODO: Invenstigate why hard-coding values instead of getting them
 		 *			works differently when it's the same datatype.
 		 *
@@ -116,7 +116,7 @@ public class SearchHandler
 				.append(search.getSearchByPris()[1]);
 			isFiltered = true;
 		}
-		
+
 		if (search.getSearchByPlassering() != null)
 		{
 			query
@@ -126,7 +126,7 @@ public class SearchHandler
 				.append("'");
 			isFiltered = true;
 		}
-		
+
 		if (search.getSearchByAntall() != null)
 		{
 			query
@@ -137,7 +137,7 @@ public class SearchHandler
 				.append(search.getSearchByAntall()[1]);
 			isFiltered = true;
 		}
-		
+
 		if (search.getSearchByLevetid() != null)
 		{
 			query
@@ -148,7 +148,7 @@ public class SearchHandler
 				.append(search.getSearchByLevetid()[1]);
 			isFiltered = true;
 		}
-		
+
 		if (search.getSearchByForventetKassering() != null)
 		{
 			query
@@ -160,7 +160,7 @@ public class SearchHandler
 				.append("'");
 			isFiltered = true;
 		}
-		
+
 		if (search.isSearchByIBruk())
 		{
 			query
@@ -168,7 +168,7 @@ public class SearchHandler
 				.append(" i.kassert = 0 OR i.kassert = null");
 			isFiltered = true;
 		}
-		
+
 		if (search.isSearchByIkkeIBruk())
 		{
 			query
@@ -176,7 +176,7 @@ public class SearchHandler
 				.append(" i.kassert = 1");
 			isFiltered = true;
 		}
-		
+
 		if (search.getSearchByTattUtAvBrukÅrsak() != null)
 		{
 			query
@@ -186,7 +186,7 @@ public class SearchHandler
 				.append("'");
 			isFiltered = true;
 		}
-		
+
 		if (search.getSearchByTattUtAvBrukÅr() != 0)
 		{
 			query
@@ -195,9 +195,9 @@ public class SearchHandler
 				.append(search.getSearchByTattUtAvBrukÅr());
 			isFiltered = true;
 		}
-		
+
 		query.append(";");
-		
+
 		///* Om søket slutter med en "AND", fjern den.
 		// * Ellers, fortsett.
 		// */
@@ -205,10 +205,10 @@ public class SearchHandler
 		//{
 		//	query.setLength(query.length() - 4);
 		//}
-		
+
 		/* TEST: Output query string. */
 		System.out.println(query.toString());
-		
+
 		try
 			(
 				Connection connection = DatabaseConnectionManager.getInstance().getConnection();
@@ -217,11 +217,11 @@ public class SearchHandler
 			)
 		{
 			List<InventarExtended> result = new ArrayList<>();
-			
+
 			while (resultSet.next())
 			{
 				InventarExtended inventarS = new InventarExtended();
-				
+
 				inventarS.setSKU(resultSet.getInt("sku"));
 				inventarS.setBeskrivelse(resultSet.getString("beskrivelse"));
 				inventarS.setInnkjopsdato(resultSet.getTimestamp("innkjopsdato").toLocalDateTime());
@@ -232,10 +232,10 @@ public class SearchHandler
 				inventarS.setKategoriType(resultSet.getString("kategoriType"));
 				inventarS.setPlassering(resultSet.getString("plassering"));
 				inventarS.setKassert(resultSet.getString("begrunnelse"));
-				
+
 				result.add(inventarS);
 			}
-			
+
 			return result;
 		}
 		catch (SQLException error)

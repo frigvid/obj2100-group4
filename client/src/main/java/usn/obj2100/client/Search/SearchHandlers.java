@@ -10,13 +10,27 @@ import javafx.scene.layout.VBox;
 import org.controlsfx.control.RangeSlider;
 import usn.obj2100.client.ClientController;
 import usn.obj2100.client.ClientView;
-
+/**
+ * Håndterer alle søkerelaterte hendelser og interaksjoner i klientapplikasjonen.
+ * Denne klassen initialiserer og binder hendelseshåndterere til de ulike søkekomponentene i brukergrensesnittet,
+ * som knapper, tekstfelt og glidebrytere, for å administrere avansert og grunnleggende søkefunksjonalitet.
+ *
+ * @param mc Hovedkontrolleren for klienten som koordinerer søk og andre hovedfunksjoner.
+ * @param cw Hovedvisningen for klienten hvor søkefeltet og relaterte komponenter vises.
+ */
 public class SearchHandlers {
 	private SearchBarView searchBarView;
 	private SearchController searchController;
 	private ClientView clientView;
 	private ClientController mc;
 	private ClientView cw;
+	/**
+	 * Konstruerer en ny søkehåndterer for gitt klientkontroller og klientvisning.
+	 * Denne konstruktøren setter opp nødvendig data og initierer søkehåndtererne.
+	 *
+	 * @param mc Kontrolleren som håndterer klientlogikk.
+	 * @param cw Visningen hvor søkefunksjonaliteten er integrert.
+	 */
 	public SearchHandlers( ClientController mc, ClientView cw) {
 		this.mc = mc;
 		this.cw = cw;
@@ -26,7 +40,10 @@ public class SearchHandlers {
 		initSearchHandlers();
 		initAdvancedSearchHandlers();
 	}
-
+	/**
+	 * Initialiserer hendelseshåndterere for grunnleggende søkefunksjoner.
+	 * Kobler hendelser til UI-elementer som toggle-knapp for søkefeltet og søkeknappen.
+	 */
 	private void initSearchHandlers(){
 		searchBarView.getSearchToggleButton().setOnAction(event -> {
 			HBox advancedSearchForm = searchBarView.getSearchForm();
@@ -38,25 +55,7 @@ public class SearchHandlers {
 				clientView.getFooter().getChildren().remove(searchBarView.getSearchToggle());
 
 
-				searchBarView.getSearchField().textProperty().addListener(new ChangeListener<String>() {
-					int count = 0;
-					String searchLabel;
-					@Override
-					public void changed( ObservableValue<? extends String> observable, String oldValue, String newValue) {
-						searchLabel = "Søkeresultater for: " + newValue;
 
-						if(count < 1) {
-							clientView.setNewTabContent(searchLabel);
-							count++;
-						}else{
-							clientView.updateTabContent(searchLabel);
-						}
-
-
-						System.out.println("Søkefelt oppdatert: " + newValue);
-						// Legg til koden som oppdaterer noe her
-					}
-				});
 
 
 				clientView.getFooter().addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
@@ -107,14 +106,18 @@ public class SearchHandlers {
 
 		//TODO Performance: If the action triggered by the text change is heavy (like querying a database), consider debouncing the input or waiting until the user stops typing for a certain duration before executing the action, to avoid performing the action too frequently.
 		searchBarView.getSearchField().textProperty().addListener(e -> {
-			searchController.setSearchMode(searchBarView.getSearchField().getText());
+			String newSearch = searchBarView.getSearchField().getText();
+			mc.getClientView().setNewTabContent(newSearch);
 		});
 
 		searchBarView.getSearchButton().setOnAction(event -> {
 
 		});
 	}
-
+	/**
+	 * Initialiserer hendelseshåndterere for avansert søk.
+	 * Setter opp lyttere for avanserte søkefelter og håndterer dynamisk opprettelse og styring av disse feltene.
+	 */
 	private void initAdvancedSearchHandlers(){
 		for ( SearchField<TextField> field : searchBarView.getAdvancedFieldsText() ) {
 			System.out.println(field.getOption());
@@ -132,7 +135,13 @@ public class SearchHandlers {
 	}
 
 
-
+	/**
+	 * Legger til en hendelseslytter for tekstfelt basert på et spesifisert søkealternativ.
+	 * Denne metoden lytter til tekstendringer og oppdaterer søkekriteriene i søkekontrolleren.
+	 *
+	 * @param field     Tekstfeltet som skal overvåkes.
+	 * @param fieldType Søkealternativet som spesifiserer hvordan tekstendringene skal håndteres.
+	 */
 	private <T> void addEventHandler( CheckBox check, SEARCHOPTION field ){
 		check.selectedProperty().addListener(( observable, oldValue, newValue ) -> {
 			System.out.println(field + " oppdatert: " + newValue);
@@ -146,7 +155,13 @@ public class SearchHandlers {
 			}
 		});
 	}
-
+	/**
+	 * Legger til en hendelseslytter for en RangeSlider basert på et gitt søkealternativ.
+	 * Denne metoden lytter til endringer i slider-verdier og oppdaterer søkekriteriene tilsvarende.
+	 *
+	 * @param range Slideren som skal overvåkes.
+	 * @param field Søkealternativet som definerer hvordan sliderens verdiendringer skal håndteres.
+	 */
 	private <T> void addEventHandler( TextField field, SEARCHOPTION fieldType ){
 		field.textProperty().addListener(( observableValue, s, t1 ) -> {
 			System.out.println(fieldType + " oppdatert: " + s + " " + t1);

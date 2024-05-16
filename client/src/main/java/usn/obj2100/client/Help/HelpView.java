@@ -8,11 +8,25 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class HelpView extends  VBox{
+	/**
+	 * Lager en bruksanvisning for søkefeltet.
+	 *
+	 * Eksempel bruk:
+	 * {@snippet id = "helpView" lang = "java" group = "GUI":
+	 * 	import usn.obj2100.client.Help.HelpView;
+	 *
+	 * 	HelpView typeCombo = new HelpView();
+	 *}
+	 * @extends VBox
+	 */
+
 	public HelpView(){
 		this.getChildren().addAll(getSearchHelp());
 		this.setMaxWidth(250);
 	}
 
+
+	//Generer hjelpe-tekst, vises frem i en drawer på forespørsel når man klikker på spm.tegn i søkefelt.
 	private VBox getSearchHelp(){
 		VBox helpBox = new VBox();
 		helpBox.setAlignment(Pos.TOP_LEFT);
