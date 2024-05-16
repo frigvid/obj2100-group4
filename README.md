@@ -23,6 +23,8 @@ Reference implementations of client communication to the server can be found in 
 4. Under `exam` → `Lifecycle`, run `clean` (step 3) and then `install` (step 4).
    - If you want documentations as well, then `Download Sources and Documentation` (step 5).
 
+Post build, you can generate the project's database by running the server module using the provided run configurations. It'll create the `database.sqlite` file in the root of the project. And if `CREATE_EXAMPLE_DATA` in `Constants.java` is set to `true`, it'll also populate it with some random dummy data.
+
 ![IntelliJMavenSidebarSteps.png](docs%2FIntelliJMavenSidebarSteps.png)
 
 Fair warning, we have had issues running the project from Apple MacOS. Multiple Microsoft Windows machines have worked fine with the steps outlined above, but we simply do not have the time to test enough to find out what the cause is.
