@@ -20,10 +20,12 @@ public class SearchController {
 	SearchHandlers searchHandlers;
 	private List<Inventar> searchResults;
 	private ClientController clientController;
-
+	private Client con;
 	private HelpView helper;
 	public SearchController( ClientController clientController ) {
 		this.clientController = clientController;
+		this.con = clientController.getServerConnection();
+		this.search = new Search();
 		this.clientView = clientController.getClientView();
 		this.search = new Search();
 		this.helper = new HelpView();
