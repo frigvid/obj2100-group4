@@ -176,7 +176,8 @@ public class SearchHandlers {
 					searchController.getSearch().searchByBeskrivelse(t1);
 				}
 				case INNKJOPSDATO -> {
-					searchController.getSearch().searchByInnkjopsdato(Integer.parseInt(t1));
+					//searchController.getSearch().searchByInnkjopsdato(Integer.parseInt(t1));
+					//TODO fix datatyp!
 				}
 		}
 		});

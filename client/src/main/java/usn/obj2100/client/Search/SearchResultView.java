@@ -76,7 +76,7 @@ public class SearchResultView extends VBox {
 
 		beskrivelseHeader.setStyle("-fx-text-alignment: center;");
 		beskrivelseHeader.setOnMouseClicked(event -> sortResults("beskrivelse"));
-		beskrivelseHeader.setMaxWidth(40);
+		beskrivelseHeader.setMaxWidth(200);
 
 		innkjøpsPrisHeader.setStyle("-fx-text-alignment: center;");
 		innkjøpsPrisHeader.setOnMouseClicked(event -> sortResults("innkjøpsPris"));
@@ -145,9 +145,7 @@ public class SearchResultView extends VBox {
 			// FIXME: Temporary removal after merging.
 			//kategoriLabel.getStyleClass().add("data-label");
 
-			actionsBox.getStyleClass().add("data-row");
 
-			gridPane.getChildren().get(rowIndex).getStyleClass().add("data-row");
 
 			rowIndex++;
 		}
@@ -213,7 +211,6 @@ public class SearchResultView extends VBox {
 	 */
 	private Label createStyledLabel(String text) {
 		Label label = new Label(text);
-
 		return label;
 	}
 	/**
@@ -243,7 +240,7 @@ public class SearchResultView extends VBox {
 		// Add CSS class to buttons
 		viewButton.getStyleClass().add("action-button");
 		editButton.getStyleClass().add("action-button");
-		deleteButton.getStyleClass().add("action-button");
+		deleteButton.getStyleClass().add("delete-button");
 
 		// Add event handlers for buttons
 		viewButton.setOnAction(e -> handleViewAction(inventar));

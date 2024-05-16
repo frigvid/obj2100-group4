@@ -42,10 +42,11 @@ public class InventarSokService {
 		}
 
 		// Example for date and numeric range queries
-		if (searchCriteria.getSearchByInnkjopsdato() != 0) {
+		//TODO Fix date datatype!
+		/*if (searchCriteria.getSearchByInnkjopsdato() != 0) {
 			query.append(" AND innkjopsdato >= ?");
 			parameters.add(new Date(searchCriteria.getSearchByInnkjopsdato()));  // Adjust based on actual data type
-		}
+		}*/
 
 		// Handling ranges like price
 		if (searchCriteria.getSearchByPris() != null && searchCriteria.getSearchByPris().length == 2) {
