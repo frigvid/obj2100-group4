@@ -153,8 +153,9 @@ public class InventarService
 	{
 		try
 		{
-
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (?,?,?,?,?,?,?,?,?)");
+			//fixME må fikses, skal ikke være ny connection her, men blev hele tiden kastet ut av conn. dette er midlertidig
+			Connection conn2 = DatabaseConnectionManager.getInstance().getConnection();
+			PreparedStatement statement = conn2.prepareStatement("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (?,?,?,?,?,?,?,?,?)");
 			statement.setInt(1, inventar.getSKU());
 			statement.setString(2, inventar.getBeskrivelse());
 			statement.setTimestamp(3, Timestamp.valueOf(inventar.getInnkjopsdato()));
@@ -219,7 +220,9 @@ public class InventarService
 	{
 		try
 		{
-			PreparedStatement statement = connection.prepareStatement(
+			//fixME må fikses, skal ikke være ny connection her, men blev hele tiden kastet ut av conn. dette er midlertidig
+			Connection conn2 = DatabaseConnectionManager.getInstance().getConnection();
+			PreparedStatement statement = conn2.prepareStatement(
 				"""
 					UPDATE inventar SET
 						beskrivelse = ?,
@@ -280,10 +283,50 @@ public class InventarService
 	{
 		try
 		{
-			PreparedStatement statement = connection.prepareStatement("DELETE FROM inventar WHERE sku = ?");
+			//fixME må fikses, skal ikke være ny connection her, men blev hele tiden kastet ut av conn. dette er midlertidig
+
+			//TODO skulle egentlig lage kassering med kasseringsårsak, men rakk ikke dette...
+			Connection conn2 = DatabaseConnectionManager.getInstance().getConnection();
+			PreparedStatement statement = conn2.prepareStatement("DELETE FROM inventar WHERE sku = ?");
 			statement.setInt(1, inventar.getSKU());
 			statement.executeUpdate();
 			
+			return true;
+		}
+		catch (SQLException error)
+		{
+			error.printStackTrace(System.err);
+			return false;
+		}
+		finally
+		{
+			if (connection != null)
+			{
+				try
+				{
+					connection.close();
+				}
+				catch (SQLException error)
+				{
+					error.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
+	public boolean deleteBySku(int inventar)
+	{
+		try
+		{
+			//fixME må fikses, skal ikke være ny connection her, men blev hele tiden kastet ut av conn. dette er midlertidig
+
+			//TODO skulle egentlig lage kassering med kasseringsårsak, men rakk ikke dette...
+			Connection conn2 = DatabaseConnectionManager.getInstance().getConnection();
+			PreparedStatement statement = conn2.prepareStatement("DELETE FROM inventar WHERE sku = ?");
+			statement.setInt(1, inventar);
+			statement.executeUpdate();
+			System.out.println(statement);
+			conn2.close();
 			return true;
 		}
 		catch (SQLException error)

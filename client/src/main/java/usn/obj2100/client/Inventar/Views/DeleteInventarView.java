@@ -44,7 +44,6 @@ public class DeleteInventarView extends HBox
 		this.mc = mc;
 		this.selectedInventar = mc.getSelectedInvetar();
 		this.getChildren().add(generateDeleteView());
-
 	}
 
 
@@ -75,7 +74,14 @@ public class DeleteInventarView extends HBox
 
 
 			deleteButton.setOnMouseClicked(e
-				->{System.out.println("delete");});
+				->{
+				System.out.println(selectedInventar);
+
+				//mc.getInventarController().deleteInventar(selectedInventar);
+
+				System.out.println("delete");
+
+			});
 				
 			form.getChildren().addAll(title, kassering, deleteButton);
 			return form;

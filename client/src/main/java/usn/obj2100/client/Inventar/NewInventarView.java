@@ -14,6 +14,7 @@ import usn.obj2100.shared.model.InventarExtended;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 
 
 /**
@@ -110,7 +111,7 @@ public class NewInventarView extends HBox
 		});
 		
 		Button addButton = new Button("Legg til");
-		addButton.setOnAction(event -> {
+		addButton.setOnMouseClicked(event -> {
 			try {
 				LocalDate purchaseDate = purchaseDatePicker.getValue();
 				double price = Double.parseDouble(priceField.getText());
@@ -136,22 +137,21 @@ public class NewInventarView extends HBox
 				//	quantity,
 				//	lifespan
 				//);
-				LocalTime timeStamp = LocalTime.now();
-				LocalDateTime purchaseDateTime = purchaseDate.atTime(timeStamp);
 
-				int katTeller = 0;
-
-				for(String cat: categoryComboBox.getItems()){
-					if(cat.equals(category)){
-						return;
-					}
-					katTeller++;
-				}
+				LocalDateTime localDateTime = LocalDateTime.now();
 
 
-				//InventarExtended inventar = new InventarExtended( 123321456, description, purchaseDateTime, price, quantity, lifespan, katTeller, location, kassert);
+
+
+				Inventar inventar = new Inventar( 12344444, description, localDateTime, price, quantity, lifespan, 1, 1, 1);
 					//TODO insert into db here !
-				//mc.getInventarController().addInventar(inventar);
+
+				System.out.println(inventar);
+				try {
+					mc.getInventarController().addInventar(inventar);
+				} catch (Exception e){
+					System.out.println(e);
+				}
 			} catch (NumberFormatException e) {
 				new Alert(Alert.AlertType.ERROR, "Sjekk at alle tallfelt er korrekt fylt ut.").show();
 			}

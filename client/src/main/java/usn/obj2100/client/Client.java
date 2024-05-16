@@ -84,6 +84,28 @@ public class Client
 		
 		return null;
 	}
+
+	public Object request(Command command, int sku)
+	{
+		try
+		{
+			objectOutputStream.writeObject(command);
+			objectOutputStream.writeObject(sku);
+			objectOutputStream.flush();
+
+			return objectInputStream.readObject();
+		}
+		catch (IOException error)
+		{
+			error.printStackTrace(System.err);
+		}
+		catch (ClassNotFoundException e)
+		{
+			throw new RuntimeException(e);
+		}
+
+		return null;
+	}
 	
 	/**
 	 * Request serveren for å få tak i alle objekter i databasetabellen som
