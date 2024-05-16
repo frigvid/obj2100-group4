@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.util.Random;
 
 /**
  * A class for managing the connection to the database.
@@ -196,6 +198,39 @@ public class DatabaseConnectionManager
 				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (3, 'Lyse brun, mahogany', '2024-12-24 22:38:21', 300.0, 30, 4, 1, 2, null)");
 				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (4, 'Gaming stol/pult kombo ting', '2021-01-13 12:14:13', 50.0, 85, 3, 6, 2, 2)");
 				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (5, 'Bilde av mamma', '2025-01-13 12:14:13', 74.38, 12, 7, 10, 1, 4)");
+				
+				// Litt ekstra, kanskje.
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (6, 'Description 6', '2022-01-01 10:00:00', 100.0, 10, 5, 1, 1, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (7, 'Description 7', '2022-02-01 11:00:00', 200.0, 20, 7, 2, 2, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (8, 'Description 8', '2022-03-01 12:00:00', 300.0, 30, 6, 3, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (9, 'Description 9', '2022-04-01 13:00:00', 400.0, 40, 5, 4, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (10, 'Description 10', '2022-05-01 14:00:00', 500.0, 50, 4, 5, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (11, 'Description 11', '2022-06-01 15:00:00', 600.0, 60, 3, 6, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (12, 'Description 12', '2022-07-01 16:00:00', 700.0, 70, 2, 7, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (13, 'Description 13', '2022-08-01 17:00:00', 800.0, 80, 1, 8, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (14, 'Description 14', '2022-09-01 18:00:00', 900.0, 90, 5, 9, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (15, 'Description 15', '2022-10-01 19:00:00', 1000.0, 100, 4, 10, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (16, 'Description 16', '2022-11-01 20:00:00', 1100.0, 110, 3, 11, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (17, 'Description 17', '2022-12-01 21:00:00', 1200.0, 120, 2, 12, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (18, 'Description 18', '2023-01-01 22:00:00', 1300.0, 130, 1, 13, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (19, 'Description 19', '2023-02-01 23:00:00', 1400.0, 140, 5, 1, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (20, 'Description 20', '2023-03-01 00:00:00', 1500.0, 150, 4, 2, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (21, 'Description 21', '2023-04-01 01:00:00', 1600.0, 160, 3, 3, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (22, 'Description 22', '2023-05-01 02:00:00', 1700.0, 170, 2, 4, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (23, 'Description 23', '2023-06-01 03:00:00', 1800.0, 180, 1, 5, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (24, 'Description 24', '2023-07-01 04:00:00', 1900.0, 190, 5, 6, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (25, 'Description 25', '2023-08-01 05:00:00', 2000.0, 200, 4, 7, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (26, 'Description 26', '2023-09-01 06:00:00', 2100.0, 210, 3, 8, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (27, 'Description 27', '2023-10-01 07:00:00', 2200.0, 220, 2, 9, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (28, 'Description 28', '2023-11-01 08:00:00', 2300.0, 230, 1, 10, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (29, 'Description 29', '2023-12-01 09:00:00', 2400.0, 240, 5, 11, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (30, 'Description 30', '2024-01-01 10:00:00', 2500.0, 250, 4, 12, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (31, 'Description 31', '2024-02-01 11:00:00', 2600.0, 260, 3, 13, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (32, 'Description 32', '2024-03-01 12:00:00', 2700.0, 270, 2, 1, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (33, 'Description 33', '2024-04-01 13:00:00', 2800.0, 280, 1, 2, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (34, 'Description 34', '2024-05-01 14:00:00', 2900.0, 290, 5, 3, 1, 2)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (35, 'Description 35', '2024-06-01 15:00:00', 3000.0, 300, 4, 4, 2, 1)");
+				statement.execute("INSERT INTO inventar (sku, beskrivelse, innkjopsdato, innkjopspris, antall, forventetLevetid, kategori, plassering, kassert) VALUES (36, 'Description 36', '2024-07-01 16:00:00', 3100.0, 310, 3, 5, 1, 2)");
 			}
 		}
 		catch (SQLException error)

@@ -30,7 +30,7 @@ public class ClientHandler
 	private final KassertController kassertController;
 	private final KassertTypeController kassertTypeController;
 	
-	/**
+	/**test
 	 * Create a new client handler.
 	 *
 	 * @param socket The socket to the client.
@@ -113,6 +113,7 @@ public class ClientHandler
 					{
 						case CREATE:
 							retrievedInventar = inventarController.create(inventar);
+							System.out.println(retrievedInventar);
 							objectOutputStream.writeObject(retrievedInventar);
 							break;
 						case READ:

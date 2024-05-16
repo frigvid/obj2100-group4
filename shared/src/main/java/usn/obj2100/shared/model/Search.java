@@ -1,6 +1,7 @@
 package usn.obj2100.shared.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * Søk klasse for å bygge søk.
@@ -39,8 +40,8 @@ public class Search
 	private String searchByBeskrivelse;
 	private String searchByType;
 	private String searchByKategori;
-	private int searchByInnkjopsdato;
-	private int[] searchByPris;
+	private Date searchByInnkjopsdato;
+	private double[] searchByPris;
 	private String searchByPlassering;
 	private int[] searchByAntall;
 	private int[] searchByLevetid;
@@ -94,14 +95,14 @@ public class Search
 		this.searchByKategori = searchByKategori;
 	}
 	
-	public void setSearchByInnkjopsdato(int searchByInnkjopsdato)
+	public void setSearchByInnkjopsdato(Date searchByInnkjopsdato)
 	{
 		this.searchByInnkjopsdato = searchByInnkjopsdato;
 	}
 	
-	public void setSearchByPris(int min, int max)
+	public void setSearchByPris(double min, double max)
 	{
-		this.searchByPris = new int[]{min, max};
+		this.searchByPris = new double[]{min, max};
 	}
 	
 	public void setSearchByPlassering(String searchByPlassering)
@@ -165,12 +166,12 @@ public class Search
 		return searchByKategori;
 	}
 	
-	public int getSearchByInnkjopsdato()
+	public Date getSearchByInnkjopsdato()
 	{
 		return searchByInnkjopsdato;
 	}
 	
-	public int[] getSearchByPris()
+	public double[] getSearchByPris()
 	{
 		return searchByPris;
 	}
@@ -235,8 +236,8 @@ public class Search
 		private String searchByBeskrivelse;
 		private String searchByType;
 		private String searchByKategori;
-		private int searchByInnkjopsdato;
-		private int[] searchByPris;
+		private Date searchByInnkjopsdato;
+		private double[] searchByPris;
 		private String searchByPlassering;
 		private int[] searchByAntall;
 		private int[] searchByLevetid;
@@ -315,7 +316,7 @@ public class Search
 		 * @param searchByInnkjopsdato Filtersøkeverdien.
 		 * @return Builder objektet.
 		 */
-		public Builder searchByInnkjopsdato(int searchByInnkjopsdato)
+		public Builder searchByInnkjopsdato(Date searchByInnkjopsdato)
 		{
 			this.searchByInnkjopsdato = searchByInnkjopsdato;
 			return this;
@@ -330,9 +331,9 @@ public class Search
 		 * @param max Filtersøkets maksimumsverdien.
 		 * @return Builder objektet.
 		 */
-		public Builder searchByPris(int min, int max)
+		public Builder searchByPris(double min, double max)
 		{
-			this.searchByPris = new int[]{min, max};
+			this.searchByPris = new double[]{min, max};
 			return this;
 		}
 		
