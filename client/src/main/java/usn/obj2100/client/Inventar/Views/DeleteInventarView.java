@@ -11,20 +11,52 @@ import javafx.scene.text.FontWeight;
 import usn.obj2100.client.ClientController;
 import usn.obj2100.client.GUI.KasseringCombo;
 import usn.obj2100.shared.model.Inventar;
-
+/**
+ * Denne klassen representerer en visning for sletting av inventarobjekter.
+ * Den tilbyr et brukergrensesnitt der brukere kan slette et spesifikt inventar fra systemet.
+ * <p>
+ * Visningen inneholder en beskrivelse av inventaret, en kombinasjonsboks for å velge kasseringstype,
+ * og en knapp for å bekrefte slettingen.
+ * <p>
+ * Eksempel på bruk:
+ * <pre>
+ * {@code
+ * ClientController clientController = new ClientController();
+ * DeleteInventarView deleteInventarView = new DeleteInventarView(clientController);
+ * }
+ * </pre>
+ *
+ * @param mc Klientkontrolleren som håndterer interaksjoner og gir tilgang til det valgte inventaret.
+ */
 public class DeleteInventarView extends HBox
 {
 	private ClientController mc;
 	private Inventar selectedInventar;
-	
+	/**
+	 * Konstruerer visningen for sletting av inventar.
+	 * Initialiserer visningen med det valgte inventaret hentet fra klientkontrolleren.
+	 *
+	 * @param mc Klientkontrolleren som brukes til å hente og håndtere det valgte inventaret.
+	 */
 	public DeleteInventarView(ClientController mc){
 		this.mc = mc;
 		this.selectedInventar = mc.getSelectedInvetar();
 		this.getChildren().add(generateDeleteView());
 
 	}
-	
-	
+
+
+	/**
+	 * Oppretter og konfigurerer GUI-elementene som brukes for sletting av inventar.
+	 * Dette inkluderer en tittel med inventarets beskrivelse, en kombinasjonsboks for kassering,
+	 * og en sletteknapp.
+	 * <p>
+	 * Tittelen reflekterer den nåværende beskrivelsen av det valgte inventaret.
+	 * Kombinasjonsboksen lar brukeren velge hvordan inventaret skal registreres kassert.
+	 * Sletteknappen aktiverer slettingen av inventaret.
+	 *
+	 * @return En VBox som inneholder alle nødvendige GUI-komponenter for sletteprosessen.
+	 */
 	private VBox generateDeleteView(){
 			VBox form = new VBox(10);
 			form.setPadding(new Insets(20));

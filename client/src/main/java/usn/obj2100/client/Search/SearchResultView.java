@@ -11,7 +11,11 @@ import usn.obj2100.shared.model.Inventar;
 
 import java.util.Collections;
 import java.util.Comparator;
-
+/**
+ * Denne klassen representerer visningskomponenten for søkeresultater i klientapplikasjonen.
+ * Denne visningen inkluderer funksjonalitet for å vise søkeresultater i en tabellform med mulighet for sortering
+ * og handlinger som visning, redigering og sletting av hvert inventarobjekt.
+ */
 public class SearchResultView extends VBox {
 	private SearchController searchController;
 	private javafx.collections.ObservableList<Inventar> searchResults;
@@ -20,12 +24,20 @@ public class SearchResultView extends VBox {
 	private boolean sortAscendingBeskrivelse = true;
 	private boolean sortAscendingInnkjøpsPris = true;
 	private boolean sortAscendingInnkjøpsDato = true;
-	
 
+	/**
+	 * Konstruerer en ny visning for søkeresultater med en tilhørende søkekontroller.
+	 *
+	 * @param searchController Kontrolleren som håndterer søkeoperasjoner og data.
+	 */
 	public SearchResultView(SearchController searchController) {
 		this.searchController = searchController;
 		initSearchResultView();
 	}
+	/**
+	 * Initialiserer visningsoppsettet for søkeresultater. Denne metoden laster relevant CSS,
+	 * setter opp en GridPane for å vise søkeresultater og initialiserer lyttere for sortering.
+	 */
 	private void initSearchResultView() {
 		// Load the CSS file
 		getStylesheets().add("/style.css");
@@ -100,7 +112,12 @@ public class SearchResultView extends VBox {
 		// Display the initial search results
 		displayResults(gridPane);
 	}
-
+	/**
+	 * Viser søkeresultatene i GridPane basert på søkedataene hentet fra søkekontrolleren.
+	 * Denne metoden formatterer hver rad i søkeresultatene og inkluderer interaktive handlinger for hvert element.
+	 *
+	 * @param gridPane GridPane der søkeresultatene vil bli vist.
+	 */
 	private void displayResults(GridPane gridPane) {
 		gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) > 0);
 
@@ -135,7 +152,12 @@ public class SearchResultView extends VBox {
 			rowIndex++;
 		}
 	}
-
+	/**
+	 * Sorterer søkeresultatene basert på spesifiserte kolonnekriterier.
+	 * Sorteringen endrer rekkefølgen fra stigende til synkende ved gjentatte klikk på samme kolonne.
+	 *
+	 * @param column Kolonnen som søkeresultatene skal sorteres etter.
+	 */
 	private void sortResults(String column) {
 		Comparator<Inventar> comparator = null;
 		boolean sortAscending = true;
@@ -182,21 +204,37 @@ public class SearchResultView extends VBox {
 
 
 
-
-	// Method to create styled labels
+	/**
+	 * Oppretter og returnerer en stilisert Label basert på inngitt tekst.
+	 * Denne metoden setter også passende CSS-stiler for teksten.
+	 *
+	 * @param text Teksten som skal vises i labelen.
+	 * @return En stilisert Label med teksten.
+	 */
 	private Label createStyledLabel(String text) {
 		Label label = new Label(text);
 
 		return label;
 	}
-
+	/**
+	 * Oppretter og returnerer en Label med stilisert tekst for kolonneoverskrifter.
+	 *
+	 * @param text Teksten som skal vises i overskriftslabelen.
+	 * @return En Label tilpasset som kolonneoverskrift.
+	 */
 	private Label createStyledLabelText(String text) {
 		Label label = new Label(text);
 		label.setStyle("-fx-text-alignment: center; -fx-font-size: 20px; -fx-font-style: bold");
 		return label;
 	}
 
-	// Method to create action buttons for each row
+	/**
+	 * Oppretter og returnerer en HBox som inneholder handlingsknapper for hver rad i søkeresultatene.
+	 * Dette inkluderer knapper for å vise, redigere og slette inventarobjekter.
+	 *
+	 * @param inventar Inventarobjektet som handlingsknappene gjelder for.
+	 * @return En HBox som inneholder handlingsknapper.
+	 */
 	private HBox createActionButtons(Inventar inventar) {
 		Button viewButton = new Button("View");
 		Button editButton = new Button("Edit");

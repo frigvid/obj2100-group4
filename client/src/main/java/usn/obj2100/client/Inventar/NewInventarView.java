@@ -10,15 +10,50 @@ import usn.obj2100.client.ClientController;
 
 import java.time.LocalDate;
 
+
+/**
+ * Denne klassen representerer et visningsområde for å legge til nye inventarobjekter i systemet.
+ * Dette inkluderer brukergrensesnittkomponenter for å inntaste informasjon som type, kategori, innkjøpsdato, pris, og mer.
+ * <p>
+ * Brukergrensesnittet organiseres primært gjennom en VBox som inneholder et GridPane for inndatafeltene og en knapp for å legge til inventaret.
+ * Hver felttype har tilhørende logikk for å håndtere ulike datatyper korrekt, som tall og datoer.
+ * <p>
+ * Eksempel på bruk:
+ * <pre>
+ * {@code
+ * ClientController clientController = new ClientController();
+ * NewInventarView newInventarView = new NewInventarView(clientController);
+ * }
+ * </pre>
+ *
+ * @param mc Klientkontrolleren som brukes for interaksjon med resten av klientapplikasjonen.
+ * @see VBox
+ * @see GridPane
+ */
 public class NewInventarView extends HBox
 {
 	private ClientController mc;
+
+
+	/**
+	 * Konstruerer et nytt visningsvindu for å legge til inventar.
+	 * Dette kaller {@link #buildAddForm()} for å bygge brukergrensesnittet hvor brukeren kan inntaste informasjon.
+	 *
+	 * @param mc Klientkontrolleren som tilrettelegger for nødvendige operasjoner og interaksjoner.
+	 */
 	public NewInventarView(ClientController mc){
 		this.mc = mc;
 		getChildren().add(buildAddForm());
 	}
-	
-	
+
+	/**
+	 * Bygger skjemaet som brukeren interagerer med for å legge til nytt inventar.
+	 * Skjemaet inkluderer felt for type, kategori, innkjøpsdato, pris, plassering, antall, forventet levetid og en beskrivelse.
+	 * <p>
+	 * Avhengig av valgt type, tilpasses kategorivalgene og muligheten til å angi levetid.
+	 *
+	 * @return En VBox som inneholder alle GUI-komponenter for å legge til nytt inventar.
+	 */
 	private VBox buildAddForm() {
 		VBox form = new VBox(10);
 		form.setPadding(new Insets(20));

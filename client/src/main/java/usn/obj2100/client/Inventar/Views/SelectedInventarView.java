@@ -11,11 +11,32 @@ import javafx.scene.text.FontWeight;
 import usn.obj2100.client.ClientController;
 import usn.obj2100.shared.model.Inventar;
 
+/**
+ * Denne klassen representerer visningen for å vise detaljert informasjon om et valgt inventarobjekt.
+ * Visningen inneholder alle relevante detaljer om inventaret, inkludert type, kategori, innkjøpsdato, pris og mer.
+ * <p>
+ * Hvis det ikke er valgt noe inventar, vises en feilmelding med en knapp for å returnere til startskjermen.
+ * <p>
+ * Eksempel på bruk:
+ * <pre>
+ * {@code
+ * ClientController clientController = new ClientController();
+ * SelectedInventarView selectedInventarView = new SelectedInventarView(clientController);
+ * }
+ * </pre>
+ *
+ * @param clientController Kontrolleren som håndterer alle interaksjoner mellom brukergrensesnittet og applikasjonens data.
+ */
 public class SelectedInventarView extends HBox
 {
 	private Inventar selectedInventar;
 	final private ClientController mc;
-	
+	/**
+	 * Konstruerer en ny visning basert på det valgte inventaret fra klientkontrolleren.
+	 * Denne metoden laster inn og viser det valgte inventaret eller en feilmelding hvis ingen inventar er valgt.
+	 *
+	 * @param clientController Kontrolleren som håndterer logikken for valg og håndtering av inventar.
+	 */
 	public SelectedInventarView(ClientController clientController){
 		this.mc = clientController;
 		this.selectedInventar = mc.getSelectedInvetar();
@@ -28,7 +49,12 @@ public class SelectedInventarView extends HBox
 		}
 		
 	}
-	
+	/**
+	 * Oppretter en visning som informerer brukeren om at ingen inventar er valgt.
+	 * Denne visningen inneholder en feilmelding og en knapp som lar brukeren returnere til startskjermen.
+	 *
+	 * @return En VBox inneholdende en feilmelding og en returknapp.
+	 */
 	private VBox renderNoSelection(){
 		VBox form = new VBox(10);
 		form.setPadding(new Insets(20));
@@ -48,8 +74,13 @@ public class SelectedInventarView extends HBox
 		
 		return form;
 	}
-	
-	
+
+	/**
+	 * Oppretter og returnerer hovedgrensesnittet for å vise detaljer om det valgte inventaret.
+	 * Denne metoden setter opp en visning som inneholder alle viktige detaljer om inventaret, organisert i et GridPane.
+	 *
+	 * @return En VBox som inneholder et GridPane med detaljer om det valgte inventaret.
+	 */
 	private VBox renderEditScreen() {
 		VBox form = new VBox(10);
 		form.setPadding(new Insets(20));
@@ -87,8 +118,14 @@ public class SelectedInventarView extends HBox
 		form.getChildren().addAll(grid);
 		return form;
 	}
-	
-	
+
+	/**
+	 * Hjelpemetode for å opprette en stor label med spesifisert tekst.
+	 * Setter skrifttype og størrelse for label.
+	 *
+	 * @param labelText Teksten som skal vises i labelen.
+	 * @return En label med forhåndsdefinert stil.
+	 */
 	private Label bigLabel (String labelText){
 		Label tempLabel = new Label(labelText);
 		tempLabel.setFont(Font.font("times new roman", FontWeight.BOLD, 22));

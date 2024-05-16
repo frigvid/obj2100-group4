@@ -14,13 +14,28 @@ public class StartView extends HBox
 {
 	
 	private ClientController mc;
-	
+	/**
+	 * Startskjermen i klientprogram. Er mulig å søke her, lage ny Inventar, se alle inventar.
+	 *
+	 * Eksempel bruk:
+	 * {@snippet id = "startView" lang = "java" group = "GUI":
+	 * 	import usn.obj2100.client.GUI.StartView;
+	 *
+	 * 	StartView startView = new StartView(mc);
+	 *}
+	 * @extends HBox - legges til i root BorderPane for fremvisning!
+	 * @param ClientController mc: Main controller.
+	 */
 	public StartView(ClientController mc){
 		this.mc = mc;
 		getChildren().add(renderStartScreen());
 		}
-	
-		private VBox renderStartScreen() {
+
+	/**
+	 * Bygger startskjermen.
+	 * @return VBox
+	 */
+	private VBox renderStartScreen() {
 		VBox form = new VBox(10);
 		form.setPadding(new Insets(20));
 		form.setAlignment(Pos.CENTER);

@@ -10,13 +10,21 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-
+/**
+ * Denne klassen styrer nettverkskommunikasjonen mellom klienten og serveren i applikasjonen.
+ * Den håndterer sending av forespørsler og mottak av svar ved å serialisere objekter over nettverket.
+ * Kommunikasjonen involverer ulike typer kommandoer og objekter, avhengig av brukerens handlinger og behov.
+ */
 public class Client
 {
 	private Socket socket;
 	private ObjectOutputStream objectOutputStream;
 	private ObjectInputStream objectInputStream;
-	
+
+	/**
+	 * Konstruktør som forsøker å opprette en forbindelse med serveren ved å bruke en forhåndsdefinert port.
+	 * Denne forbindelsen vil prøve å koble til serveren kontinuerlig til den lykkes.
+	 */
 	public Client()
 	{
 		int port = Constants.PORT;
@@ -146,12 +154,18 @@ public class Client
 		
 		return null;
 	}
-	
+	/**
+	 * Sjekker om klienten fortsatt er tilkoblet serveren.
+	 *
+	 * @return {@code true} hvis forbindelsen er aktiv, ellers {@code false}.
+	 */
 	public boolean isConnected()
 	{
 		return !socket.isClosed();
 	}
-	
+	/**
+	 * Lukker forbindelsen til serveren. Dette skal kalle når klienten skal avslutte.
+	 */
 	public void disconnect()
 	{
 		try
